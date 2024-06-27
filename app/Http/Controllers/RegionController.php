@@ -13,7 +13,7 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::orderBy('name', 'asc')->get();
+        $regions = Region::orderBy('regionName', 'asc')->get();
         return response()->json($regions);
     }
 
@@ -40,7 +40,7 @@ class RegionController extends Controller
 
             return response()->json([
                 "success" => "customer created successfully.",
-                "customer" => $region,
+                "region" => $region,
                 "status" => 200
             ]);
         } catch (ValidationException $e) {
