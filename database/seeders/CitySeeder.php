@@ -31,7 +31,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => '5bd255dd-3121-4f9d-818b-bf249c24f003', 'cityName' => 'Sibagat', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '5bd255dd-3121-4f9d-818b-bf249c24f003', 'cityName' => 'Bayugan', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '5bd255dd-3121-4f9d-818b-bf249c24f003', 'cityName' => 'Prosperidad', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => '5bd255dd-3121-4f9d-818b-bf249c24f003', 'cityName' => 'San Luis', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '5bd255dd-3121-4f9d-818b-bf249c24f003', 'cityName' => 'San Luisah', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '5bd255dd-3121-4f9d-818b-bf249c24f003', 'cityName' => 'Sam Francisco', 'created_at' => now()],
             //Aklan
             ['id' => Str::uuid(), 'province_id' => 'f14b08bc-69d9-44b4-a2cf-d0f996c603cf', 'cityName' => 'Balete', 'created_at' => now()],
@@ -56,7 +56,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'e4a0c21b-e6a3-4d13-a904-a576ede2d89f', 'cityName' => 'Flora', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'e4a0c21b-e6a3-4d13-a904-a576ede2d89f', 'cityName' => 'Conner', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'e4a0c21b-e6a3-4d13-a904-a576ede2d89f', 'cityName' => 'Calanasan', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => 'e4a0c21b-e6a3-4d13-a904-a576ede2d89f', 'cityName' => 'Luna', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => 'e4a0c21b-e6a3-4d13-a904-a576ede2d89f', 'cityName' => 'Lunah', 'created_at' => now()],
             //Aurora
             ['id' => Str::uuid(), 'province_id' => 'ec090f94-d3bf-44a4-8868-ca57d96ce9bc', 'cityName' => 'Baler', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'ec090f94-d3bf-44a4-8868-ca57d96ce9bc', 'cityName' => 'Casiguran', 'created_at' => now()],
@@ -130,7 +130,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'e93646c6-085e-418b-b456-7e8f461e5fc3', 'cityName' => 'Labo', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'e93646c6-085e-418b-b456-7e8f461e5fc3', 'cityName' => 'Mercedes', 'created_at' => now()],
             //Camarines Sur
-            ['id' => Str::uuid(), 'province_id' => '9dbf8d66-335f-4c5e-aa87-224e4e9ecf86', 'cityName' => 'Naga', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '9dbf8d66-335f-4c5e-aa87-224e4e9ecf86', 'cityName' => 'Nagah', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '9dbf8d66-335f-4c5e-aa87-224e4e9ecf86', 'cityName' => 'Ocampo', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '9dbf8d66-335f-4c5e-aa87-224e4e9ecf86', 'cityName' => 'Pasacao', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '9dbf8d66-335f-4c5e-aa87-224e4e9ecf86', 'cityName' => 'Pili', 'created_at' => now()],
@@ -150,7 +150,7 @@ class CitySeeder extends Seeder
             //Catanduanes
             ['id' => Str::uuid(), 'province_id' => '476d45c3-bafd-458c-8886-a58978cb56d6', 'cityName' => 'Bagamanoc', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '476d45c3-bafd-458c-8886-a58978cb56d6', 'cityName' => 'Baras', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => '476d45c3-bafd-458c-8886-a58978cb56d6', 'cityName' => 'Bato', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '476d45c3-bafd-458c-8886-a58978cb56d6', 'cityName' => 'Batoh', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '476d45c3-bafd-458c-8886-a58978cb56d6', 'cityName' => 'Caramoran', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '476d45c3-bafd-458c-8886-a58978cb56d6', 'cityName' => 'Virac', 'created_at' => now()],
             //Cavite
@@ -303,7 +303,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'Marikina', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'Pasig', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'Quezon City', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'San Juan', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'San Juana', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'Caloocan', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'Malabon', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'cb46141f-e0a2-4cfa-be11-29b967c56e9c', 'cityName' => 'Navotas', 'created_at' => now()],
@@ -346,7 +346,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => '013b080c-93ae-4532-9f6a-9da4d915cd4e', 'cityName' => 'Guihulngan', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '013b080c-93ae-4532-9f6a-9da4d915cd4e', 'cityName' => 'Zamboanguita', 'created_at' => now()],
             //Northern Samar
-            ['id' => Str::uuid(), 'province_id' => '89169087-1a25-4b1b-b2dd-c5f7ae4a3f7e', 'cityName' => 'Catarman', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '89169087-1a25-4b1b-b2dd-c5f7ae4a3f7e', 'cityName' => 'Catarmana', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '89169087-1a25-4b1b-b2dd-c5f7ae4a3f7e', 'cityName' => 'Catubig', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '89169087-1a25-4b1b-b2dd-c5f7ae4a3f7e', 'cityName' => 'Lapinig', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '89169087-1a25-4b1b-b2dd-c5f7ae4a3f7e', 'cityName' => 'Las Navas', 'created_at' => now()],
@@ -355,7 +355,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'f8784e44-da9b-46a6-98bc-fc93553254c3', 'cityName' => 'Canabutan', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'f8784e44-da9b-46a6-98bc-fc93553254c3', 'cityName' => 'Gapan', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'f8784e44-da9b-46a6-98bc-fc93553254c3', 'cityName' => 'Palayan', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => 'f8784e44-da9b-46a6-98bc-fc93553254c3', 'cityName' => 'San Jose', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => 'f8784e44-da9b-46a6-98bc-fc93553254c3', 'cityName' => 'San Joseha', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'f8784e44-da9b-46a6-98bc-fc93553254c3', 'cityName' => 'Zaragoza', 'created_at' => now()],
             //Nueva Vizcaya
             ['id' => Str::uuid(), 'province_id' => 'f8fd6d67-85e4-4249-a5ec-92d46fcf42ce', 'cityName' => 'Ambaguio', 'created_at' => now()],
@@ -365,7 +365,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'f8fd6d67-85e4-4249-a5ec-92d46fcf42ce', 'cityName' => 'Bayombong', 'created_at' => now()],
             //Pampanga
             ['id' => Str::uuid(), 'province_id' => '01491b8d-b45d-4505-b890-c1c53521d17b', 'cityName' => 'Mabalacat', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => '01491b8d-b45d-4505-b890-c1c53521d17b', 'cityName' => 'San Fernando', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '01491b8d-b45d-4505-b890-c1c53521d17b', 'cityName' => 'San Fernandoh', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '01491b8d-b45d-4505-b890-c1c53521d17b', 'cityName' => 'San Luis', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '01491b8d-b45d-4505-b890-c1c53521d17b', 'cityName' => 'Santa Rita', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '01491b8d-b45d-4505-b890-c1c53521d17b', 'cityName' => 'Santa Ana', 'created_at' => now()],
@@ -378,7 +378,7 @@ class CitySeeder extends Seeder
             //Quezon
             ['id' => Str::uuid(), 'province_id' => 'a0ed5436-f9e4-4e18-9735-d8388f4481f1', 'cityName' => 'Alabat', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'a0ed5436-f9e4-4e18-9735-d8388f4481f1', 'cityName' => 'Atimonan', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => 'a0ed5436-f9e4-4e18-9735-d8388f4481f1', 'cityName' => 'Buenavista', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => 'a0ed5436-f9e4-4e18-9735-d8388f4481f1', 'cityName' => 'Buenavistah', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'a0ed5436-f9e4-4e18-9735-d8388f4481f1', 'cityName' => 'Burdeos', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'a0ed5436-f9e4-4e18-9735-d8388f4481f1', 'cityName' => 'Calauag', 'created_at' => now()],
             //Quirino
@@ -389,7 +389,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => '2d472c1e-3c84-4272-b01f-664379e97741', 'cityName' => 'Nagtipunan', 'created_at' => now()],
             //Rizal
             ['id' => Str::uuid(), 'province_id' => '4289b21d-9806-42a1-a6e0-14c5dc8b4ac8', 'cityName' => 'Antipolo', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => '4289b21d-9806-42a1-a6e0-14c5dc8b4ac8', 'cityName' => 'Baras', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '4289b21d-9806-42a1-a6e0-14c5dc8b4ac8', 'cityName' => 'Barasa', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '4289b21d-9806-42a1-a6e0-14c5dc8b4ac8', 'cityName' => 'Cainta', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '4289b21d-9806-42a1-a6e0-14c5dc8b4ac8', 'cityName' => 'Morong', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '4289b21d-9806-42a1-a6e0-14c5dc8b4ac8', 'cityName' => 'Pililla', 'created_at' => now()],
@@ -410,12 +410,12 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'e888e778-cdf0-4e86-8e00-71f361ee9ca9', 'cityName' => 'Larena', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'e888e778-cdf0-4e86-8e00-71f361ee9ca9', 'cityName' => 'Lazi', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'e888e778-cdf0-4e86-8e00-71f361ee9ca9', 'cityName' => 'Maria', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => 'e888e778-cdf0-4e86-8e00-71f361ee9ca9', 'cityName' => 'San Juan', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => 'e888e778-cdf0-4e86-8e00-71f361ee9ca9', 'cityName' => 'San Juanah', 'created_at' => now()],
             //Sorsogon
             ['id' => Str::uuid(), 'province_id' => '96e373c1-d9a6-452a-aeb7-f94e27ba861e', 'cityName' => 'Barcelona', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '96e373c1-d9a6-452a-aeb7-f94e27ba861e', 'cityName' => 'Bulan', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '96e373c1-d9a6-452a-aeb7-f94e27ba861e', 'cityName' => 'Bulusan', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => '96e373c1-d9a6-452a-aeb7-f94e27ba861e', 'cityName' => 'Casiguran', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '96e373c1-d9a6-452a-aeb7-f94e27ba861e', 'cityName' => 'Casiguranah', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '96e373c1-d9a6-452a-aeb7-f94e27ba861e', 'cityName' => 'Castilla', 'created_at' => now()],
             //South Cotobato
             ['id' => Str::uuid(), 'province_id' => '1f6d263e-d291-4d2a-8524-f8f5731a4c87', 'cityName' => 'Koronadal', 'created_at' => now()],
@@ -426,7 +426,7 @@ class CitySeeder extends Seeder
             //Southern Leyte
             ['id' => Str::uuid(), 'province_id' => '7e8de013-addd-45c4-8f6e-83bd700cd437', 'cityName' => 'Maasin', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '7e8de013-addd-45c4-8f6e-83bd700cd437', 'cityName' => 'Limasawa', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => '7e8de013-addd-45c4-8f6e-83bd700cd437', 'cityName' => 'Liloan', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => '7e8de013-addd-45c4-8f6e-83bd700cd437', 'cityName' => 'Liloanah', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '7e8de013-addd-45c4-8f6e-83bd700cd437', 'cityName' => 'Libagon', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '7e8de013-addd-45c4-8f6e-83bd700cd437', 'cityName' => 'Hinundayan', 'created_at' => now()],
             //Sultan Kudarat
@@ -458,7 +458,7 @@ class CitySeeder extends Seeder
             ['id' => Str::uuid(), 'province_id' => 'ac69bcc1-9ca7-4d1f-93f2-4e46196465b6', 'cityName' => 'Tarlac City', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'ac69bcc1-9ca7-4d1f-93f2-4e46196465b6', 'cityName' => 'Santa Ignacia', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => 'ac69bcc1-9ca7-4d1f-93f2-4e46196465b6', 'cityName' => 'Victoria', 'created_at' => now()],
-            ['id' => Str::uuid(), 'province_id' => 'ac69bcc1-9ca7-4d1f-93f2-4e46196465b6', 'cityName' => 'San Jose', 'created_at' => now()],
+            ['id' => Str::uuid(), 'province_id' => 'ac69bcc1-9ca7-4d1f-93f2-4e46196465b6', 'cityName' => 'San Joseh', 'created_at' => now()],
             //Tawi Tawi
             ['id' => Str::uuid(), 'province_id' => '16710fd6-71d5-46a3-97de-392bd2ec0de9', 'cityName' => 'Bongao', 'created_at' => now()],
             ['id' => Str::uuid(), 'province_id' => '16710fd6-71d5-46a3-97de-392bd2ec0de9', 'cityName' => 'Languyan', 'created_at' => now()],

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Province;
 use App\Http\Requests\StoreProvinceRequest;
 use App\Http\Requests\UpdateProvinceRequest;
+use Illuminate\Validation\ValidationException;
 
 class ProvinceController extends Controller
 {
@@ -13,7 +14,8 @@ class ProvinceController extends Controller
      */
     public function index()
     {
-        //
+        $provinces = Province::orderBy("provinceName", 'asc')->get();
+        return response()->json($provinces);
     }
 
     /**
@@ -29,7 +31,25 @@ class ProvinceController extends Controller
      */
     public function store(StoreProvinceRequest $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'region_id' => 'required',
+                'provinceName' => 'required|min:3|unique:provinces'
+            ]);
+
+            $province = Province::create([
+                'provinceName' => $validatedData["provinceName"],
+                'region_id' => $validatedData["region_id"],
+            ]);
+
+            return response()->json([
+                "success" => "Province created successfully",
+                "status" => 200,
+                "province" => $province
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([]);
+        }
     }
 
     /**
@@ -59,8 +79,21 @@ class ProvinceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Province $province)
+    public function destroy(string $id)
     {
-        //
+        try {
+            $province = Province::FindOrFail($id);
+            $province->delete();
+            return response()->json([
+                "message" => "Province successfully deleted!",
+                "status" => 200
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to delete region.',
+                'message' => $e->getMessage(),
+                'status' => 500
+            ]);
+        }
     }
 }

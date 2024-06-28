@@ -1,153 +1,185 @@
 $(document).ready(function () {
     function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.add("hidden");
-        modal.setAttribute("aria-hidden", "true");
-        modal.removeAttribute("aria-modal");
-        modal.removeAttribute("role");
-
-        // Remove backdrop
-        const backdrop = document.querySelector("[modal-backdrop]");
-        if (backdrop) {
-            backdrop.remove();
-        }
+        const $targetEl = document.getElementById(modalId);
+        const modal = new Modal($targetEl);
+        modal.hide();
     }
 
     function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        const backdrop = document.getElementById("modal-backdrop");
-
-        modal.classList.remove("hidden");
-        modal.setAttribute("aria-hidden", "false");
-        modal.setAttribute("aria-modal", "true");
-        modal.setAttribute("role", "dialog");
-
-        // Show backdrop
-        backdrop.classList.remove("hidden");
+        const $targetEl = document.getElementById(modalId);
+        const modal = new Modal($targetEl);
+        modal.show();
     }
 
-    $.ajax({
-        type: "GET",
-        url: "api/regions",
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            $.each(data, function (key, value) {
-                var tr = $("<tr>").addClass(
-                    "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                );
-                var id = $("<th>")
-                    .addClass(
-                        "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    )
-                    .html(value.id);
-                tr.append(id);
-                var th = $("<th>")
-                    .addClass(
-                        "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    )
-                    .html(value.regionName);
-                tr.append(th);
+    $("#regionAddForm").validate({
+        rules: {
+            regionName: {
+                required: true,
+            },
+        },
+        messages: {
+            regionName: {
+                required: "This field is required!",
+            },
+        },
+        submitHandler: function (form) {
+            const formData = new FormData(form);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
 
-                // Create Edit button
-                var editButton = $("<button>")
-                    .addClass(
-                        "px-4 py-2 text-sm font-medium text-blue-600 hover:underline"
-                    )
-                    .html("Edit")
-                    .on("click", function () {
-                        // Edit button click handler
-                        // Implement your edit functionality here
-                        alert(
-                            "Edit button clicked for region: " +
-                                value.regionName
-                        );
+            $.ajax({
+                type: "POST",
+                url: "/api/regions",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                dataType: "json",
+                success: function (data) {
+                    // Add the new item to the table
+                    var tr = $("<tr>");
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.region.id)
+                    );
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.region.regionName)
+                    );
+                    $("table tbody").append(tr);
+
+                    // Sort the table rows by the region name
+                    var rows = $("table tbody tr").get();
+                    rows.sort(function (a, b) {
+                        var A = $(a).children("th").eq(1).text().toUpperCase();
+                        var B = $(b).children("th").eq(1).text().toUpperCase();
+                        return A < B ? -1 : A > B ? 1 : 0;
                     });
 
-                // Create Delete button
-                var deleteButton = $("<button>")
-                    .addClass(
-                        "px-4 py-2 text-sm font-medium text-red-600 hover:underline"
-                    )
-                    .html("Delete")
-                    .on("click", function () {
-                        // Delete button click handler
-                        // Implement your delete functionality here
-                        alert(
-                            "Delete button clicked for region: " +
-                                value.regionName
-                        );
+                    $.each(rows, function (index, row) {
+                        $("table").children("tbody").append(row);
                     });
 
-                // Create a table cell for buttons and append the buttons
-                var tdButtons = $("<td>").addClass(
-                    "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                );
-                tdButtons.append(editButton).append(deleteButton);
-                tr.append(tdButtons);
-
-                // Append the row to the table
-                $("#regionTable").append(tr);
+                    closeModal();
+                },
             });
         },
     });
 
-    $("#regionAdd").on("click", function (e) {
-        e.preventDefault();
-        var data = $(`#regionAddForm`)[0];
-        let formData = new FormData(data);
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-        }
+    $("#editRegionForm").validate({
+        rules: {
+            editRegionName: {
+                required: true,
+            },
+        },
+        messages: {
+            editRegionName: {
+                required: "This field is required!",
+            },
+        },
+        submitHandler: function (form) {
+            const formData = new FormData(form);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+        },
+    });
 
-        $.ajax({
-            type: "POST",
+    $("#regionTable").dataTable({
+        ajax: {
             url: "/api/regions",
-            data: formData,
-            contentType: false,
-            processData: false,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            dataSrc: "",
+        },
+        dom: '<"flex justify-between items-center"lf>t<"flex justify-between items-center"ip>',
+        buttons: [
+            "pdf",
+            "excel",
+            {
+                text: "Add Region",
+                className:
+                    "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800",
+                action: function (e, dt, node, config) {
+                    $("#regionAddForm").trigger("reset");
+                    openModal("add-modal");
+                },
             },
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                closeModal("add-modal");
-
-                // Add the new item to the table
-                var tr = $("<tr>");
-                tr.append(
-                    $("<th>")
-                        .addClass(
-                            "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        )
-                        .html(data.region.id)
-                );
-                tr.append(
-                    $("<th>")
-                        .addClass(
-                            "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        )
-                        .html(data.region.regionName)
-                );
-                $("table tbody").append(tr);
-
-                // Sort the table rows by the region name
-                var rows = $("table tbody tr").get();
-                rows.sort(function (a, b) {
-                    var A = $(a).children("th").eq(1).text().toUpperCase();
-                    var B = $(b).children("th").eq(1).text().toUpperCase();
-                    return A < B ? -1 : A > B ? 1 : 0;
-                });
-
-                $.each(rows, function (index, row) {
-                    $("table").children("tbody").append(row);
-                });
-
-                // Hide the modal
-                const modal = document.getElementById("add-modal");
-                modal.classList.add("hidden");
+        ],
+        columns: [
+            { data: "id" },
+            { data: "regionName" },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return (
+                        "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
+                        data.id +
+                        "' data-name='" +
+                        data.regionName +
+                        "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
+                        data.id +
+                        "'></i>"
+                    );
+                },
             },
+        ],
+        order: [[1, "asc"]],
+    });
+
+    $("#regionTable tbody").on("click", "i.editBtn", function (e) {
+        let id = $(this).data("id");
+        let name = $(this).data("name");
+        $("#editRegionName").val(name);
+        openModal("edit-modal");
+    });
+
+    $("#regionTable tbody").on("click", "i.deleteBtn", function (e) {
+        let regionID = $(this).data("id");
+        let $row = $(this).closest("tr");
+        console.log(regionID);
+        Swal.fire({
+            title: "Do you want to delete this?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `/api/regions/${regionID}`,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $row.fadeOut(2000, function () {
+                            $row.remove();
+                        });
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You successfully deleted it!",
+                            icon: "success",
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            }
         });
     });
 });

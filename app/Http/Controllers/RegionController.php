@@ -31,7 +31,7 @@ class RegionController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'regionName' => "required"
+                'regionName' => "required|unique:regions|min:3"
             ]);
 
             $region = Region::create([
@@ -39,7 +39,7 @@ class RegionController extends Controller
             ]);
 
             return response()->json([
-                "success" => "customer created successfully.",
+                "success" => "region created successfully.",
                 "region" => $region,
                 "status" => 200
             ]);
@@ -73,14 +73,34 @@ class RegionController extends Controller
      */
     public function update(Request $request, Region $region)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'regionName' => "required"
+            ]);
+
+
+            return response()->json([
+                "success" => "region created successfully.",
+                "region" => $region,
+                "status" => 200
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Region $region)
+    public function destroy(string $id)
     {
-        //
+        $region = Region::FindOrFail($id);
+        $region->delete();
+        $data = array('success' => 'deleted', 'code' => 200);
+        return response()->json($data);
     }
 }

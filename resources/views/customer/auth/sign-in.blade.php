@@ -6,7 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign in</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favlogo.png') }}">
+    {{-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> --}}
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
+    <script src="{{ asset('js/customer/sign-in.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        label.error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        input.error {
+            border-color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +41,7 @@
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
                 Sign in to platform
             </h2>
-            <form class="mt-8 space-y-6" action="#">
+            <form class="mt-8 space-y-6" action="#" id="sign-in-form">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                         email</label>
@@ -48,15 +69,30 @@
                         class="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500">Lost
                         Password?</a>
                 </div>
-                <button type="submit"
+                <button type="submit" id="loginBtn"
                     class="w-full px-5 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login
                     to your account</button>
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Not registered? <a class="text-primary-700 hover:underline dark:text-primary-500">Create account</a>
+                    Not registered? <a class="text-primary-700 hover:underline dark:text-primary-500"
+                        href="{{ route('sign-up') }}">Create account</a>
                 </div>
             </form>
         </div>
     </div>
 </body>
+<script>
+    // Check if there's a success message from the previous page
+    var successMessage = sessionStorage.getItem('successMessage');
+    if (successMessage) {
+        // Display success message using SweetAlert
+        Swal.fire({
+            title: "Success!",
+            text: "You are now registered!",
+            icon: "success"
+        });
+        // Clear the success message from sessionStorage
+        sessionStorage.removeItem('successMessage');
+    }
+</script>
 
 </html>

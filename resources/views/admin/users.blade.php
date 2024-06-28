@@ -1,5 +1,6 @@
 @extends('admin.layout.app')
-@section('title', 'Provinces')
+
+@section('title', 'Users')
 
 @section('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
@@ -11,7 +12,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
-    <script src="{{ asset('js/provinces.js') }}"></script>
+    <script src="{{ asset('js/users.js') }}"></script>
 @endsection
 
 @section('content')
@@ -49,7 +50,7 @@
                         </div>
 
                     </div>
-                    <button type="submit" id="regionAdd"
+                    <button type="submit" id="userAdd"
                         class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -121,8 +122,7 @@
                     <div class="overflow-x-auto">
 
                     </div>
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                        id="regionTable">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="usersTable">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
