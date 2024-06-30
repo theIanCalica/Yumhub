@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date("DOB");
             $table->string("phoneNumber", 11);
             $table->string("email");
-            $table->date("hired-date");
-            $table->string("employment-status");
+            $table->date("hiredDate");
+            $table->string("employmentStatus");
             $table->string("salary");
             $table->string("address");
             $table->timestamps();

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Manager;
-use App\Http\Requests\StoreManagerRequest;
-use App\Http\Requests\UpdateManagerRequest;
+
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+
+use Illuminate\Validation\Rule;
 
 class ManagerController extends Controller
 {
@@ -14,7 +16,7 @@ class ManagerController extends Controller
      */
     public function index()
     {
-        $managers = Manager::orderBy("hired-date", "asc")->get();
+        $managers = Manager::orderBy("hiredDate", "asc")->get();
         return response()->json($managers);
     }
 
@@ -29,7 +31,7 @@ class ManagerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreManagerRequest $request)
+    public function store(Request $request)
     {
         try {
             $validatedData = $request->validate([
@@ -39,8 +41,8 @@ class ManagerController extends Controller
                 "DOB" => "required|date",
                 "phoneNumber" => "required|digits:11|unique:managers,phoneNumber",
                 "email" => "required|email|unique:managers,email",
-                "hired-date" => "required|date",
-                "employmentstatus" => "required|string|max:50",
+                "hiredDate" => "required|date",
+                "employmentStatus" => "required|string|max:50",
                 "salary" => "required|numeric|min:0",
                 "address" => "required|string|max:255",
             ]);
@@ -52,8 +54,8 @@ class ManagerController extends Controller
                 "DOB" => $validatedData["DOB"],
                 "phoneNumber" => $validatedData["phoneNumber"],
                 "email" => $validatedData["email"],
-                "hired-date" => $validatedData["hired-date"],
-                "employmentstatus" => $validatedData["employmentstatus"],
+                "hiredDate" => $validatedData["hiredDate"],
+                "employmentStatus" => $validatedData["employmentStatus"],
                 "salary" => $validatedData["salary"],
                 "address" => $validatedData["address"],
             ]);
@@ -75,9 +77,10 @@ class ManagerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Manager $manager)
+    public function show(string $id)
     {
-        //
+        $manager = Manager::FindOrFail($id);
+        return response()->json($manager);
     }
 
     /**
@@ -85,15 +88,49 @@ class ManagerController extends Controller
      */
     public function edit(string $id)
     {
-        $manager = Manager::FindOrFail($id);
-        return response()->json($manager);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateManagerRequest $request, Manager $manager)
+    public function update(Request $request, string $id)
     {
+        try {
+            $validatedData = $request->validate([
+                "fname" => "required|string|max:255",
+                "lname" => "required|string|max:255",
+                "sex" => "required|string|max:10",
+                "DOB" => "required|date",
+                "phoneNumber" => [
+                    "required",
+                    "digits:11",
+                    Rule::unique('managers')->ignore($id),
+                ],
+                "email" => [
+                    "required",
+                    "email",
+                    Rule::unique('managers')->ignore($id),
+                ],
+                "hiredDate" => "required|date",
+                "employmentStatus" => "required|string|max:50",
+                "salary" => "required|numeric|min:0",
+                "address" => "required|string|max:255",
+            ]);
+
+            $manager = Manager::FindOrFail($id);
+            $manager->update($validatedData);
+            return response()->json([
+                "success" => "Added Successfully!",
+                "manager" => $manager,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
