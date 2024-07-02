@@ -83,6 +83,18 @@ $(document).ready(function () {
         }
     });
 
+    $("motorModel").on("input", function () {
+        const model = $(this).val().trim();
+
+        if (model != "") {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        }
+    });
+
     $("#hiredDate").on("input", function () {
         const hiredDateVal = $(this).val().trim();
 
@@ -167,15 +179,14 @@ $(document).ready(function () {
             { data: "fname" },
             { data: "lname" },
             { data: "sex" },
-            { data: "DOB" },
+            { data: "dob" },
             { data: "address" },
             { data: "phoneNumber" },
             { data: "email" },
+            { data: "motorModel" },
             { data: "hiredDate" },
             { data: "employmentStatus" },
             { data: "salary" },
-            { data: "motorModel" },
-
             {
                 data: null,
                 render: function (data, type, row) {
@@ -189,7 +200,7 @@ $(document).ready(function () {
                 },
             },
         ],
-        order: [[1, "asc"]],
+        order: [[9, "asc"]],
     });
 
     $("#riderAddForm").validate({
@@ -257,98 +268,106 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (data) {
+                    console.log(data);
                     var tr = $("<tr>");
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.id)
+                            .html(data.rider.id)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.fname)
+                            .html(data.rider.fname)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.lname)
+                            .html(data.rider.lname)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.sex)
+                            .html(data.rider.sex)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.DOB)
+                            .html(data.rider.DOB)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.address)
+                            .html(data.rider.address)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.phoneNumber)
+                            .html(data.rider.phoneNumber)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.email)
+                            .html(data.rider.email)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.hiredDate)
+                            .html(data.rider.motorModel)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.employmentStatus)
+                            .html(data.rider.hiredDate)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.salary)
+                            .html(data.rider.employmentStatus)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.manager.salary)
+                            .html(data.rider.salary)
+                    );
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.rider.salary)
                     );
 
                     tr.append(
                         $("<th>").html(
                             "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
-                                data.manager.id +
+                                data.rider.id +
                                 "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                                data.manager.id +
+                                data.rider.id +
                                 "'></i>"
                         )
                     );
@@ -368,16 +387,19 @@ $(document).ready(function () {
         },
     });
 
-    $("#managerEditForm").validate({
+    $("#riderEditForm").validate({
         rules: {
             fname: {
                 required: true,
+                maxLength: 255,
             },
             lname: {
                 required: true,
+                maxLength: 255,
             },
             sex: {
                 required: true,
+                maxLength: 6,
             },
             DOB: {
                 required: true,
@@ -385,20 +407,24 @@ $(document).ready(function () {
             phoneNumber: {
                 required: true,
                 minlength: 11,
+                maxLength: 11,
             },
             email: {
                 required: true,
             },
-            hireddate: {
+            hiredDate: {
                 required: true,
             },
-            status: {
+            employmentStatus: {
                 required: true,
             },
             salary: {
                 required: true,
             },
             address: {
+                required: true,
+            },
+            motorModel: {
                 required: true,
             },
         },
@@ -434,6 +460,9 @@ $(document).ready(function () {
             address: {
                 required: "This field is required!",
             },
+            motorModel: {
+                required: "This field is required!",
+            },
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
@@ -441,12 +470,12 @@ $(document).ready(function () {
             // for (var pair of formData.entries()) {
             //     console.log(pair[0] + ": " + pair[1]);
             // }
-            var table = $("#managersTable").DataTable();
+            var table = $("#ridersTable").DataTable();
             const id = formData.get("id");
 
             $.ajax({
                 type: "POST",
-                url: `/api/managers/${id}`,
+                url: `/api/riders/${id}`,
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -473,12 +502,12 @@ $(document).ready(function () {
         },
     });
 
-    $("#managersTable tbody").on("click", "i.editBtn", function (e) {
+    $("#ridersTable tbody").on("click", "i.editBtn", function (e) {
         const id = $(this).data("id");
         console.log(id);
         $.ajax({
             type: "GET",
-            url: `/api/managers/${id}`,
+            url: `/api/riders/${id}`,
             contentType: false,
             processData: false,
             headers: {
@@ -498,6 +527,7 @@ $(document).ready(function () {
                 $("#editHiredDate").val(data.hiredDate);
                 $("#editEmploymentStatus").val(data.employmentStatus);
                 $("#editSalary").val(data.salary);
+                $("#editMotorModel").val(data.motorModel);
             },
             error: function (error) {
                 console.log(error);
@@ -506,10 +536,10 @@ $(document).ready(function () {
         openModal("edit-modal");
     });
 
-    $("#managersTable tbody").on("click", "i.deleteBtn", function (e) {
-        let managerID = $(this).data("id");
+    $("#ridersTable tbody").on("click", "i.deleteBtn", function (e) {
+        let riderID = $(this).data("id");
         let $row = $(this).closest("tr");
-        console.log(managerID);
+        console.log(riderID);
 
         Swal.fire({
             title: "Do you want to delete this?",
@@ -521,7 +551,7 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: `/api/managers/${managerID}`,
+                    url: `/api/riders/${riderID}`,
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
                             "content"

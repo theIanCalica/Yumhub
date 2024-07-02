@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phoneNumber');
             $table->string('password');
-            $table->foreignUuid("region_id")->nullable();
-            $table->foreignUuid("province_id")->nullable();
-            $table->foreignUuid("city_id")->nullable();
+            $table->string("region")->nullable();
+            $table->string("province")->nullable();
+            $table->string("city")->nullable();
             $table->string("barangay")->nullable();
             $table->string("street")->nullable();
             $table->string("houseNo")->nullable();
@@ -29,9 +29,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
-            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

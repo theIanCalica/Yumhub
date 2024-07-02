@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rider;
-use App\Http\Requests\StoreRiderRequest;
-use App\Http\Requests\UpdateRiderRequest;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class RiderController extends Controller
@@ -14,7 +13,7 @@ class RiderController extends Controller
      */
     public function index()
     {
-        $riders = Rider::orderBy("hired-date", "asc")->get();
+        $riders = Rider::orderBy("hiredDate", "asc")->get();
         return response()->json($riders);
     }
 
@@ -29,7 +28,7 @@ class RiderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRiderRequest $request)
+    public function store(Request $request)
     {
         try {
             $validatedData = $request->validate([
@@ -39,11 +38,11 @@ class RiderController extends Controller
                 "DOB" => "required|date",
                 "phoneNumber" => "required|digits:11|unique:managers,phoneNumber",
                 "email" => "required|email|unique:managers,email",
-                "hired-date" => "required|date",
-                "employmentstatus" => "required|string|max:50",
+                "hiredDate" => "required|date",
+                "employmentStatus" => "required|string|max:50",
                 "salary" => "required|numeric|min:0",
                 "address" => "required|string|max:255",
-                'motor-model' => "required|string|max:255",
+                'motorModel' => "required|string|max:255",
             ]);
 
             $rider = Rider::create([
@@ -53,11 +52,11 @@ class RiderController extends Controller
                 "DOB" => $validatedData["DOB"],
                 "phoneNumber" => $validatedData["phoneNumber"],
                 "email" => $validatedData["email"],
-                "hired-date" => $validatedData["hired-date"],
-                "employmentstatus" => $validatedData["employmentstatus"],
+                "hiredDate" => $validatedData["hiredDate"],
+                "employmentStatus" => $validatedData["employmentStatus"],
                 "salary" => $validatedData["salary"],
                 "address" => $validatedData["address"],
-                'motor-model' => $validatedData["motor-model"],
+                'motorModel' => $validatedData["motorModel"],
             ]);
 
             return response()->json([
@@ -77,9 +76,10 @@ class RiderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Rider $rider)
+    public function show(string $id)
     {
-        //
+        $rider = Rider::FindOrFail($id);
+        return response()->json($rider);
     }
 
     /**
@@ -93,9 +93,37 @@ class RiderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRiderRequest $request, Rider $rider)
+    public function update(Request $request, string $id)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "fname" => "required|string|max:255",
+                "lname" => "required|string|max:255",
+                "sex" => "required|string|max:10",
+                "DOB" => "required|date",
+                "phoneNumber" => "required|digits:11|unique:managers,phoneNumber",
+                "email" => "required|email|unique:managers,email",
+                "hired-date" => "required|date",
+                "employmentstatus" => "required|string|max:50",
+                "salary" => "required|numeric|min:0",
+                "address" => "required|string|max:255",
+                'motor-model' => "required|string|max:255",
+            ]);
+
+            $rider = Rider::FindOrFail($id);
+            $rider->update($validatedData);
+            return response()->json([
+                "success" => "Added Successfully",
+                "rider" => $rider,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**

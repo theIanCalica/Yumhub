@@ -15,15 +15,15 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string("fname");
             $table->string("lname");
-            $table->string("SEX");
-            $table->date("DOB");
-            $table->string("phoneNumber", 11);
-            $table->string("email");
-            $table->date("hired-date");
-            $table->string("employment-status");
+            $table->string("sex");
+            $table->date("dob");
+            $table->string("phoneNumber", 11)->unique();
+            $table->string("email")->unique();
+            $table->date("hiredDate");
+            $table->string("employmentStatus");
             $table->string("salary");
             $table->string("address");
-            $table->string("motor-model");
+            $table->string("motorModel");
             $table->timestamps();
         });
     }

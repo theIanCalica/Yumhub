@@ -9,7 +9,10 @@ Route::get('/', function () {
 // Routes for admins
 Route::view("/regions-all", "admin.regions");
 Route::view("/test", "admin.test");
-Route::view("/managers", "admin.managers");
+Route::view("/managers", "admin.managers")->name("managers");
+Route::view("/riders", "admin.riders")->name("riders");
+Route::view("/users", "admin.users")->name("users");
+Route::view("/stockholders", "admin.stockholders")->name("stockholders");
 
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function () {
 });

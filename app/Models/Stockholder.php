@@ -6,21 +6,19 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rider extends Model
+class Stockholder extends Model
 {
     use HasFactory, HasUuids;
-    protected $table = "riders";
+    protected $table = "stockholders";
     protected $fillable = [
-        "fname",
-        "lname",
+        "name",
         "sex",
-        "DOB",
-        "phoneNumber",
+        "dob",
         "email",
-        "motorModel",
-        "hiredDate",
-        "employmentStatus",
-        "salary",
+        "phoneNumber",
         "address",
+        "sharesOwned",
+        "investmentDate",
+        "prefferedContact",
     ];
 }
