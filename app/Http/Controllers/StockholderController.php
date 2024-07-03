@@ -112,6 +112,11 @@ class StockholderController extends Controller
                 "status" => 202,
             ]);
         } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
         }
     }
 

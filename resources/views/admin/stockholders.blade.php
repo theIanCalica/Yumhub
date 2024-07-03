@@ -59,7 +59,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="riderAddForm">
+                <form class="p-4 md:p-5" id="stockholderAddForm">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -84,13 +84,6 @@
                             <input type="date" name="dob" id="dob"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type gender" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="DOB" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
-                                of Birth</label>
-                            <input type="date" name="DOB" id="DOB"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Enter Date of Birth" required="">
                         </div>
                         <div class="col-span-2">
                             <label for="address"
@@ -131,23 +124,15 @@
                                 placeholder="Type email" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="employmentStatus"
+                            <label for="prefferedContact"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employment
                                 Status</label>
-                            <input type="text" name="employmentStatus" id="employmentStatus"
+                            <input type="text" name="prefferedContact" id="prefferedContact"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type Employment Status" required="">
                         </div>
-                        <div class="col-span-2">
-                            <label for="salary" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Salary</label>
-                            <input type="number" name="salary" id="salary"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Salary" required="">
-                        </div>
-
                     </div>
-                    <button type="submit" id="managerAdd"
+                    <button type="submit" id="stockholderAdd"
                         class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +140,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Add New Manager
+                        Add New Stockholder
                     </button>
                 </form>
             </div>
@@ -171,11 +156,11 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Edit Rider
+                        Edit Stockholder Details
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-toggle="add-modal" data-modal-target="edit-modal">
+                        data-modal-toggle="add-modal" data-modal-target="add-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -185,39 +170,32 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="riderEditForm">
-                    <input type="hidden" name="id" id="id">
+                <form class="p-4 md:p-5" id="stockholderEditForm3">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
-                            <label for="fname"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Name</label>
-                            <input type="text" name="fname" id="editFname"
+                            <input type="text" name="name" id="editName"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type First Name" required="">
+                                placeholder="Enter the Name" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="lname"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
-                                Name</label>
-                            <input type="text" name="lname" id="editLname"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Last name" required="">
+                            <label for="sex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Gender</label>
+                            <select name="sex" id="editSex"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="" selected disabled>Select a gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
                         </div>
                         <div class="col-span-2">
-                            <label for="sex"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                            <input type="text" name="sex" id="editSex"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type gender" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="DOB"
+                            <label for="dob"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
                                 of Birth</label>
-                            <input type="date" name="DOB" id="editDob"
+                            <input type="date" name="dob" id="editDob"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Enter Date of Birth" required="">
+                                placeholder="Type gender" required="">
                         </div>
                         <div class="col-span-2">
                             <label for="address"
@@ -230,7 +208,7 @@
                             <label for="phoneNumber"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
                                 Number</label>
-                            <input type="tel" name="phoneNumber" id="editPhoneNumber" maxlength="11"
+                            <input type="tel" name="phoneNumber" id="editPhoneNumber"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type phone number" required="">
                         </div>
@@ -243,48 +221,40 @@
                                 placeholder="Type email" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="editMotorModel"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Motor Model</label>
-                            <input type="text" name="motorModel" id="editMotorModel"
+                            <label for="sharesOwned" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Shares Owned</label>
+                            <input type="number" name="sharesOwned" id="editSharesOwned"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Salary" required="">
+                                placeholder="Enter Shares Owned" required="">
                         </div>
+
                         <div class="col-span-2">
-                            <label for="hiredDate"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hired Date
+                            <label for="investmentDate"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Investment Date
                             </label>
-                            <input type="date" name="hiredDate" id="editHiredDate"
+                            <input type="date" name="investmentDate" id="editInvestmentDate"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type email" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="employmentStatus"
+                            <label for="prefferedContact"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employment
                                 Status</label>
-                            <input type="text" name="employmentStatus" id="editEmploymentStatus"
+                            <input type="text" name="prefferedContact" id="editPrefferedContact"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type Employment Status" required="">
                         </div>
-                        <div class="col-span-2">
-                            <label for="salary" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Salary</label>
-                            <input type="number" name="salary" id="editSalary"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Salary" required="">
-                        </div>
-
                     </div>
-                    <button type="submit" id="managerUpdate"
-                        class="text-white inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button type="submit" id="managerAdd"
+                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-2">Update</span>
+                        Add New Stockholder
                     </button>
-
                 </form>
             </div>
         </div>
@@ -304,17 +274,14 @@
                 </button>
                 <div class="overflow-x-auto">
                     <table class="w-dvw text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                        id="ridersTable">
+                        id="stockholdersTable">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     ID
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    First Name
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Last Name
+                                    Name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Sex
@@ -332,18 +299,14 @@
                                     Email
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Motor Model
+                                    Shares Owned
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Hired Date
+                                    Investment Date
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Employment Status
+                                    Preffered Contact
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Salary
-                                </th>
-
                                 <th scope="col" class="px-6 py-3">
                                     Actions
                                 </th>
@@ -358,10 +321,7 @@
                                     ID
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    First Name
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Last Name
+                                    Name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Sex
@@ -379,18 +339,14 @@
                                     Email
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Motor Model
+                                    Shares Owned
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Hired Date
+                                    Investment Date
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Employment Status
+                                    Preffered Contact
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Salary
-                                </th>
-
                                 <th scope="col" class="px-6 py-3">
                                     Actions
                                 </th>
