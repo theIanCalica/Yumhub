@@ -125,11 +125,11 @@
                         </div>
                         <div class="col-span-2">
                             <label for="prefferedContact"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employment
-                                Status</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preffered Contact
+                            </label>
                             <input type="text" name="prefferedContact" id="prefferedContact"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Employment Status" required="">
+                                placeholder="Enter Preffered Contact(Phone/Email)" required="">
                         </div>
                     </div>
                     <button type="submit" id="stockholderAdd"
@@ -170,7 +170,8 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="stockholderEditForm3">
+                <form class="p-4 md:p-5" id="stockholderEditForm">
+                    <input type="hidden" name="id" id="id">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -238,8 +239,8 @@
                         </div>
                         <div class="col-span-2">
                             <label for="prefferedContact"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employment
-                                Status</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preffered Contact
+                            </label>
                             <input type="text" name="prefferedContact" id="editPrefferedContact"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type Employment Status" required="">
@@ -253,7 +254,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Add New Stockholder
+                        Update
                     </button>
                 </form>
             </div>
@@ -267,7 +268,7 @@
             <div>
                 <h1 class="text-2xl mb-2">Stockholders</h1>
                 <!-- Modal toggle -->
-                <button data-modal-target="add-modal" data-modal-toggle="add-modal"
+                <button id="btnAdd"
                     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button">
                     Add Stockholder

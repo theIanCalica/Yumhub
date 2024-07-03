@@ -10,6 +10,10 @@ $(document).ready(function () {
         const modal = new Modal($targetEl);
         modal.show();
     }
+
+    $("#btnAdd").on("click", function () {
+        openModal("add-modal");
+    });
     $("#name").on("input", function () {
         const name = $(this).val().trim();
 
@@ -126,7 +130,7 @@ $(document).ready(function () {
             },
             sex: {
                 required: true,
-                maxLength: 6,
+                maxlength: 6,
             },
             dob: {
                 required: true,
@@ -136,8 +140,8 @@ $(document).ready(function () {
             },
             phoneNumber: {
                 required: true,
-                minLength: 11,
-                maxLength: 11,
+                minlength: 11,
+                maxlength: 11,
             },
             email: {
                 required: true,
@@ -161,7 +165,7 @@ $(document).ready(function () {
             },
             sex: {
                 required: "This field is required!",
-                maxLength: "Male/Female only!",
+                maxlength: "Male/Female only!",
             },
             dob: {
                 required: "This field is required!",
@@ -171,8 +175,8 @@ $(document).ready(function () {
             },
             phoneNumber: {
                 required: "This field is required!",
-                minLength: "Invalid phone number!",
-                maxLength: "Invalid phone number!",
+                minlength: "Invalid phone number!",
+                maxlength: "Invalid phone number!",
             },
             email: {
                 required: "This field is required!",
@@ -231,9 +235,64 @@ $(document).ready(function () {
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.stockholder.name)
+                            .html(data.stockholder.sex)
                     );
 
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.dob)
+                    );
+
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.address)
+                    );
+
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.phoneNumber)
+                    );
+
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.email)
+                    );
+
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.sharesOwned)
+                    );
+
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.investmentDate)
+                    );
+
+                    tr.append(
+                        $("<th>")
+                            .addClass(
+                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            )
+                            .html(data.stockholder.prefferedContact)
+                    );
                     tr.append(
                         $("<th>").html(
                             "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
@@ -250,6 +309,9 @@ $(document).ready(function () {
                         title: "Success!",
                         icon: "success",
                     });
+
+                    $(form).find("input, select,textarea").val("");
+                    $(form).validate().resetForm();
                 },
                 error: function (error) {
                     console.log(error);
@@ -265,7 +327,7 @@ $(document).ready(function () {
             },
             sex: {
                 required: true,
-                maxLength: 6,
+                maxlength: 6,
             },
             dob: {
                 required: true,
@@ -275,8 +337,8 @@ $(document).ready(function () {
             },
             phoneNumber: {
                 required: true,
-                minLength: 11,
-                maxLength: 11,
+                minlength: 11,
+                maxlength: 11,
             },
             email: {
                 required: true,
@@ -300,7 +362,7 @@ $(document).ready(function () {
             },
             sex: {
                 required: "This field is required!",
-                maxLength: "Male/Female only!",
+                maxlength: "Male/Female only!",
             },
             dob: {
                 required: "This field is required!",
@@ -310,8 +372,8 @@ $(document).ready(function () {
             },
             phoneNumber: {
                 required: "This field is required!",
-                minLength: "Invalid phone number!",
-                maxLength: "Invalid phone number!",
+                minlength: "Invalid phone number!",
+                maxlength: "Invalid phone number!",
             },
             email: {
                 required: "This field is required!",
@@ -328,6 +390,40 @@ $(document).ready(function () {
             prefferedContact: {
                 required: "This field is required!",
             },
+        },
+        submitHandler: function (form) {
+            const formData = new FormData(form);
+            formData.append("_method", "PUT");
+            const id = formData.get("id");
+            var table = $("#stockholdersTable").DataTable();
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: `/api/stockholders/${id}`,
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log("Success");
+                    console.log(data);
+                    table.ajax.reload();
+                    closeModal("edit-modal");
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Updated Successfully!",
+                        icon: "success",
+                    });
+                },
+            });
         },
     });
 
@@ -431,15 +527,18 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                console.log(data.id);
+                $("#id").val(data.id);
                 $("#editName").val(data.name);
                 $("#editSex").val(data.sex);
                 $("#editDob").val(data.dob);
                 $("#editAddress").val(data.address);
                 $("#editPhoneNumber").val(data.phoneNumber);
                 $("#editEmail").val(data.email);
+                $("#editSharesOwned").val(data.sharesOwned);
+                $("#editInvestmentDate").val(data.investmentDate);
+                $("#editPrefferedContact").val(data.prefferedContact);
                 openModal("edit-modal");
-                console.log(data);
             },
             error: function (data) {
                 console.log(data);
