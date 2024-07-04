@@ -18,8 +18,8 @@
                     </span>
 
                 </div>
-
-                <p class="text-gray-700">We're Serious For Food & Delivery</p>
+                <p class="text-gray-700 font-bold text-3xl mt-5">We're <span class="text-red-500">Serious</span> For Food &
+                    Delivery</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-bold mb-2">Item 2</h2>

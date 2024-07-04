@@ -10,6 +10,8 @@ Route::view("/riders", "admin.riders")->name("riders");
 Route::view("/users", "admin.users")->name("users");
 Route::view("/stockholders", "admin.stockholders")->name("stockholders");
 
+Route::view("/admins", "admin.index")->name("admin.home");
+
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function () {
 });
 
@@ -20,4 +22,10 @@ Route::view("/sign-in", "customer.auth.sign-in")->name("sign-in");
 Route::view("/", "customer.index")->name("home");
 
 Route::prefix("user")->middleware(["isAuthenticated"])->group(function () {
+});
+
+
+//Route for vendors
+Route::view("/seller/sign-up", "seller.sign-up")->name("seller.sign-up");
+Route::prefix("vendor")->middleware(["isAuthenticated"])->group(function () {
 });

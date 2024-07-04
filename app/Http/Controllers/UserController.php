@@ -31,7 +31,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-
             $validatedData = $request->validate([
                 'email' => "required|unique:users",
                 'password' => "required|min:6",
