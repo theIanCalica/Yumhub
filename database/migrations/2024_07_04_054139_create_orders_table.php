@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->date("order-date");
-            $table->foreignUuid("user_id");
-            $table->foreignUuid("seller_id");
+            $table->date("order_date"); // Changed 'order-date' to 'order_date'
+            $table->foreignUuid("user_id")->constrained("users")->onDelete("cascade"); // Simplified foreign key definition
+            $table->foreignUuid("seller_id")->constrained("users")->onDelete("cascade"); // Simplified foreign key definition
             $table->string("status", 50);
             $table->longText("specialInstruction");
-            $table->foreign("seller_id")->references("id")->on("sellers")->onDelete("cascade");
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }
