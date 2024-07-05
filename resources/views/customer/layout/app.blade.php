@@ -19,14 +19,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+
+    {{-- Font for logo --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+
+    {{-- Font for text for navlinks0 --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:wght@700&display=swap" rel="stylesheet">
     <style>
-        body {
+        .inter-subtext {
             font-family: "Inter", sans-serif;
             font-optical-sizing: auto;
             font-weight: 300;
             font-style: normal;
             font-variation-settings:
                 "slnt" 0;
+        }
+
+        .merriweather-bold {
+            font-family: "Merriweather", serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .andika-bold {
+            font-family: "Andika", sans-serif;
+            font-weight: 500;
+            font-style: normal;
         }
     </style>
 </head>

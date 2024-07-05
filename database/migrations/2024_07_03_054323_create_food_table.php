@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('food', function (Blueprint $table) {
+        Schema::create('foods', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("name");
             $table->text("desc");
             $table->decimal("price");
-            $table->foreignUuid("seller_id");
+            $table->foreignUuid("user_id");
             $table->foreignUuid("cuisine_id");
             $table->timestamps();
-            $table->foreign("seller_id")->references("id")->on("sellers")->onDelete("cascade");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->foreign("cuisine_id")->references("id")->on("cuisines")->onDelete("cascade");
         });
     }

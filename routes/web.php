@@ -16,11 +16,11 @@ Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function
 });
 
 
-//Routes for custoemrs
+//Routes for customers
 Route::view("/sign-up", "customer.auth.sign-up")->name("sign-up");
 Route::view("/sign-in", "customer.auth.sign-in")->name("sign-in");
 Route::view("/", "customer.index")->name("home");
-
+Route::view("/email", "customer.email")->name("email-confirmation");
 Route::prefix("user")->middleware(["isAuthenticated"])->group(function () {
 });
 

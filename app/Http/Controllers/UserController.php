@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmMail;
 use App\Models\User;
+use App\Models\VerifyUser;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -49,6 +53,12 @@ class UserController extends Controller
                 'role' => $validatedData["role"]
             ]);
 
+            $verifyUser = VerifyUser::create([
+                'token' => Str::random(60),
+                'user_id' => $user->id,
+            ]);
+
+            Mail::to($user->email)->send(new ConfirmMail($user));
             return response()->json([
                 "success" => "Registered successfully.",
                 "region" => $user,

@@ -72,7 +72,7 @@ $(document).ready(function () {
                         "Your request was successful!"
                     );
                     $("#sign-up-form").find("input").val("");
-                    window.location.href = "/sign-in";
+                    // window.location.href = "/sign-in";
                 },
                 error: {},
             });

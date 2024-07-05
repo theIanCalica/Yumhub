@@ -2,49 +2,54 @@
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
-                <a href="https://flowbite.com/" class="flex items-center">
-                    {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" /> --}}
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Yumhub</span>
+                <a href="{{ route('home') }}" class="items-center block">
+                    <img src="{{ asset('logo/logo.png') }}" class="h-24" alt="Yumhub Logo">
+
                 </a>
+                <div>
+                    <p class="">Discover deliciousness delivered to your doorstep with YumHub – where
+                        every meal is a
+                        culinary adventure!</p>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
                     <h2 class="mb-6 text-sm font-semibold text-red-600  dark:text-white">About Us</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4">
-                            <a href="https://flowbite.com/" class="hover:underline">About Us</a>
+                            <a href="https://flowbite.com/" class="hover:underline hover:text-red-500">About Us</a>
                         </li>
-                        <li>
-                            <a href="#" class="hover:underline">Contact</a>
+                        <li class="mb-4">
+                            <a href="#" class="hover:underline hover:text-red-500 ">Contact</a>
                         </li>
-                        <li>
-                            <a href="#" class="hover:underline">Company</a>
+                        <li class="mb-4">
+                            <a href="#" class="hover:underline hover:text-red-500">Company</a>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Company</h2>
+                    <h2 class="mb-6 text-sm font-semibold text-red-600 uppercase dark:text-white">Company</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4">
-                            <a href="#" class="hover:underline ">Partnership</a>
+                            <a href="#" class="hover:underline hover:text-red-500">Partnership</a>
                         </li>
-                        <li>
-                            <a href="#" class="hover:underline">Terms of Use</a>
+                        <li class="mb-4">
+                            <a href="#" class="hover:underline hover:text-red-500">Terms of Use</a>
                         </li>
-                        <li>
-                            <a href="#" class="hover:underline">Privacy</a>
+                        <li class="mb-4">
+                            <a href="#" class="hover:underline hover:text-red-500">Privacy</a>
                         </li>
 
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                    <h2 class="mb-6 text-sm font-semibold text-red-600  dark:text-white">Legal</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">Privacy Policy</a>
+                            <a href="#" class="hover:underline hover:text-red-500">Privacy Policy</a>
                         </li>
-                        <li>
-                            <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                        <li class="mb-4">
+                            <a href="#" class="hover:underline hover:text-red-500">Terms &amp; Conditions</a>
                         </li>
                     </ul>
                 </div>

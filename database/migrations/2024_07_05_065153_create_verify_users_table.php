@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders_items', function (Blueprint $table) {
+        Schema::create('verify_users', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->foreignUuid("order_id");
-            $table->foreignUuid("food_id");
-            $table->integer("qty");
+            $table->string('token');
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign("order_id")->references("id")->on("orders")->onDelete("cascade");
-            $table->foreign("food_id")->references("id")->on("foods")->onDelete("cascade");
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders__items');
+        Schema::dropIfExists('verify_users');
     }
 };
