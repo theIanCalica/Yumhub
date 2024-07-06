@@ -14,7 +14,7 @@
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-red-600  dark:text-white">About Us</h2>
+                    <h2 class="mb-6 text-sm font-semibold text-red-600  dark:text-white uppercase">About US`</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4">
                             <a href="https://flowbite.com/" class="hover:underline hover:text-red-500">About Us</a>
@@ -43,7 +43,7 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-red-600  dark:text-white">Legal</h2>
+                    <h2 class="mb-6 text-sm font-semibold text-red-600 uppercase dark:text-white">Legal</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4">
                             <a href="#" class="hover:underline hover:text-red-500">Privacy Policy</a>

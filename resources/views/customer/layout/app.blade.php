@@ -50,14 +50,19 @@
             font-weight: 500;
             font-style: normal;
         }
+
+        body {
+            background-color: #ffffff
+        }
     </style>
+    @yield('styles')
 </head>
 
 <body>
     <header>
         @include('customer.layout.navbar')
     </header>
-    <main class="mt-14">
+    <main class="mt-28">
         @yield('content')
     </main>
     <footer>

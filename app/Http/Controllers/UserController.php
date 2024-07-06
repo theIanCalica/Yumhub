@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -40,6 +41,8 @@ class UserController extends Controller
                 'password' => "required|min:6",
                 'fname' => "required",
                 'lname' => "required",
+                'gender' => "required|max:5",
+                'dob' => "required",
                 'phoneNumber' => "required|max:11",
                 'role' => "required",
             ]);
@@ -49,8 +52,10 @@ class UserController extends Controller
                 'password' => $validatedData["password"],
                 'fname' => $validatedData["fname"],
                 'lname' => $validatedData['lname'],
+                'gender' => $validatedData['gender'],
+                'dob' => $validatedData['dob'],
                 'phoneNumber' => $validatedData["phoneNumber"],
-                'role' => $validatedData["role"]
+                'role' => $validatedData["role"],
             ]);
 
             $verifyUser = VerifyUser::create([
@@ -78,7 +83,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::FindOrFail($id);
+        return response()->json($user);
     }
 
     /**
@@ -94,7 +100,31 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'email' => "required|unique:users",
+                'password' => "required|min:6",
+                'fname' => "required",
+                'lname' => "required",
+                'phoneNumber' => "required|max:11",
+                'role' => "required",
+            ]);
+
+            $user = User::FindOrFail($id);
+            $user->update($validatedData);
+
+            return response()->json([
+                "success" => "Registered successfully.",
+                "region" => $user,
+                "status" => 200
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
@@ -102,6 +132,34 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::FindOrFail($id);
+        $user->delete();
+        return response()->json([
+            "success" => "Added Successfully1",
+            "status" => 202,
+        ]);
+    }
+
+    public function verifyEmail($token)
+    {
+        $verifiedUser = VerifyUser::where('token', $token)->first();
+        if (isset($verifiedUser)) {
+            $user = $verifiedUser->user;
+            if (!$user->email_verified_at) {
+                $user->email_verified_at = Carbon::now();
+                $user->save();
+                session()->flash('status_code', 'success');
+                session()->flash('status', 'Successfully Verified!');
+                return redirect()->route('login-patient');
+            } else {
+                session()->flash('status_code', 'info');
+                session()->flash('status', 'Email already verified');
+                return redirect()->route('login-patient');
+            }
+        } else {
+            session()->flash('status_code', 'error');
+            session()->flash('status', 'Something went wrong!');
+            return redirect()->route('login-patient');
+        }
     }
 }

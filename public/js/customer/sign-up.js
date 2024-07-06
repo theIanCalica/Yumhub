@@ -16,7 +16,12 @@ $(document).ready(function () {
             lname: {
                 required: true,
             },
-
+            gender: {
+                required: true,
+            },
+            dob: {
+                required: true,
+            },
             email: {
                 required: true,
                 email: true,
@@ -32,16 +37,28 @@ $(document).ready(function () {
             },
         },
         messages: {
+            fname: {
+                required: "This field is required!",
+            },
+            lname: {
+                required: "This field is required!",
+            },
+            gender: {
+                required: "This field is required!",
+            },
+            dob: {
+                required: "This field is required!",
+            },
             email: {
-                required: "Please enter your email",
+                required: "Please enter your email!",
             },
             password: {
-                required: "Please enter your password",
+                required: "Please enter your password!",
             },
             confirmpassword: {
-                required: "Please confirm your password",
-                minlength: "Password must be at least 6 characters long",
-                passwordMatch: "Passwords do not match",
+                required: "Please confirm your passwor!",
+                minlength: "Password must be at least 6 characters long!",
+                passwordMatch: "Passwords do not match!",
             },
         },
         submitHandler: function (form) {
@@ -72,7 +89,7 @@ $(document).ready(function () {
                         "Your request was successful!"
                     );
                     $("#sign-up-form").find("input").val("");
-                    // window.location.href = "/sign-in";
+                    window.location.href = "/sign-in";
                 },
                 error: {},
             });

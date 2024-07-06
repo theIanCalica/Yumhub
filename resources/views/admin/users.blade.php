@@ -24,7 +24,7 @@
 
 @section('scripts')
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-    <script src="{{ asset('js/regions.js') }}"></script>
+    <script src="{{ asset('js/users.js') }}"></script>
 @endsection
 
 @section('content')
@@ -54,18 +54,31 @@
                 <form class="p-4 md:p-5" id="userAddForm">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                            <label for="fname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
                                 Name</label>
-                            <input type="text" name="regionName" id="name"
+                            <input type="text" name="fname" id="fname"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type region name" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                            <label for="lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
                                 Name</label>
-                            <input type="text" name="regionName" id="name"
+                            <input type="text" name="lname" id="lname"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type region name" required="">
+                        </div>
+                        <div class="col-span-2">
+                            <label for="lname"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender
+                            </label>
+                            <select name="gender" id="gender"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="" disabled selected>Select a gender</option>
+                                <option value="Men">Men</option>
+                                <option value="Women">Women</option>
+                            </select>
+                            <input type="text" name="lname" id="lname" placeholder="Type region name"
+                                required="">
                         </div>
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
@@ -102,7 +115,8 @@
                                 placeholder="Type region name" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                            <label for="name"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
 
                             </label>
                             <input type="email" name="regionName" id="name"
@@ -179,18 +193,55 @@
             class="p-10 w-full bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
 
             <div>
-                <h1 class="text-2xl mb-2">Regions</h1>
+                <h1 class="text-2xl mb-2">Users</h1>
                 <div class="overflow-x-auto">
                     <table class="w-dvw text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                        id="regionTable">
+                        id="usersTable">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     ID
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Name
+                                    First Name
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Last Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Phone Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Email
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Region
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Province
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    City
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Barangay
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Street
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    House Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Zip Code
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Role
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Account Status
+                                </th>
+
                                 <th scope="col" class="px-6 py-3">
                                     Actions
                                 </th>
@@ -205,8 +256,45 @@
                                     ID
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Name
+                                    First Name
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Last Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Phone Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Email
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Region
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Province
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    City
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Barangay
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Street
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    House Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Zip Code
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Role
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Account Status
+                                </th>
+
                                 <th scope="col" class="px-6 py-3">
                                     Actions
                                 </th>

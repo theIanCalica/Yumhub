@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\RegionController;
@@ -15,10 +16,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource("regions", RegionController::class);
-Route::apiResource("provinces", ProvinceController::class);
-Route::apiResource("cities", CityController::class);
+
 Route::apiResource("users", UserController::class);
+Route::apiResource("cuisines", CuisineController::class);
+
+// Api for MP1,MP2,MP3
 Route::apiResource("managers", ManagerController::class);
 Route::apiResource("riders", RiderController::class);
 Route::apiResource("stockholders", StockholderController::class);

@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    function closeModal(modalId) {
+        const $targetEl = document.getElementById(modalId);
+        const modal = new Modal($targetEl);
+        modal.hide();
+    }
+
+    function openModal(modalId) {
+        const $targetEl = document.getElementById(modalId);
+        const modal = new Modal($targetEl);
+        modal.show();
+    }
+
     $("#usersTable").dataTable({
         ajax: {
             url: "/api/users",
@@ -20,7 +32,24 @@ $(document).ready(function () {
         ],
         columns: [
             { data: "id" },
-            { data: "regionName" },
+            { data: "fname" },
+            { data: "lname" },
+            { data: "phoneNumber" },
+            { data: "email" },
+            { data: "region" },
+            { data: "province" },
+            { data: "city" },
+            { data: "barangay" },
+            { data: "street" },
+            { data: "houseNo" },
+            { data: "zipCode" },
+            { data: "role" },
+            {
+                data: "is_disabled",
+                render: function (data, type, row) {
+                    return data ? "Disabled" : "Active";
+                },
+            },
             {
                 data: null,
                 render: function (data, type, row) {
@@ -34,7 +63,7 @@ $(document).ready(function () {
                 },
             },
         ],
-        // order: [[1, "asc"]],
+        order: [[12, "asc"]],
     });
 
     $("#userAdd").on("click", function (e) {
@@ -67,5 +96,77 @@ $(document).ready(function () {
                 console.log(data);
             },
         });
+    });
+
+    $("#fname").on("input", function () {
+        const fname = $(this).val().trim();
+
+        if (fname != "" && fname.length <= 255) {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#lname").on("input", function () {
+        const lname = $(this).val().trim();
+
+        if (lname != "" && lname.length <= 255) {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#gender").on("change", function () {
+        const gender = $(this).val().trim();
+
+        if (gender != "") {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#phoneNumber").on("input", function () {
+        const phoneNumber = $(this).val().trim();
+
+        if (phoneNumber != "" && phoneNumber.length === 11) {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#email").on("input", function () {
+        const email = $(this).val().trim();
+
+        if (email != "") {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#region").on("input", function () {
+        const region = $(this).val().trim();
+
+        if (region != "" && region.length <= 255) {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
     });
 });

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->string("name", 100);
             $table->text("desc");
-            $table->string("origin", 100);
             $table->text("img_url");
             $table->timestamps();
         });

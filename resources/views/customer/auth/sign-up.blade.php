@@ -56,6 +56,25 @@
                         placeholder="Type your last name" required>
                 </div>
                 <div>
+                    <label for="lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                        Gender</label>
+                    <select name="gender" id="gender"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="" selected disabled>Select a Gender</option>
+                        <option value="Men">Men</option>
+                        <option value="Women">Women</option>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="dob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Date of Birth</label>
+                    <input type="date" name="dob" id="dob"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        required>
+
+                </div>
+                <div>
                     <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                         Phone Number</label>
                     <input type="tel" name="phoneNumber" id="phoneNumber"
