@@ -412,9 +412,6 @@ $(document).ready(function () {
         submitHandler: function (form) {
             const formData = new FormData(form);
             formData.append("_method", "PUT");
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0] + ": " + pair[1]);
-            // }
             var table = $("#managersTable").DataTable();
             const id = formData.get("id");
 

@@ -82,7 +82,7 @@
                                 Image</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                name="img" id="img" type="file">
+                                name="img_url" id="img" type="file">
                         </div>
                     </div>
                     <button type="submit" id="cuisineAdd"
@@ -113,7 +113,7 @@
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-toggle="add-modal" data-modal-target="edit-modal">
+                        data-modal-toggle="add-modal" data-modal-target="add-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,97 +123,42 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="managerEditForm">
-                    <input type="hidden" name="id" id="id">
+                <form class="p-4 md:p-5" id="cuisineEditForm">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
-                            <label for="fname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
-                                Name</label>
-                            <input type="text" name="fname" id="editFname"
+                            <label for="editName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Cuisine Name</label>
+                            <input type="text" name="name" id="editName"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type First Name" required="">
+                                placeholder="Enter cuisine name" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="lname"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
-                                Name</label>
-                            <input type="text" name="lname" id="editLname"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Last name" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="sex"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                            <input type="text" name="sex" id="editSex"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type gender" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="DOB"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
-                                of Birth</label>
-                            <input type="date" name="DOB" id="editDob"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Enter Date of Birth" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="address"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                            <textarea name="address" id="editAddress" cols="10" rows="2"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type address" required=""></textarea>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="phoneNumber"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
-                                Number</label>
-                            <input type="tel" name="phoneNumber" id="editPhoneNumber" maxlength="11"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type phone number" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                            <label for="editDesc"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description
                             </label>
-                            <input type="email" name="email" id="editEmail"
+                            <textarea name="desc" id="editDesc" cols="30" rows="5"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type email" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="hiredDate"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hired Date
-                            </label>
-                            <input type="date" name="hiredDate" id="editHiredDate"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type email" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="employmentStatus"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employment
-                                Status</label>
-                            <input type="text" name="employmentStatus" id="editEmploymentStatus"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Employment Status" required="">
-                        </div>
-                        <div class="col-span-2">
-                            <label for="salary" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Salary</label>
-                            <input type="number" name="salary" id="editSalary"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Salary" required="">
-                        </div>
+                                placeholder="Enter the description"></textarea>
 
+                        </div>
+                        <div class="col-span-2">
+                            <label for="editImg" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Image</label>
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                name="img_url" id="editImg" type="file">
+                        </div>
                     </div>
-                    <button type="submit" id="managerUpdate"
-                        class="text-white inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button type="submit" id="cuisineAdd"
+                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-2">Update</span>
+                        Update
                     </button>
-
                 </form>
             </div>
         </div>
@@ -233,7 +178,7 @@
                 </button>
                 <div class="overflow-x-auto">
                     <table class="w-dvw text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                        id="managersTable">
+                        id="cuisinesTable">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">

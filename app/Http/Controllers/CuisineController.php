@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuisine;
-use App\Http\Requests\StoreCuisineRequest;
-use App\Http\Requests\UpdateCuisineRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class CuisineController extends Controller
 {
@@ -13,7 +14,8 @@ class CuisineController extends Controller
      */
     public function index()
     {
-        //
+        $cuisines = Cuisine::orderBy("name", "asc")->get();
+        return response()->json($cuisines);
     }
 
     /**
@@ -27,17 +29,41 @@ class CuisineController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCuisineRequest $request)
+    public function store(Request $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "name" => "required|string|max:255",
+                "desc" => "required|string",
+                "img_url" => "required|image|mimes:jpeg,png,jpg",
+            ]);
+
+            $path = Storage::putFile('public/cuisines/', $request->file('img_url'));
+            $validatedData['img_url'] = $path;
+
+            $cuisine = Cuisine::create($validatedData);
+
+            return response()->json([
+                "success" => "Added Successfully!",
+                "manager" => $cuisine,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Cuisine $cuisine)
+    public function show(string $id)
     {
-        //
+        $cuisine = Cuisine::FindOrFail($id);
+        return response()->json($cuisine);
     }
 
     /**
@@ -51,16 +77,45 @@ class CuisineController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCuisineRequest $request, Cuisine $cuisine)
+    public function update(Request $request, Cuisine $cuisine)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "id" => "required",
+                "name" => "required|string|max:255",
+                "desc" => "required|string",
+                "img_url" => "required|image|mimes:jpeg,png,jpg",
+            ]);
+
+            $path = Storage::putFile('public/cuisines/', $request->file('img_url'));
+            $validatedData['img_url'] = $path;
+
+            $cuisine = Cuisine::create($validatedData);
+
+            return response()->json([
+                "success" => "Added Successfully!",
+                "manager" => $cuisine,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cuisine $cuisine)
+    public function destroy(string $id)
     {
-        //
+        $cuisine = Cuisine::FindOrFail($id);
+        $cuisine->delete();
+        return response()->json([
+            "success" => "Deleted Successfully!",
+            "status" => 200,
+        ]);
     }
 }
