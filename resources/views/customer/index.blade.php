@@ -105,251 +105,166 @@
 
                 </div>
                 <div>
-
-
-                    <div
-                        class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Standard plan</h5>
-                        <div class="flex items-baseline text-gray-900 dark:text-white">
-                            <span class="text-3xl font-semibold">$</span>
-                            <span class="text-5xl font-extrabold tracking-tight">49</span>
-                            <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+                        <div class="relative">
+                            <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150" alt="Chicken Tikka">
+                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
+                            </div>
                         </div>
-                        <ul role="list" class="space-y-5 my-7">
-                            <li class="flex items-center">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">2
-                                    team members</span>
-                            </li>
-                            <li class="flex">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">20GB
-                                    Cloud storage</span>
-                            </li>
-                            <li class="flex">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span
-                                    class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">Integration
-                                    help</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">Sketch Files</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">API Access</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">Complete
-                                    documentation</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">24×7 phone & email
-                                    support</span>
-                            </li>
-                        </ul>
-                        <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose
-                            plan</button>
+                        <div class="px-6 py-4">
+                            <div class="flex items-center">
+                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                    alt="Avatar">
+                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                    alt="Avatar">
+                                <span class="text-yellow-500 text-xl">★</span>
+                                <span class="ml-1 text-gray-700">(4.8)</span>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
+                                <p class="text-gray-700 text-base">
+                                    Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 text-center">
+                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
+                        </div>
                     </div>
+
 
                 </div>
                 <div>
-
-
-                    <div
-                        class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Standard plan</h5>
-                        <div class="flex items-baseline text-gray-900 dark:text-white">
-                            <span class="text-3xl font-semibold">$</span>
-                            <span class="text-5xl font-extrabold tracking-tight">49</span>
-                            <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+                        <div class="relative">
+                            <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150" alt="Chicken Tikka">
+                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
+                            </div>
                         </div>
-                        <ul role="list" class="space-y-5 my-7">
-                            <li class="flex items-center">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">2
-                                    team members</span>
-                            </li>
-                            <li class="flex">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span
-                                    class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">20GB
-                                    Cloud storage</span>
-                            </li>
-                            <li class="flex">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span
-                                    class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">Integration
-                                    help</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">Sketch Files</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">API Access</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">Complete
-                                    documentation</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">24×7 phone & email
-                                    support</span>
-                            </li>
-                        </ul>
-                        <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose
-                            plan</button>
+                        <div class="px-6 py-4">
+                            <div class="flex items-center">
+                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                    alt="Avatar">
+                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                    alt="Avatar">
+                                <span class="text-yellow-500 text-xl">★</span>
+                                <span class="ml-1 text-gray-700">(4.8)</span>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
+                                <p class="text-gray-700 text-base">
+                                    Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 text-center">
+                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
+                        </div>
                     </div>
+
 
                 </div>
                 <div>
-
-
-                    <div
-                        class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Standard plan</h5>
-                        <div class="flex items-baseline text-gray-900 dark:text-white">
-                            <span class="text-3xl font-semibold">$</span>
-                            <span class="text-5xl font-extrabold tracking-tight">49</span>
-                            <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+                        <div class="relative">
+                            <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150"
+                                alt="Chicken Tikka">
+                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
+                            </div>
                         </div>
-                        <ul role="list" class="space-y-5 my-7">
-                            <li class="flex items-center">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">2
-                                    team members</span>
-                            </li>
-                            <li class="flex">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span
-                                    class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">20GB
-                                    Cloud storage</span>
-                            </li>
-                            <li class="flex">
-                                <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span
-                                    class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">Integration
-                                    help</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">Sketch Files</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">API Access</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">Complete
-                                    documentation</span>
-                            </li>
-                            <li class="flex line-through decoration-gray-500">
-                                <svg class="flex-shrink-0 w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                <span class="text-base font-normal leading-tight text-gray-500 ms-3">24×7 phone & email
-                                    support</span>
-                            </li>
-                        </ul>
-                        <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose
-                            plan</button>
+                        <div class="px-6 py-4">
+                            <div class="flex items-center">
+                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                    alt="Avatar">
+                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                    alt="Avatar">
+                                <span class="text-yellow-500 text-xl">★</span>
+                                <span class="ml-1 text-gray-700">(4.8)</span>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
+                                <p class="text-gray-700 text-base">
+                                    Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 text-center">
+                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-36">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2:gap-4">
+
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-lg font-bold mb-2">Item 2</h2>
+                    <p class="text-gray-700">Description for item 2.</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6">
+
+                    <p class="text-gray-700 font-black merriweather-bold text-3xl mt-5 " style="width: 350px">We are <span
+                            class="text-red-500">more</span>
+                        than
+                        <span class="text-yellow-400">multiple</span> service
+                    </p>
+                    <p class="mt-5">Discover YumHub, your go-to app for transportation and delicious meals crafted by top
+                        chefs. In addition to light refreshment such as baked goods or snacks.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 inter-subtext mt-7">
+                        <div>
+                            <ul class="list-disc list-inside">
+                                <li class="flex items-center ">
+                                    <img src="{{ asset('icons/laptop.png') }}" class="h-8 w-8 mr-2"
+                                        alt="24/7 Service Icon">
+                                    Online Order
+                                </li>
+                                <li class="flex items-center mt-5">
+                                    <img src="{{ asset('icons/burger.png') }}" class="h-8 w-8 mr-2"
+                                        alt="24/7 Service Icon">
+                                    Quality Food
+                                </li>
+                                <li class="flex items-center mt-5">
+                                    <img src="{{ asset('icons/chef.png') }}" class="h-8 w-8 mr-2"
+                                        alt="24/7 Service Icon">
+                                    Super Chef
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="list-disc list-inside">
+                                <li class="flex items-center">
+                                    <img src="{{ asset('icons/24-hours.png') }}" class="h-8 w-8 mr-2"
+                                        alt="24/7 Service Icon">
+                                    24/7 Service
+                                </li>
+                                <li class="flex items-center mt-5">
+                                    <img src="{{ asset('icons/layers.png') }}" class="h-8 w-8 mr-2"
+                                        alt="24/7 Service Icon">
+                                    Organized Foodhut Place
+                                </li>
+                                <li class="flex items-center mt-5">
+                                    <img src="{{ asset('icons/clean.png') }}" class="h-8 w-8 mr-2"
+                                        alt="24/7 Service Icon">
+                                    Clean Kitchen
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                </div>
 
+                </div>
+            </div>
+        </div>
+        <div class="mt-36">
+            <div class="text-center merriweather-bold">
+                <h1 class="capitalize text-black text-4xl"><span class="text-red-500">Menu</span> that <span
+                        class="text-yellow-400">Always</span> make you
+                </h1>
+                <h1 class="capitalize text-black text-4xl">Fall In <span class="text-red-500">love</span>
+                </h1>
             </div>
         </div>
     </div>

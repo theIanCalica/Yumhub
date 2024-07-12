@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cuisine;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Storage;
 
-class CuisineController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $cuisines = Cuisine::orderBy("name", "asc")->get();
-        return response()->json($cuisines);
+        $categories = Category::orderBy("name", "asc")->get();
+        return response()->json($categories);
     }
 
     /**
@@ -34,18 +33,13 @@ class CuisineController extends Controller
         try {
             $validatedData = $request->validate([
                 "name" => "required|string|max:255",
-                "desc" => "required|string",
-                "img_url" => "required|image|mimes:jpeg,png,jpg",
             ]);
 
-            $path = Storage::putFile('public/cuisines', $request->file('img_url'));
-            $validatedData['img_url'] = $path;
-
-            $cuisine = Cuisine::create($validatedData);
+            $category = Category::create($validatedData);
 
             return response()->json([
                 "success" => "Added Successfully!",
-                "cuisine" => $cuisine,
+                "category" => $category,
                 "status" => 200,
             ]);
         } catch (ValidationException $e) {
@@ -62,14 +56,14 @@ class CuisineController extends Controller
      */
     public function show(string $id)
     {
-        $cuisine = Cuisine::FindOrFail($id);
-        return response()->json($cuisine);
+        $category = Category::FindOrFail($id);
+        return response()->json($category);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cuisine $cuisine)
+    public function edit(Category $category)
     {
         //
     }
@@ -81,26 +75,14 @@ class CuisineController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                "id" => "required",
                 "name" => "required|string|max:255",
-                "desc" => "required|string",
-                "img_url" => "image|mimes:jpeg,png,jpg",
             ]);
 
-            $cuisine = Cuisine::FindOrFail($id);
-            if ($request->hasFile("img_url")) {
-                $path = Storage::putFile('public/cuisines/', $request->file('img_url'));
-                unlink("storage/" . substr($cuisine->img_url, 7));
-                $validatedData['img_url'] = $path;
-                $cuisine->update($validatedData);
-            } else {
-                $cuisine->update($validatedData);
-            }
-
+            $category = Category::create($validatedData);
 
             return response()->json([
                 "success" => "Added Successfully!",
-                "manager" => $cuisine,
+                "category" => $category,
                 "status" => 200,
             ]);
         } catch (ValidationException $e) {
@@ -117,9 +99,8 @@ class CuisineController extends Controller
      */
     public function destroy(string $id)
     {
-        $cuisine = Cuisine::FindOrFail($id);
-        unlink("storage/" . substr($cuisine->img_url, 7));
-        $cuisine->delete();
+        $category = Category::FindOrFail($id);
+        $category->delete();
         return response()->json([
             "success" => "Deleted Successfully!",
             "status" => 200,

@@ -12,6 +12,7 @@ Route::view("/users", "admin.users")->name("users");
 Route::view("/stockholders", "admin.stockholders")->name("stockholders");
 Route::view("/cuisines", "admin.cuisines")->name("cuisines");
 Route::view("/admins", "admin.index")->name("admin.home");
+Route::view("/categories", "admin.categories")->name("categories");
 
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function () {
 });
