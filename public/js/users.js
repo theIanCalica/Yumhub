@@ -66,6 +66,21 @@ $(document).ready(function () {
         order: [[12, "asc"]],
     });
 
+    $("userAddForm").validate({
+        rules: {
+            fname: {
+                required: true,
+                maxlength: 255,
+            },
+            lname: {
+                required: true,
+                maxlength: 255,
+            },
+            gender: {
+                required: true,
+            },
+        },
+    });
     $("#userAdd").on("click", function (e) {
         e.preventDefault();
         const data = $(`#userAddForm`)[0];

@@ -13,7 +13,7 @@ Route::view("/stockholders", "admin.stockholders")->name("stockholders");
 Route::view("/cuisines", "admin.cuisines")->name("cuisines");
 Route::view("/admins", "admin.index")->name("admin.home");
 Route::view("/categories", "admin.categories")->name("categories");
-
+Route::view("/try", "admin.try");
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function () {
 });
 

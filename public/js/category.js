@@ -11,9 +11,9 @@ $(document).ready(function () {
         modal.show();
     }
 
-    $("#cuisinesTable").dataTable({
+    $("#categoriesTable").dataTable({
         ajax: {
-            url: "/api/cuisines",
+            url: "/api/categories",
             dataSrc: "",
         },
         dom: '<"flex justify-between items-center"lf>t<"flex justify-between items-center"ip>',
@@ -25,7 +25,7 @@ $(document).ready(function () {
                 className:
                     "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800",
                 action: function (e, dt, node, config) {
-                    $("#managerAddForm").trigger("reset");
+                    $("#categoryAddForm").trigger("reset");
                     openModal("add-modal");
                 },
             },
@@ -57,7 +57,7 @@ $(document).ready(function () {
         "Only JPEG, JPG, PNG files are allowed!"
     );
 
-    $("#cuisineAddForm").validate({
+    $("#categoryAddForm").validate({
         rules: {
             name: {
                 required: true,
@@ -92,7 +92,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/cuisines",
+                url: "/api/categories",
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -110,40 +110,22 @@ $(document).ready(function () {
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.cuisine.id)
+                            .html(data.category.id)
                     );
                     tr.append(
                         $("<th>")
                             .addClass(
                                 "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             )
-                            .html(data.cuisine.name)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.cuisine.desc)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .append(
-                                $("<img>")
-                                    .attr("src", data.cuisine.img_url)
-                                    .addClass("h-16 w-16 object-cover") // Adjust these classes as needed
-                            )
+                            .html(data.category.name)
                     );
 
                     tr.append(
                         $("<th>").html(
-                            "<i class='fi fi-rr-edit text-blue-500 editBtn mr-10' data-id='" +
-                                data.cuisine.id +
-                                "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                                data.cuisine.id +
+                            "<i class='fi fi-rr-edit  text-blue-500 editBtn mr-10' data-id='" +
+                                data.category.id +
+                                "'></i><i class='fi  ml-10 fi-rr-trash deleteBtn text-red-500' data-id='" +
+                                data.category.id +
                                 "'></i>"
                         )
                     );
@@ -163,31 +145,17 @@ $(document).ready(function () {
         },
     });
 
-    $("#cuisineEditForm").validate({
+    $("#categoryEditForm").validate({
         rules: {
             name: {
                 required: true,
                 maxlength: 255,
-            },
-            desc: {
-                required: true,
-            },
-            img: {
-                required: true,
-                fileType: /^image\/(jpeg|jpg|png)$/,
             },
         },
         messages: {
             name: {
                 required: "This field is required!",
                 maxlength: "Name cannot exceed 255 characters!",
-            },
-            desc: {
-                required: "This field is required!",
-            },
-            img_url: {
-                required: "This field is required!",
-                fileType: "Only JPEG, JPG, PNG files are allowed!",
             },
         },
         submitHandler: function (form) {
@@ -202,7 +170,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: `/api/cuisines/${id}`,
+                url: `/api/categories/${id}`,
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -229,12 +197,12 @@ $(document).ready(function () {
         },
     });
 
-    $("#cuisinesTable tbody").on("click", "i.editBtn", function (e) {
+    $("#categoriesTable tbody").on("click", "i.editBtn", function (e) {
         console.log("hi");
         const id = $(this).data("id");
         $.ajax({
             type: "GET",
-            url: `/api/cuisines/${id}`,
+            url: `/api/categories/${id}`,
             contentType: false,
             processData: false,
             headers: {
@@ -268,7 +236,7 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: `/api/cuisines/${cuisineID}`,
+                    url: `/api/categories/${cuisineID}`,
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
                             "content"
@@ -306,70 +274,12 @@ $(document).ready(function () {
         }
     });
 
-    $("#desc").on("input", function () {
-        const desc = $(this).val().trim();
-
-        if (desc != "") {
-            $(this).removeClass("error");
-            $(this).addClass("success");
-        } else {
-            $(this).removeClass("success");
-            $(this).addClass("error");
-        }
-    });
-
-    $("#img").on("change", function () {
-        const file = this.files[0];
-        if (file) {
-            const validTypes = ["image/jpeg", "image/png", "image/jpg"];
-            if (validTypes.includes(file.type)) {
-                $(this).removeClass("error");
-                $(this).addClass("success");
-            } else {
-                $(this).removeClass("success");
-                $(this).addClass("error");
-            }
-        } else {
-            $(this).removeClass("success");
-            $(this).addClass("error");
-        }
-    });
-
     $("#editName").on("input", function () {
         const name = $(this).val().trim();
 
         if (name != "" && name.length <= 255) {
             $(this).removeClass("error");
             $(this).addClass("success");
-        } else {
-            $(this).removeClass("success");
-            $(this).addClass("error");
-        }
-    });
-
-    $("#editDesc").on("input", function () {
-        const desc = $(this).val().trim();
-
-        if (desc != "") {
-            $(this).removeClass("error");
-            $(this).addClass("success");
-        } else {
-            $(this).removeClass("success");
-            $(this).addClass("error");
-        }
-    });
-
-    $("#editImg").on("change", function () {
-        const file = this.files[0];
-        if (file) {
-            const validTypes = ["image/jpeg", "image/png", "image/jpg"];
-            if (validTypes.includes(file.type)) {
-                $(this).removeClass("error");
-                $(this).addClass("success");
-            } else {
-                $(this).removeClass("success");
-                $(this).addClass("error");
-            }
         } else {
             $(this).removeClass("success");
             $(this).addClass("error");

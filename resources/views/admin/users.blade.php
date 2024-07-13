@@ -58,17 +58,17 @@
                                 Name</label>
                             <input type="text" name="fname" id="fname"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter First Name" required="">
                         </div>
                         <div class="col-span-2">
                             <label for="lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
                                 Name</label>
                             <input type="text" name="lname" id="lname"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter Last Name" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="lname"
+                            <label for="gender"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender
                             </label>
                             <select name="gender" id="gender"
@@ -77,51 +77,46 @@
                                 <option value="Men">Men</option>
                                 <option value="Women">Women</option>
                             </select>
-                            <input type="text" name="lname" id="lname" placeholder="Type region name"
-                                required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+                            <label for="phoneNumber"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
                                 Number
                             </label>
-                            <input type="tel" name="regionName" id="name"
+                            <input type="tel" name="phoneNumber" id="phoneNumber"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter Phone Number" required="" maxlength="11">
                         </div>
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
-
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
                             </label>
-                            <input type="email" name="regionName" id="name"
+                            <input type="email" name="email" id="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter Email" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="name"
+                            <label for="region"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Region
-
                             </label>
-                            <input type="email" name="regionName" id="name"
+                            <input type="email" name="region" id="region"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter Region" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="name"
+                            <label for="province"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province
-
                             </label>
-                            <input type="email" name="regionName" id="name"
+                            <input type="email" name="province" id="province"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter Province" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                            <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City
 
                             </label>
-                            <input type="email" name="regionName" id="name"
+                            <input type="email" name="city" id="city"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type region name" required="">
+                                placeholder="Enter City" required="">
                         </div>
                     </div>
                     <button type="submit" id="regionAdd"
@@ -132,7 +127,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Add new region
+                        Add New User
                     </button>
                 </form>
             </div>
@@ -194,6 +189,11 @@
 
             <div>
                 <h1 class="text-2xl mb-2">Users</h1>
+                <button id="btnAdd"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button" data-modal-target="add-modal" data-modal-toggle="add-modal">
+                    Add User
+                </button>
                 <div class="overflow-x-auto">
                     <table class="w-dvw text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         id="usersTable">

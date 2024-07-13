@@ -75,13 +75,14 @@ class CategoryController extends Controller
     {
         try {
             $validatedData = $request->validate([
+                "id" => "required|string",
                 "name" => "required|string|max:255",
             ]);
-
-            $category = Category::create($validatedData);
+            $category = Category::FindOrFail($id);
+            $category->update($validatedData);
 
             return response()->json([
-                "success" => "Added Successfully!",
+                "success" => "Updated Successfully!",
                 "category" => $category,
                 "status" => 200,
             ]);

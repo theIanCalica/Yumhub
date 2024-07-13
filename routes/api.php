@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\ManagerController;
@@ -19,6 +20,7 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource("users", UserController::class);
 Route::apiResource("cuisines", CuisineController::class);
+Route::apiResource("categories", CategoryController::class);
 
 // Api for MP1,MP2,MP3
 Route::apiResource("managers", ManagerController::class);
