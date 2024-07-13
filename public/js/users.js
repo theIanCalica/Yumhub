@@ -66,8 +66,73 @@ $(document).ready(function () {
         order: [[12, "asc"]],
     });
 
-    $("userAddForm").validate({
+    $("#userAddForm").validate({
         rules: {
+            fname: {
+                required: "This field is required!",
+                maxlength: "Your First Name must not exceed 255 characters!",
+            },
+            lname: {
+                required: "This field is required!",
+                maxlength: "Your Last Name must not exceed 255 characters!",
+            },
+            gender: {
+                required: true,
+            },
+            dob: {
+                required: true,
+                date: true,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phoneNumber: {
+                required: true,
+                maxlength: 11,
+                minlength: 11,
+            },
+            password: {
+                required: true,
+                minlength: 6,
+            },
+            region: {
+                required: true,
+                maxlength: 255,
+            },
+            province: {
+                required: true,
+                maxlength: 255,
+            },
+            city: {
+                required: true,
+                maxlength: 255,
+            },
+            barangay: {
+                required: true,
+                maxlength: 255,
+            },
+            street: {
+                required: true,
+                maxlength: 255,
+            },
+            houseNo: {
+                required: true,
+                maxlength: 255,
+            },
+            zipCode: {
+                required: true,
+                maxlength: 4,
+            },
+            role: {
+                required: true,
+                maxlength: 255,
+            },
+            isDisabled: {
+                required: true,
+            },
+        },
+        messages: {
             fname: {
                 required: true,
                 maxlength: 255,
@@ -77,6 +142,58 @@ $(document).ready(function () {
                 maxlength: 255,
             },
             gender: {
+                required: true,
+            },
+            dob: {
+                required: true,
+                date: true,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phoneNumber: {
+                required: true,
+                maxlength: 11,
+                minlength: 11,
+            },
+            password: {
+                required: true,
+                minlength: 6,
+            },
+            region: {
+                required: true,
+                maxlength: 255,
+            },
+            province: {
+                required: true,
+                maxlength: 255,
+            },
+            city: {
+                required: true,
+                maxlength: 255,
+            },
+            barangay: {
+                required: true,
+                maxlength: 255,
+            },
+            street: {
+                required: true,
+                maxlength: 255,
+            },
+            houseNo: {
+                required: true,
+                maxlength: 255,
+            },
+            zipCode: {
+                required: true,
+                maxlength: 4,
+            },
+            role: {
+                required: true,
+                maxlength: 255,
+            },
+            isDisabled: {
                 required: true,
             },
         },
