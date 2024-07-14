@@ -18,20 +18,29 @@
 @endsection
 
 @section('content')
-    <div class="container mx-auto p-4 bg-gray-100">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <div class="flex  items-center space-x-2">
-                    <span class="bg-red-100 flex items-center space-x-2 shadow-md">
+    <div class="container mx-auto p-4 ">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pl-3 bg-zinc-50" style="height: 500px">
+            <div class="  rounded-lg p-6">
+                <div class="flex  items-center space-x-2 pl-3">
+                    <span class="bg-red-100 flex items-center space-x-2 shadow-md rounded-full p-2">
                         <img src="{{ asset('pics/love.png') }}" alt="Love icon" class="w-5 h-5">
-
-                        <h2 class="text-sm  mb-2 trust">People Trust Us </h2>
+                        <h2 class="text-sm mb-0 trust">People Trust Us</h2>
                     </span>
 
+
                 </div>
-                <p class="text-gray-700 font-bold text-3xl mt-5">We're <span class="text-red-500">Serious</span> For Food &
-                    Delivery</p>
-                <p>Best cooks and best delivery guys all at your service. Hot Tasty food will reach you in 60 minutes.</p>
+                <p class="text-gray-700 font-bold text-5xl mt-5  merriweather-bold " style="width: 450px">We're <span
+                        class="text-red-500">Serious</span> For <span class="text-red-500">
+                </p>
+
+                <p class="text-gray-700 font-bold text-5xl mt-5  merriweather-bold " style="width: 450px"><span
+                        class="text-red-500">Food</span> &
+                    <span class="text-yellow-400">Delivery</span>
+                </p>
+
+                <p class="my-7 text-xl ">Best cooks and best delivery guys all at your service. Hot Tasty food will reach
+                    you in 60
+                    minutes.</p>
 
                 <form>
                     <label for="search"
@@ -60,7 +69,7 @@
                         Now!</button>
                 </div>
             </div>
-            <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="rounded-lg p-6">
                 <h2 class="text-lg font-bold mb-2">Item 2</h2>
                 <p class="text-gray-700">Description for item 2.</p>
             </div>
