@@ -69,12 +69,12 @@ $(document).ready(function () {
     $("#userAddForm").validate({
         rules: {
             fname: {
-                required: "This field is required!",
-                maxlength: "Your First Name must not exceed 255 characters!",
+                required: true,
+                maxlength: 255,
             },
             lname: {
-                required: "This field is required!",
-                maxlength: "Your Last Name must not exceed 255 characters!",
+                required: true,
+                maxlength: 255,
             },
             gender: {
                 required: true,
@@ -134,100 +134,100 @@ $(document).ready(function () {
         },
         messages: {
             fname: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter your first name!",
+                maxlength: "Your first name must not exceed 255 characters!",
             },
             lname: {
-                required: true,
-                maxlength: 255,
+                required: "This field is required!",
+                maxlength: "Your last name must not exceed 255 characters!",
             },
             gender: {
-                required: true,
+                required: "This field is required!",
             },
             dob: {
-                required: true,
-                date: true,
+                required: "This field is required!",
+                date: "Your date of birth must be a valid date!",
             },
             email: {
-                required: true,
-                email: true,
+                required: "Please enter your email address!",
+                email: "Please enter a valid email address!",
             },
             phoneNumber: {
-                required: true,
-                maxlength: 11,
-                minlength: 11,
+                required: "Please enter your phone number!",
+                maxlength: "Your phone number must be exactly 11 digits!",
+                minlength: "Your phone number must be exactly 11 digits!",
             },
             password: {
-                required: true,
-                minlength: 6,
+                required: "Please enter your password!",
+                minlength: "Your password must be at least 6 characters long!",
             },
             region: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter the region where you live!",
+                maxlength: "The region name must not exceed 255 characters!",
             },
             province: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter the province where you live!",
+                maxlength: "The province name must not exceed 255 characters!",
             },
             city: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter the city where you live!",
+                maxlength: "The city name must not exceed 255 characters!",
             },
             barangay: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter the barangay where you live!",
+                maxlength: "The barangay name must not exceed 255 characters!",
             },
             street: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter the street where you live!",
+                maxlength: "The street name must not exceed 255 characters!",
             },
             houseNo: {
-                required: true,
-                maxlength: 255,
+                required: "Please enter the house number where you live!",
+                maxlength: "The house number must not exceed 255 characters!",
             },
             zipCode: {
-                required: true,
-                maxlength: 4,
+                required: "Please enter the zip code!",
+                maxlength: "The zip code must not exceed 4 characters!",
             },
             role: {
-                required: true,
-                maxlength: 255,
+                required: "Please select a user role!",
+                maxlength: "The role must not exceed 255 characters!",
             },
             isDisabled: {
-                required: true,
+                required: "Please select the account status!",
             },
         },
-    });
-    $("#userAdd").on("click", function (e) {
-        e.preventDefault();
-        const data = $(`#userAddForm`)[0];
-        const formData = new FormData(data);
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-        }
+        submitHandler: function (form) {
+            const formData = new FormData(form);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
 
-        $.ajax({
-            type: "POST",
-            url: "/api/users",
-            data: formData,
-            contentType: false,
-            processData: false,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                Swal.fire({
-                    title: "Success!",
-                    text: "You added a new user!",
-                    icon: "success",
-                });
-            },
-            error: function (data) {
-                console.log(data);
-            },
-        });
+            $.ajax({
+                type: "POST",
+                url: "/api/users",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You added a new user!",
+                        icon: "success",
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+            });
+        },
     });
 
     $("#fname").on("input", function () {

@@ -266,6 +266,14 @@
                 <h1 class="capitalize text-black text-4xl">Fall In <span class="text-red-500">love</span>
                 </h1>
             </div>
+            <div class="flex justify-center " id="categoryButtons">
+
+            </div>
+
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/customer/home.js') }}"></script>
 @endsection

@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign in</title>
-
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favlogo.png') }}">
-    {{-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> --}}
+
 
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -27,19 +26,28 @@
         input.error {
             border-color: red;
         }
+
+        label.success {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        input.success {
+            border-color: green;
+        }
     </style>
 </head>
 
 <body>
     <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
         <a href="" class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
-            <img src="/images/logo.svg" class="mr-4 h-11" alt="Yumhub Logo">
-            <span>Yumhub</span>
+            <img src="{{ asset('logo/logo.png') }}" class="mr-4 h-36" alt="Yumhub Logo">
         </a>
         <!-- Card -->
         <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                Sign in to platform
+            <h2 class="text-2xl text-center font-bold text-gray-900 dark:text-white">
+                Sign in
             </h2>
             <form class="mt-8 space-y-6" action="#" id="sign-in-form">
                 <div>

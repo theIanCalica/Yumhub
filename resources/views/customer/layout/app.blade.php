@@ -71,7 +71,7 @@
     @yield('styles')
 </head>
 
-<body>
+<body class="roboto-regular">
     <header>
         @include('customer.layout.navbar')
     </header>
@@ -81,6 +81,7 @@
     <footer>
         @include('customer.layout.footer')
     </footer>
+    @yield('script')
 </body>
 
 </html>

@@ -23,7 +23,31 @@ $(document).ready(function () {
             // You can perform AJAX submission or other actions here
         },
     });
-    $("#loginBtn").on("click", function () {
-        console.log("hi");
+
+    $("#email").on("input", function () {
+        const email = $(this).val().trim();
+
+        // Regular expression for email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailRegex.test(email)) {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#password").on("input", function () {
+        const password = $(this).val().trim();
+
+        if (password.length <= 6) {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
     });
 });

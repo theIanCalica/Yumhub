@@ -26,6 +26,8 @@ Route::get('/user/verify/{token}', [UserController::class, "verifyEmail"])->name
 Route::view("/sign-up", "customer.auth.sign-up")->name("sign-up");
 Route::view("/sign-in", "customer.auth.sign-in")->name("sign-in");
 Route::view("/", "customer.index")->name("home");
+Route::view("/about-us", "customer.about-us")->name("about-us");
+Route::view("/contact-us", "customer.contact")->name("contact");
 Route::view("/email", "customer.email")->name("email-confirmation");
 Route::prefix("user")->middleware(["isAuthenticated"])->group(function () {
 });
