@@ -101,27 +101,39 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'email' => "required|unique:users",
-                'password' => "required|min:6",
-                'fname' => "required",
-                'lname' => "required",
-                'phoneNumber' => "required|max:11",
+                'fname' => "required|max:255",
+                'lname' => "required|max:255",
+                'gender' => "required|max:5",
+                'dob' => "required|date",
+                'phoneNumber' => 'required|max:11|min:11|unique:users,phoneNumber,' . $id,
+                'email' => 'required|email|unique:users,email,' . $id,
+                'region' => "required|max:255",
+                'province' => "required|max:255",
+                'city' => "required|max:255",
+                'barangay' => "required|max:255",
+                'street' => "required|max:255",
+                'houseNo' => "required|max:255",
+                'zipCode' => "required|max:4",
                 'role' => "required",
+                'is_Disabled' => "required",
             ]);
 
             $user = User::FindOrFail($id);
             $user->update($validatedData);
 
             return response()->json([
-                "success" => "Registered successfully.",
-                "region" => $user,
+                "title" => "Success!",
+                "message" => "You updated the users details!",
+                "icon" => "success",
+                "user" => $user,
                 "status" => 200
             ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'error' => 'Validation failed.',
                 'errors' => $e->errors(),
-                'status' => 422
+                'status' => 422,
+                'id' => $id
             ]);
         }
     }
@@ -159,6 +171,65 @@ class UserController extends Controller
             session()->flash('status_code', 'error');
             session()->flash('status', 'Something went wrong!');
             return redirect()->route('login-patient');
+        }
+    }
+
+    public function register(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'fname' => "required|string|max:255",
+                'lname' => "required|string|max:255",
+                'gender' => "required|string",
+                'dob' => "required|date",
+                'phoneNumber' => "required|min:11|max:11|unique:users",
+                'email' => "required|email|unique:users",
+                'password' => "required|min:6",
+                'region' => "required|max:255",
+                'province' => "required|max:255",
+                'city' => "required|max:255",
+                'barangay' => "required|max:255",
+                'street' => "required|max:255",
+                'houseNo' => "required|max:255",
+                'zipCode' => "required|max:4",
+                'role' => "required|string",
+            ]);
+
+            $user = User::create($validatedData);
+            return response()->json([
+                'title' => "Successfully Registered!",
+                'icon' => "success",
+                "user" => $user,
+                "status" => 200
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422,
+                'title' => "Error Occured!",
+                'icon' => "error",
+            ]);
+        }
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
+
+    public function checkPhoneNumber(Request $request)
+    {
+        $user = User::where("phoneNumber", $request->phoneNumber)->first();
+        if ($user) {
+            echo "false";
+        } else {
+            echo "true";
         }
     }
 }

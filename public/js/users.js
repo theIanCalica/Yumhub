@@ -34,6 +34,8 @@ $(document).ready(function () {
             { data: "id" },
             { data: "fname" },
             { data: "lname" },
+            { data: "gender" },
+            { data: "dob" },
             { data: "phoneNumber" },
             { data: "email" },
             { data: "region" },
@@ -47,7 +49,7 @@ $(document).ready(function () {
             {
                 data: "is_disabled",
                 render: function (data, type, row) {
-                    return data ? "Disabled" : "Active";
+                    return data ? "Active" : "Disabled";
                 },
             },
             {
@@ -230,6 +232,163 @@ $(document).ready(function () {
         },
     });
 
+    $("#usersEditForm").validate({
+        rules: {
+            fname: {
+                required: true,
+                maxlength: 255,
+            },
+            lname: {
+                required: true,
+                maxlength: 255,
+            },
+            gender: {
+                required: true,
+            },
+            dob: {
+                required: true,
+                date: true,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phoneNumber: {
+                required: true,
+                maxlength: 11,
+                minlength: 11,
+            },
+            region: {
+                required: true,
+                maxlength: 255,
+            },
+            province: {
+                required: true,
+                maxlength: 255,
+            },
+            city: {
+                required: true,
+                maxlength: 255,
+            },
+            barangay: {
+                required: true,
+                maxlength: 255,
+            },
+            street: {
+                required: true,
+                maxlength: 255,
+            },
+            houseNo: {
+                required: true,
+                maxlength: 255,
+            },
+            zipCode: {
+                required: true,
+                maxlength: 4,
+            },
+            role: {
+                required: true,
+                maxlength: 255,
+            },
+            is_Disabled: {
+                required: true,
+            },
+        },
+        messages: {
+            fname: {
+                required: "Please enter your first name!",
+                maxlength: "Your first name must not exceed 255 characters!",
+            },
+            lname: {
+                required: "This field is required!",
+                maxlength: "Your last name must not exceed 255 characters!",
+            },
+            gender: {
+                required: "This field is required!",
+            },
+            dob: {
+                required: "This field is required!",
+                date: "Your date of birth must be a valid date!",
+            },
+            email: {
+                required: "Please enter your email address!",
+                email: "Please enter a valid email address!",
+            },
+            phoneNumber: {
+                required: "Please enter your phone number!",
+                maxlength: "Your phone number must be exactly 11 digits!",
+                minlength: "Your phone number must be exactly 11 digits!",
+            },
+            region: {
+                required: "Please enter the region where you live!",
+                maxlength: "The region name must not exceed 255 characters!",
+            },
+            province: {
+                required: "Please enter the province where you live!",
+                maxlength: "The province name must not exceed 255 characters!",
+            },
+            city: {
+                required: "Please enter the city where you live!",
+                maxlength: "The city name must not exceed 255 characters!",
+            },
+            barangay: {
+                required: "Please enter the barangay where you live!",
+                maxlength: "The barangay name must not exceed 255 characters!",
+            },
+            street: {
+                required: "Please enter the street where you live!",
+                maxlength: "The street name must not exceed 255 characters!",
+            },
+            houseNo: {
+                required: "Please enter the house number where you live!",
+                maxlength: "The house number must not exceed 255 characters!",
+            },
+            zipCode: {
+                required: "Please enter the zip code!",
+                maxlength: "The zip code must not exceed 4 characters!",
+            },
+            role: {
+                required: "Please select a user role!",
+                maxlength: "The role must not exceed 255 characters!",
+            },
+            is_Disabled: {
+                required: "Please select the account status!",
+            },
+        },
+        submitHandler: function (form) {
+            const formData = new FormData(form);
+
+            formData.append("_method", "PUT");
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: `/api/users/${id}`,
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You added a new user!",
+                        icon: "success",
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+            });
+        },
+    });
     $("#usersTable tbody").on("click", "i.editBtn", function () {
         const id = $(this).data("id");
         console.log(id);
@@ -245,6 +404,33 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 console.log(data);
+                $("#id").val(data.id);
+                $("#editFname").val(data.fname);
+                $("#editLname").val(data.lname);
+                $("#editGender option").each(function () {
+                    if ($(this).val() == data.gender) {
+                        $(this).prop("selected", true);
+                    }
+                });
+                $("#editDob").val(data.dob);
+                $("#editPhoneNumber").val(data.phoneNumber);
+                $("#editEmail").val(data.email);
+                $("#editRegion").val(data.region);
+                $("#editProvince").val(data.province);
+                $("#editCity").val(data.city);
+                $("#editBarangay").val(data.barangay);
+                $("#editStreet").val(data.street);
+                $("#editHouseNo").val(data.houseNo);
+                $("#editZipCode").val(data.zipCode);
+                $("#editRole").val(data.role);
+                $("#editIs_Disabled option").each(function () {
+                    console.log(data.is_disabled);
+                    if ($(this).val() === data.is_disabled) {
+                        $(this).prop("selected", true);
+                    }
+                });
+
+                openModal("edit-modal");
             },
             error: function (data) {
                 console.log(data);

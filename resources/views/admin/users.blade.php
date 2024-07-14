@@ -216,8 +216,8 @@
                             <select name="is_Disabled" id="is_Disabled"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected disabled>Select a Status</option>
-                                <option value="Active">Active</option>
-                                <option value="Disabled">Disabled</option>
+                                <option value="1">Active</option>
+                                <option value="0">Disabled</option>
                             </select>
 
                         </div>
@@ -238,7 +238,7 @@
     </div>
 
     {{-- Edit Modal  --}}
-    <div id="add-modal" tabindex="-1"
+    <div id="edit-modal" tabindex="-1"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-7xl max-h-full">
             <!-- Modal content -->
@@ -250,7 +250,7 @@
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="extralarge-modal">
+                        data-modal-hide="edit-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -260,7 +260,8 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="userAddForm">
+                <form class="p-4 md:p-5" id="usersEditForm">
+                    <input type="hidden" name="id" id="id">
                     <div class="grid gap-4 mb-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         <!-- Personal Information -->
                         <div class="col-span-2 md:col-span-3 lg:col-span-4">
@@ -298,7 +299,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
                                 Number
                             </label>
-                            <input type="date" name="dob" id="dob"
+                            <input type="date" name="dob" id="editDob"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 required="">
                         </div>
@@ -307,7 +308,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
                                 Number
                             </label>
-                            <input type="tel" name="phoneNumber" id="phoneNumber"
+                            <input type="tel" name="phoneNumber" id="editPhoneNumber"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Phone Number" required="" maxlength="11">
                         </div>
@@ -315,7 +316,7 @@
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
                             </label>
-                            <input type="email" name="email" id="email"
+                            <input type="email" name="email" id="editEmail"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Email" required="">
                         </div>
@@ -328,7 +329,7 @@
                             <label for="region"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Region
                             </label>
-                            <input type="text" name="region" id="region"
+                            <input type="text" name="region" id="editRegion"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Region" required="">
                         </div>
@@ -336,7 +337,7 @@
                             <label for="province"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province
                             </label>
-                            <input type="text" name="province" id="province"
+                            <input type="text" name="province" id="editProvince"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Province" required="">
                         </div>
@@ -344,7 +345,7 @@
                             <label for="city"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City
                             </label>
-                            <input type="text" name="city" id="city"
+                            <input type="text" name="city" id="editCity"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter City" required="">
                         </div>
@@ -352,7 +353,7 @@
                             <label for="barangay"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barangay
                             </label>
-                            <input type="text" name="barangay" id="barangay"
+                            <input type="text" name="barangay" id="editBarangay"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Barangay" required="">
                         </div>
@@ -360,7 +361,7 @@
                             <label for="street"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Street
                             </label>
-                            <input type="text" name="street" id="street"
+                            <input type="text" name="street" id="editStreet"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Street" required="">
                         </div>
@@ -368,7 +369,7 @@
                             <label for="houseNo"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">House Number
                             </label>
-                            <input type="text" name="houseNo" id="houseNo"
+                            <input type="text" name="houseNo" id="editHouseNo"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter House Number" required="">
                         </div>
@@ -376,7 +377,7 @@
                             <label for="zipCode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip
                                 Code
                             </label>
-                            <input type="text" name="zipCode" id="zipCode"
+                            <input type="text" name="zipCode" id="editZipCode"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Zip Code" maxlength="4" required="">
                         </div>
@@ -388,24 +389,24 @@
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Password
                             </label>
-                            <input type="password" name="password" id="password"
+                            <input type="password" name="password" id="editPassword"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Enter Password" required="">
+                                placeholder="Enter Password">
                         </div>
                         <div class="col-span-2 md:col-span-1 lg:col-span-1">
                             <label for="confirmPassword"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Password
                             </label>
-                            <input type="password" name="confirmPassword" id="confirmPassword"
+                            <input type="password" name="confirmPassword" id="editConfirmPassword"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Confirm Password" required="">
+                                placeholder="Confirm Password">
                         </div>
                         <div class="col-span-2 md:col-span-1 lg:col-span-1">
                             <label for="zipCode"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role
                             </label>
-                            <select name="role" id="role"
+                            <select name="role" id="editRole"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected disabled>Select a Role</option>
                                 <option value="Customer">Customer</option>
@@ -415,28 +416,26 @@
 
                         </div>
                         <div class="col-span-2 md:col-span-1 lg:col-span-1">
-                            <label for="is_Disabled"
+                            <label for="editIs_Disabled"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
                             </label>
-                            <select name="is_Disabled" id="is_Disabled"
+                            <select name="is_Disabled" id="editIs_Disabled"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected disabled>Select a Status</option>
-                                <option value="Active">Active</option>
-                                <option value="Disabled">Disabled</option>
+                                <option value="1">Active</option>
+                                <option value="0">Disabled</option>
                             </select>
 
                         </div>
                     </div>
                     <button type="submit" id="regionAdd"
-                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Add New User
+                        class="text-white flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <i class="fi fi-rr-edit mr-2 mt-1"></i>
+                        Update
                     </button>
+
+
+
                 </form>
             </div>
         </div>
@@ -470,6 +469,13 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Last Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Gender
+                                </th>
+
+                                <th scope="col" class="px-6 py-3">
+                                    Date of Birth
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Phone Number
@@ -523,6 +529,13 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Last Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Gender
+                                </th>
+
+                                <th scope="col" class="px-6 py-3">
+                                    Date of Birth
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Phone Number
