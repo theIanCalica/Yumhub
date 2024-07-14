@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProvinceController;
@@ -21,7 +23,10 @@ Route::get('/user', function (Request $request) {
 Route::apiResource("users", UserController::class);
 Route::apiResource("cuisines", CuisineController::class);
 Route::apiResource("categories", CategoryController::class);
-
+Route::apiResource("contactMessages", ContactMessageController::class);
+Route::put("/put-vendor-details/{id}", [UserController::class, "putVendorDetails"]);
+Route::put("/put-user-details/{id}", [UserController::class, "putUserDetails"]);
+Route::post("/sign-in/auth", [AuthController::class, "login"]);
 // Api for MP1,MP2,MP3
 Route::apiResource("managers", ManagerController::class);
 Route::apiResource("riders", RiderController::class);

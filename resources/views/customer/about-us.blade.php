@@ -1,23 +1,23 @@
 @extends('customer.layout.app')
 
 @section('content')
-    <div class=" container mx-auto p-10 ">
-        <div class="grid grid-cols-2  gap-4 mt-5">
-            <!-- Column 1 content -->
-            <div class="p-4 text-center flex items-center justify-center">
-                <img src="{{ asset('svg/about-us/firstPic.svg') }}" class="h-60" alt="">
-            </div>
-
-
-            <!-- Column 2 content -->
-            <div class="p-6">
-                <h1 class="text-4xl font-bold mb-4 mt-12">Mission</h1>
-                <p class=" leading-relaxed">
-                    To connect users seamlessly with local vendors, offering convenience, choice, and satisfaction in every
-                    order.
-                </p>
-            </div>
-
+    <div class=" container mx-auto p-10  ">
+        <div class="container w-full mt-10  ">
+            <h1 class="text-5xl font-black text-center">Charging forward together</h1>
         </div>
+
+
+        <div class="container w-full mt-10 flex justify-center">
+            <div class="max-w-10xl rounded overflow-hidden shadow-lg">
+                <img src="{{ asset('images/1_aboutUs.jpg') }}" alt="" class="h-lvh w-full">
+                <div class="px-6 py-4">
+                    <p class="text-black text-2xl px-12 font-medium text-center">
+                        Guided by the Yumhub Way, our mission is to drive Southeast Asia forward by creating economic
+                        empowerment for everyone.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

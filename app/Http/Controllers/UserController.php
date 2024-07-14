@@ -44,19 +44,18 @@ class UserController extends Controller
                 'gender' => "required|max:5",
                 'dob' => "required",
                 'phoneNumber' => "required|max:11",
+                'region' => "required|max:255",
+                'province' => "required|max:255",
+                'city' => "required|max:255",
+                'barangay' => "required|max:255",
+                'street' => "required|max:255",
+                'houseNo' => "required|max:255",
+                'zipCode' => "required|max:4",
                 'role' => "required",
+                'is_Disabled' => "required",
             ]);
 
-            $user = User::create([
-                'email' => $validatedData["email"],
-                'password' => $validatedData["password"],
-                'fname' => $validatedData["fname"],
-                'lname' => $validatedData['lname'],
-                'gender' => $validatedData['gender'],
-                'dob' => $validatedData['dob'],
-                'phoneNumber' => $validatedData["phoneNumber"],
-                'role' => $validatedData["role"],
-            ]);
+            $user = User::create($validatedData);
 
             $verifyUser = VerifyUser::create([
                 'token' => Str::random(60),
@@ -135,7 +134,7 @@ class UserController extends Controller
         $user = User::FindOrFail($id);
         $user->delete();
         return response()->json([
-            "success" => "Added Successfully1",
+            "success" => "Deleted Successfully1",
             "status" => 202,
         ]);
     }

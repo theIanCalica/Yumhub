@@ -230,6 +230,66 @@ $(document).ready(function () {
         },
     });
 
+    $("#usersTable tbody").on("click", "i.editBtn", function () {
+        const id = $(this).data("id");
+        console.log(id);
+
+        $.ajax({
+            type: "GET",
+            url: `/api/users/${id}`,
+            contentType: false,
+            processData: false,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
+    });
+    $("#usersTable tbody").on("click", "i.deleteBtn", function () {
+        const id = $(this).data("id");
+        const $row = $(this).closest("tr");
+        Swal.fire({
+            title: "Do you want to delete this?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `/api/users/${id}`,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $row.fadeOut(2000, function () {
+                            $row.remove();
+                        });
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You successfully deleted it!",
+                            icon: "success",
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            }
+        });
+    });
+
     $("#fname").on("input", function () {
         const fname = $(this).val().trim();
 

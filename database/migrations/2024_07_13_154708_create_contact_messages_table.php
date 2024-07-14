@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('contact_messages', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string("name", 255);
+            $table->string("fname", 255);
+            $table->string("lname", 255);
             $table->string("email", 255);
             $table->string("subject", 255);
             $table->longText("message");

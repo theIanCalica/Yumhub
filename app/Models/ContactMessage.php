@@ -11,7 +11,8 @@ class ContactMessage extends Model
     use HasFactory, HasUuids;
     protected $table = "contact_messages";
     protected $fillable = [
-        "name",
+        "fname",
+        "lname",
         "email",
         "subject",
         "message"

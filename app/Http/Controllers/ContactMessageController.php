@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
-use App\Http\Requests\StoreContactMessageRequest;
-use App\Http\Requests\UpdateContactMessageRequest;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
 
 class ContactMessageController extends Controller
 {
@@ -13,7 +13,8 @@ class ContactMessageController extends Controller
      */
     public function index()
     {
-        //
+        $contactMessages = ContactMessage::orderBy("subject", "asc")->get();
+        return response()->json($contactMessages);
     }
 
     /**
@@ -27,17 +28,40 @@ class ContactMessageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContactMessageRequest $request)
+    public function store(Request $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "fname" => "required|string|max:255",
+                "lname" => "required|string|max:255",
+                "email" => "required|string|email|max:255",
+                "subject" => "required|string",
+                "message" => "required|string",
+            ]);
+
+            $contactMessage = ContactMessage::create($validatedData);
+
+            return response()->json([
+                "success" => "Added Successfully!",
+                "contactMessage" => $contactMessage,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ContactMessage $contactMessage)
+    public function show(string $id)
     {
-        //
+        $categoryMessage = ContactMessage::FindOrFail($id);
+        return response()->json($categoryMessage);
     }
 
     /**
@@ -51,16 +75,44 @@ class ContactMessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContactMessageRequest $request, ContactMessage $contactMessage)
+    public function update(Request $request, string $id)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "fname" => "required|string|max:255",
+                "lname" => "required|string|max:255",
+                "email" => "required|string|email|max:255",
+                "subject" => "required|string",
+                "message" => "required|string",
+            ]);
+
+            $contactMessage = ContactMessage::FindOrFail($id);
+            $contactMessage->update($validatedData);
+
+            return response()->json([
+                "success" => "Updated Successfully!",
+                "contactMessage" => $contactMessage,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContactMessage $contactMessage)
+    public function destroy(string $id)
     {
-        //
+        $contactMessage = ContactMessage::FindOrFail($id);
+        $contactMessage->delete();
+        return response()->json([
+            "success" => "Deleted Successfully!",
+            "status" => 200,
+        ]);
     }
 }

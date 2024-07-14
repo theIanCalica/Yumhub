@@ -18,9 +18,25 @@ $(document).ready(function () {
             },
         },
         submitHandler: function (form) {
-            // Form submission if valid
-            console.log("Form submitted!");
-            // You can perform AJAX submission or other actions here
+            const formData = new FormData(form);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/sign-in/auth",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                dataType: "json",
+                success: function (data) {},
+            });
         },
     });
 
