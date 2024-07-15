@@ -3,14 +3,44 @@ $(document).ready(function () {
         rules: {
             fname: {
                 required: true,
+                maxlength: 255,
             },
             lname: {
                 required: true,
+                maxlength: 255,
             },
-
+            gender: {
+                required: true,
+            },
+            dob: {
+                required: true,
+                date: true,
+            },
+            phoneNumber: {
+                required: true,
+                maxlength: 11,
+                remote: {
+                    url: "/api/checkPhoneNumber",
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#phoneNumber").val();
+                        },
+                    },
+                },
+            },
             email: {
                 required: true,
                 email: true,
+                remote: {
+                    url: "/api/checkEmail", // Endpoint to check email availability
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#email").val(); // Get the value of email input
+                        },
+                    },
+                },
             },
             password: {
                 required: true,
@@ -19,26 +49,45 @@ $(document).ready(function () {
             confirmpassword: {
                 required: true,
                 minlength: 6,
-                passwordMatch: true, // Use the custom method for matching passwords
+                equalTo: "#password",
             },
         },
         messages: {
+            fname: {
+                required: "Please enter your first name!",
+            },
+            lname: {
+                required: "This field is required!",
+            },
+            gender: {
+                required: "This field is required!",
+            },
+            dob: {
+                required: "This field is required!",
+            },
+            phoneNumber: {
+                required: "Please enter your phone number!",
+                remote: "This phone number is already taken!",
+            },
             email: {
-                required: "Please enter your email",
+                required: "Please enter your email!",
+                email: "Invalid email format!",
+                remote: "This email is already taken!",
             },
             password: {
-                required: "Please enter your password",
+                required: "Please enter your password!",
             },
             confirmpassword: {
-                required: "Please confirm your password",
-                minlength: "Password must be at least 6 characters long",
-                passwordMatch: "Passwords do not match",
+                required: "Please confirm your passwor!",
+                minlength: "Password must be at least 6 characters long!",
+                equalTo: "Passwords do not match!",
             },
         },
         submitHandler: function (form) {
             var formData = new FormData(form);
 
             formData.append("role", "seller");
+
             // Log each form entry to the console
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
@@ -46,7 +95,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/users",
+                url: "/api/register",
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -63,7 +112,7 @@ $(document).ready(function () {
                         "Your request was successful!"
                     );
                     $("#sign-up-form").find("input").val("");
-                    window.location.href = "/sign-in";
+                    // window.location.href = "/sign-in";
                 },
                 error: {},
             });

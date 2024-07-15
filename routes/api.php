@@ -26,6 +26,7 @@ Route::apiResource("contactMessages", ContactMessageController::class);
 
 // Api for registeration for customer and seller
 Route::post("/register", [UserController::class, "register"]);
+Route::post("/seller-register", [UserController::class, "registerSeller"]);
 
 // API for checking email uniqueness
 Route::post("/checkEmail", [UserController::class, "checkEmail"]);

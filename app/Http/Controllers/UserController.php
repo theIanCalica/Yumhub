@@ -213,6 +213,38 @@ class UserController extends Controller
         }
     }
 
+    public function registerSeller(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'fname' => "required|string|max:255",
+                'lname' => "required|string|max:255",
+                'gender' => "required|string",
+                'dob' => "required|date",
+                'phoneNumber' => "required|min:11|max:11|unique:users",
+                'email' => "required|email|unique:users",
+                'password' => "required|min:6",
+                'role' => "required|string",
+            ]);
+
+            $user = User::create($validatedData);
+            return response()->json([
+                'title' => "Successfully Registered!",
+                'icon' => "success",
+                "user" => $user,
+                "status" => 200
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422,
+                'title' => "Error Occured!",
+                'icon' => "error",
+            ]);
+        }
+    }
+
     public function checkEmail(Request $request)
     {
         $user = User::where('email', $request->email)->first();

@@ -11,7 +11,7 @@
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favlogo.png') }}">
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
-    <script src="{{ asset('js/customer/sign-up.js') }}"></script>
+    <script src="{{ asset('js/seller/sign-up.js') }}"></script>
 
     {{-- Font for logo --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,6 +46,14 @@
         }
 
         input.success {
+            border-color: green;
+        }
+
+        select.error {
+            border-color: red;
+        }
+
+        select.success {
             border-color: green;
         }
 
@@ -93,6 +101,7 @@
         <!-- Card -->
         <div class="form-card dark:bg-gray-800">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white text-center">Create an Account</h2>
+            <h3 class="text-base text-gray-900 dark:text-white text-center">Be a seller</h3>
             <form class="mt-8 space-y-6" action="#" id="sign-up-form">
                 <div class="mt-3">
                     <h1 class="font-black merriweather-bold text-2xl">Personal Details</h1>
@@ -150,64 +159,13 @@
                         required>
                 </div>
                 <div>
-                    <label for="confirm-password"
+                    <label for="confirmpassword"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                    <input type="password" name="confirm-password" id="confirmpassword" placeholder="••••••••"
+                    <input type="password" name="confirmpassword" id="confirmpassword" placeholder="••••••••"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         required>
                 </div>
-                <div class="mt-3">
-                    <h1 class="font-black merriweather-bold text-2xl">Address Details</h1>
-                </div>
-                <div>
-                    <label for="region"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Region</label>
-                    <input type="text" name="region" id="region" placeholder="Enter Region"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
-                <div>
-                    <label for="province"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
-                    <input type="text" name="province" id="province" placeholder="Enter Province"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
-                <div>
-                    <label for="city"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                    <input type="text" name="city" id="city" placeholder="Enter City"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
-                <div>
-                    <label for="barangay"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barangay</label>
-                    <input type="text" name="barangay" id="barangay" placeholder="Enter Barangay"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
-                <div>
-                    <label for="street"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Street</label>
-                    <input type="text" name="street" id="street" placeholder="Enter Street"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
-                <div>
-                    <label for="houseNo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">House
-                        Number</label>
-                    <input type="text" name="houseNo" id="houseNo" placeholder="Enter House Number"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
-                <div>
-                    <label for="zipCode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip
-                        Code</label>
-                    <input type="text" name="zipCode" id="zipCode" placeholder="Enter Zip Code"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required>
-                </div>
+
                 <button type="submit"
                     class="w-full px-5 py-3 text-base font-medium text-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create
                     account</button>
