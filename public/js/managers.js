@@ -1,4 +1,29 @@
 $(document).ready(function () {
+    $("#btnImport").click(function () {
+        $("#fileInput").click(); // Trigger file input click
+    });
+
+    $("#fileInput").on("change", function () {
+        const allowedMimeTypes = [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+        ];
+
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            if (allowedMimeTypes.includes(file.type)) {
+                console.log("Selected file:", file);
+                $("#importForm").submit();
+            } else {
+                Swal.fire({
+                    title: "Warning!",
+                    text: "Files only accepted are .csv and .excel",
+                    icon: "warning",
+                });
+            }
+        }
+    });
+
     $("#fname").on("input", function () {
         const fnameVal = $(this).val().trim();
 
@@ -131,37 +156,39 @@ $(document).ready(function () {
         modal.show();
     }
 
-    $("#managersTable").dataTable({
+    $("#managersTable").DataTable({
         ajax: {
             url: "/api/managers",
             dataSrc: "",
         },
         dom: '<"flex justify-between items-center"lf>t<"flex justify-between items-center"ip>',
-        buttons: [
-            "pdf",
-            "excel",
-            {
-                text: "Add Manager",
-                className:
-                    "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800",
-                action: function (e, dt, node, config) {
-                    $("#managerAddForm").trigger("reset");
-                    openModal("add-modal");
-                },
-            },
-        ],
         columns: [
             { data: "id" },
             { data: "fname" },
             { data: "lname" },
             { data: "sex" },
             { data: "DOB" },
+            { data: "address" },
             { data: "phoneNumber" },
             { data: "email" },
-            { data: "hiredDate" },
+
+            {
+                data: "hiredDate",
+                render: function (data, type, row) {
+                    // Assuming 'data' is in ISO date format (e.g., "2024-07-17T00:00:00")
+                    var date = new Date(data);
+                    // Format date as "monthname day year" (e.g., "July 17 2024")
+                    var formattedDate = date.toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                    });
+                    return formattedDate;
+                },
+            },
             { data: "employmentStatus" },
             { data: "salary" },
-            { data: "address" },
+
             {
                 data: null,
                 render: function (data, type, row) {
@@ -180,8 +207,8 @@ $(document).ready(function () {
 
     $("#managerAddForm").validate({
         rules: {
-            fname: { required: true },
-            lname: { required: true },
+            fname: { required: true, maxlength: 255 },
+            lname: { required: true, maxlength: 255 },
             sex: { required: true },
             DOB: { required: true },
             phoneNumber: { required: true, minlength: 11 },
@@ -328,7 +355,7 @@ $(document).ready(function () {
                     );
                     $("table tbody").append(tr);
 
-                    closeModal();
+                    closeModal("add-modal");
                     Swal.fire({
                         title: "Success!",
                         text: "You added new manager!",

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ManagerImport;
 use App\Models\Manager;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller
 {
@@ -16,7 +18,7 @@ class ManagerController extends Controller
      */
     public function index()
     {
-        $managers = Manager::orderBy("hiredDate", "asc")->get();
+        $managers = Manager::orderBy("created_at", "asc")->get();
         return response()->json($managers);
     }
 
@@ -142,5 +144,37 @@ class ManagerController extends Controller
         $manager->delete();
         $data = array('success' => 'deleted', 'code' => 200);
         return response()->json($data);
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $manager = Manager::where("email", $request->email)->first();
+        if ($manager) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
+
+    public function checkPhoneNum(Request $request)
+    {
+        $manager = Manager::where("phoneNumber", $request->phoneNumber)->first();
+        if ($manager) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
+
+    public function import(Request $request)
+    {
+
+        if ($request->hasFile('fileInput')) {
+            $file = $request->file('fileInput');
+
+
+            Excel::import(new ManagerImport, $file);
+            return response()->json(['success' => 'File imported successfully.']);
+        }
     }
 }

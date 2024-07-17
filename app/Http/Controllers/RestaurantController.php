@@ -117,4 +117,24 @@ class RestaurantController extends Controller
             "status" => 202,
         ]);
     }
+
+    public function checkPhoneNum(Request $request)
+    {
+        $restaurant = Restaurant::where("phoneNumber", $request->phoneNumber)->first();
+        if ($restaurant) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $restaurant = Restaurant::where("email", $request->email)->first();
+        if ($restaurant) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
 }

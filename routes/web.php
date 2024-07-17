@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ Route::view("/try", "admin.try");
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function () {
 });
 
-
+Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
 
 //Route for verification
 Route::get('/user/verify/{token}', [UserController::class, "verifyEmail"])->name('user.verify');

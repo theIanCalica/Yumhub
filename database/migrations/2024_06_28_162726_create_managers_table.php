@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string("fname");
             $table->string("lname");
             $table->string("sex");
-            $table->date("DOB");
+            $table->dateTime("DOB");
             $table->string("phoneNumber", 11);
             $table->string("email");
-            $table->date("hiredDate");
+            $table->dateTime("hiredDate");
             $table->string("employmentStatus");
             $table->string("salary");
             $table->string("address");

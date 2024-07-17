@@ -8,6 +8,7 @@ use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\UserController;
@@ -30,9 +31,16 @@ Route::post("/seller-register", [UserController::class, "registerSeller"]);
 
 // API for checking email uniqueness
 Route::post("/checkEmail", [UserController::class, "checkEmail"]);
+Route::post("/restoCheckEmail", [RestaurantController::class, "checkEmail"]);
+
+// API ROUTE FOR HANDLING IMPORTS FOR LARAVEL EXCEL
+
+Route::post("/import-stockholder", [StockholderController::class, "import"]);
+Route::post("/import-rider", [RiderController::class, "import"]);
 
 //API for checking phoneNumber uniqueness
 Route::post("/checkPhoneNumber", [UserController::class, "checkPhoneNumber"]);
+Route::post("/checkRestoPhoneNum", [RestaurantController::class, "checkPhoneNum"]);
 // Api for logging in first time
 Route::put("/put-vendor-details/{id}", [UserController::class, "putVendorDetails"]);
 Route::put("/put-user-details/{id}", [UserController::class, "putUserDetails"]);

@@ -19,11 +19,12 @@ $(document).ready(function () {
             phoneNumber: {
                 required: true,
                 maxlength: 11,
+                minlength: 11,
                 remote: {
                     url: "/api/checkPhoneNumber",
                     type: "post",
                     data: {
-                        email: function () {
+                        phoneNumber: function () {
                             return $("#phoneNumber").val();
                         },
                     },
@@ -112,15 +113,116 @@ $(document).ready(function () {
                         "Your request was successful!"
                     );
                     $("#sign-up-form").find("input").val("");
+                    $("#seller_id").val(data.seller.id);
+                    $("#restoForm").submit();
                     // window.location.href = "/sign-in";
                 },
-                error: {},
+                error: function (data) {
+                    console.log(data);
+                },
             });
         },
-        success: function (label, element) {
-            $(element).removeClass("error").addClass("success");
+        errorPlacement: function (error, element) {
+            error.insertAfter(element);
+        },
+        success: function (label) {
+            // Custom success function
+            label.addClass("text-green-500"); // Example: add a Tailwind CSS class for green text
+            var input = $(label).prev("input");
+            $(input).removeClass("border-red-500");
+            $(input).addClass("border-green-500");
         },
     });
+
+    $("#restoForm").validate({
+        rules: {
+            name: {
+                required: true,
+                maxlength: 255,
+            },
+            address: {
+                required: true,
+            },
+            phoneNumber: {
+                required: true,
+                maxlength: 11,
+                minlength: 11,
+                remote: {
+                    url: "/api/checkRestoPhoneNum",
+                    type: "post",
+                    data: {
+                        phoneNumber: function () {
+                            return $("#phoneNumber").val();
+                        },
+                    },
+                },
+            },
+            email: {
+                required: true,
+                email: true,
+                remote: {
+                    url: "/api/restoCheckEmail", // Endpoint to check email availability
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#email").val(); // Get the value of email input
+                        },
+                    },
+                },
+            },
+            logo: {
+                required: true,
+                accept: "image/png, image/jpeg, image/jpg",
+            },
+            desc: {
+                required: true,
+            },
+            opHours: {
+                required: true,
+            },
+        },
+        messages: {
+            name: {
+                required: "Please enter your restaurant's name!",
+                maxlength: "Restaurant name must not exceed 255 characters!",
+            },
+            address: {
+                required: "Please enter the address of your restaurant!",
+            },
+            phoneNumber: {
+                required: "Please enter the phone number of your restaurant!",
+                minlength: "Phone number must be exactly 11 digits!",
+                maxlength: "Phone number must be exactly 11 digits!",
+                remote: "Phone Number already taken!",
+            },
+            email: {
+                required: "Please enter your email!",
+                email: "Invalid email format!",
+                remote: "Email already taken!",
+            },
+            logo: {
+                required: true,
+                accept: "image/png, image/jpeg, image/jpg",
+            },
+            desc: {
+                required: "Please enter description of restaurant!",
+            },
+            opHours: {
+                required: "PLease ebter operating hours",
+            },
+        },
+        errorPlacement: function (error, element) {
+            error.insertAfter(element);
+        },
+        success: function (label) {
+            // Custom success function
+            label.addClass("text-green-500"); // Example: add a Tailwind CSS class for green text
+            var input = $(label).prev("input");
+            $(input).removeClass("border-red-500");
+            $(input).addClass("border-green-500");
+        },
+    });
+
     $("#fname").on("input", function () {
         const fnameVal = $(this).val().trim();
 
