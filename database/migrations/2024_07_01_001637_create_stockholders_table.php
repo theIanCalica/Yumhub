@@ -15,12 +15,12 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->string("name", 255);
             $table->string("sex", 6);
-            $table->date("dob");
+            $table->dateTime("dob");
             $table->string("email");
             $table->string("phoneNumber", 11);
             $table->string("address");
             $table->integer("sharesOwned");
-            $table->date("investmentDate");
+            $table->dateTime("investmentDate");
             $table->string("prefferedContact");
             $table->timestamps();
         });

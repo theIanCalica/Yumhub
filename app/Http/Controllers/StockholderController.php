@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\StockholderImport;
 use App\Models\Stockholder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StockholderController extends Controller
 {
@@ -131,5 +133,15 @@ class StockholderController extends Controller
             "success" => "Added Successfully1",
             "status" => 202,
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        if ($request->hasFile("fileInput")) {
+            $file = $request->file('fileInput');
+            Excel::import(new StockholderImport, $file);
+            return redirect()->route('stockholders')
+                ->with('success', 'File imported successfully.');
+        }
     }
 }

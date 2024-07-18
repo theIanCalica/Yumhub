@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string("fname");
             $table->string("lname");
             $table->string("sex");
-            $table->date("dob");
+            $table->dateTime("dob");
             $table->string("phoneNumber", 11)->unique();
             $table->string("email")->unique();
-            $table->date("hiredDate");
+            $table->dateTime("hiredDate");
             $table->string("employmentStatus");
             $table->string("salary");
             $table->string("address");

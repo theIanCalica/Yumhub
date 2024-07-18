@@ -14,7 +14,7 @@ class Rider extends Model
         "fname",
         "lname",
         "sex",
-        "DOB",
+        "dob",
         "phoneNumber",
         "email",
         "motorModel",

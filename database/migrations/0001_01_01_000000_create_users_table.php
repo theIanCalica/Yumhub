@@ -18,15 +18,9 @@ return new class extends Migration
             $table->string('gender', 5);
             $table->date("dob");
             $table->string('email')->unique();
-            $table->string('phoneNumber', 11);
+            $table->string('phoneNumber', 11)->unique();
+            $table->string("address");
             $table->string('password');
-            $table->string("region", 255)->nullable();
-            $table->string("province", 255)->nullable();
-            $table->string("city", 255)->nullable();
-            $table->string("barangay", 255)->nullable();
-            $table->string("street", 255)->nullable();
-            $table->string("houseNo", 255)->nullable();
-            $table->string("zipCode", 4)->nullable();
             $table->string("role", 255);
             $table->boolean("is_disabled")->default(0);
             $table->timestamp('email_verified_at')->nullable();

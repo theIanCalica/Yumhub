@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\RiderImport;
 use App\Models\Rider;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 class RiderController extends Controller
 {
@@ -135,5 +138,31 @@ class RiderController extends Controller
         $rider->delete();
         $data = array('success' => 'deleted', 'code' => 200);
         return response()->json($data);
+    }
+
+    public function import(Request $request)
+    {
+        // Validate the file input
+        $validator = Validator::make($request->all(), [
+            'fileInput' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            if ($request->hasFile('fileInput')) {
+                $file = $request->file('fileInput');
+                Excel::import(new RiderImport, $file);
+                return redirect()->route('riders')
+                    ->with('success', 'File imported successfully.');
+            } else {
+                return response()->json(['error' => 'No file uploaded.'], 400);
+            }
+        } catch (\Exception $e) {
+
+            return response()->json(['error' => 'An error occurred during file import.', "Here are the errors" => $e->getMessage()], 500);
+        }
     }
 }

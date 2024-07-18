@@ -36,6 +36,24 @@
 @endsection
 
 @section('content')
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+
+        <!-- JavaScript to trigger SweetAlert -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'You imported excel data!',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
+    @endif
     {{-- Add Modal --}}
     <div id="add-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -268,11 +286,23 @@
             <div>
                 <h1 class="text-2xl mb-2">Stockholders</h1>
                 <!-- Modal toggle -->
-                <button id="btnAdd"
-                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    type="button">
-                    Add Stockholder
-                </button>
+                <div class="flex justify-normal">
+                    <button type="button" data-modal-target="add-modal" data-modal-toggle="add-modal"
+                        class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Add
+                        Rider</button>
+
+                    <form action="{{ route('import-stockholder') }}" method="POST" id="importForm"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('post')
+                        <button type="button" id="btnImport"
+                            class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Import</button>
+                        <input type="file" id="fileInput" name="fileInput" style="display: none;"
+                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                    </form>
+
+
+                </div>
                 <div class="overflow-x-auto">
                     <table class="w-dvw text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         id="stockholdersTable">

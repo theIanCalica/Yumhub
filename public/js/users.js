@@ -38,13 +38,7 @@ $(document).ready(function () {
             { data: "dob" },
             { data: "phoneNumber" },
             { data: "email" },
-            { data: "region" },
-            { data: "province" },
-            { data: "city" },
-            { data: "barangay" },
-            { data: "street" },
-            { data: "houseNo" },
-            { data: "zipCode" },
+            { data: "address" },
             { data: "role" },
             {
                 data: "is_disabled",
@@ -88,6 +82,15 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
+                remote: {
+                    url: "/api/checkEmail", // Endpoint to check email availability
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#email").val(); // Get the value of email input
+                        },
+                    },
+                },
             },
             phoneNumber: {
                 required: true,
@@ -98,33 +101,8 @@ $(document).ready(function () {
                 required: true,
                 minlength: 6,
             },
-            region: {
+            address: {
                 required: true,
-                maxlength: 255,
-            },
-            province: {
-                required: true,
-                maxlength: 255,
-            },
-            city: {
-                required: true,
-                maxlength: 255,
-            },
-            barangay: {
-                required: true,
-                maxlength: 255,
-            },
-            street: {
-                required: true,
-                maxlength: 255,
-            },
-            houseNo: {
-                required: true,
-                maxlength: 255,
-            },
-            zipCode: {
-                required: true,
-                maxlength: 4,
             },
             role: {
                 required: true,

@@ -1,4 +1,27 @@
 $(document).ready(function () {
+    $("#btnImport").click(function () {
+        $("#fileInput").click(); // Trigger file input click
+    });
+
+    $("#fileInput").on("change", function () {
+        const allowedMimeTypes = [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+        ];
+
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            if (allowedMimeTypes.includes(file.type)) {
+                $("#importForm").submit();
+            } else {
+                Swal.fire({
+                    title: "Warning!",
+                    text: "Files only accepted are .csv and .excel",
+                    icon: "warning",
+                });
+            }
+        }
+    });
     $("#fname").on("input", function () {
         const fnameVal = $(this).val().trim();
 

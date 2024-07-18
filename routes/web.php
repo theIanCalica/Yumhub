@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\RiderController;
+use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +16,14 @@ Route::view("/stockholders", "admin.stockholders")->name("stockholders");
 Route::view("/cuisines", "admin.cuisines")->name("cuisines");
 Route::view("/admins", "admin.index")->name("admin.home");
 Route::view("/categories", "admin.categories")->name("categories");
-Route::view("/try", "admin.try");
+
+Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
+Route::post("/import-rider", [RiderController::class, "import"])->name("import-rider");
+Route::post("/import-stockholder", [StockholderController::class, "import"])->name("import-stockholder");
+
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin'])->group(function () {
 });
 
-Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
 
 //Route for verification
 Route::get('/user/verify/{token}', [UserController::class, "verifyEmail"])->name('user.verify');
