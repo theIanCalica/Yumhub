@@ -101,13 +101,7 @@ class UserController extends Controller
                 'dob' => "required|date",
                 'phoneNumber' => 'required|max:11|min:11|unique:users,phoneNumber,' . $id,
                 'email' => 'required|email|unique:users,email,' . $id,
-                'region' => "required|max:255",
-                'province' => "required|max:255",
-                'city' => "required|max:255",
-                'barangay' => "required|max:255",
-                'street' => "required|max:255",
-                'houseNo' => "required|max:255",
-                'zipCode' => "required|max:4",
+                'address' => "required",
                 'role' => "required",
                 'is_Disabled' => "required",
             ]);
@@ -140,7 +134,7 @@ class UserController extends Controller
         $user = User::FindOrFail($id);
         $user->delete();
         return response()->json([
-            "success" => "Deleted Successfully1",
+            "success" => "Deleted Successfully!",
             "status" => 202,
         ]);
     }
@@ -176,16 +170,10 @@ class UserController extends Controller
                 'lname' => "required|string|max:255",
                 'gender' => "required|string",
                 'dob' => "required|date",
+                'address' => "required",
                 'phoneNumber' => "required|min:11|max:11|unique:users",
                 'email' => "required|email|unique:users",
                 'password' => "required|min:6",
-                'region' => "required|max:255",
-                'province' => "required|max:255",
-                'city' => "required|max:255",
-                'barangay' => "required|max:255",
-                'street' => "required|max:255",
-                'houseNo' => "required|max:255",
-                'zipCode' => "required|max:4",
                 'role' => "required|string",
             ]);
 

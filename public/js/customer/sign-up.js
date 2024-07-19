@@ -8,6 +8,20 @@ $(document).ready(function () {
         "Passwords do not match"
     );
 
+    $.validator.addMethod(
+        "minAge",
+        function (value, element, min) {
+            var inputDate = new Date(value);
+            var currentDate = new Date();
+            var minAgeDate = new Date(
+                currentDate.setFullYear(currentDate.getFullYear() - min)
+            );
+
+            return inputDate <= minAgeDate;
+        },
+        "You must be at least 18 years old."
+    );
+
     $("#sign-up-form").validate({
         rules: {
             fname: {
@@ -24,6 +38,7 @@ $(document).ready(function () {
             dob: {
                 required: true,
                 date: true,
+                minAge: 18,
             },
             phoneNumber: {
                 required: true,
@@ -60,33 +75,8 @@ $(document).ready(function () {
                 minlength: 6,
                 passwordMatch: true, // Use the custom method for matching passwords
             },
-            region: {
+            address: {
                 required: true,
-                maxlength: 255,
-            },
-            province: {
-                required: true,
-                maxlength: 255,
-            },
-            city: {
-                required: true,
-                maxlength: 255,
-            },
-            barangay: {
-                required: true,
-                maxlength: 255,
-            },
-            street: {
-                required: true,
-                maxlength: 255,
-            },
-            houseNo: {
-                required: true,
-                maxlength: 255,
-            },
-            zipCode: {
-                required: true,
-                maxlength: 4,
             },
         },
         messages: {
@@ -94,13 +84,18 @@ $(document).ready(function () {
                 required: "Please enter your first name!",
             },
             lname: {
-                required: "This field is required!",
+                required: "Please enter your last name!",
             },
             gender: {
-                required: "This field is required!",
+                required: "Select a Gender!",
             },
             dob: {
-                required: "This field is required!",
+                required: "Please enter your Date of Birth!",
+                date: "Please enter a valid date format",
+                minAge: "You must be at least 18 years old.",
+            },
+            address: {
+                required: "Please enter your address!",
             },
             phoneNumber: {
                 required: "Please enter your phone number!",
@@ -118,34 +113,6 @@ $(document).ready(function () {
                 required: "Please confirm your passwor!",
                 minlength: "Password must be at least 6 characters long!",
                 passwordMatch: "Passwords do not match!",
-            },
-            region: {
-                required: "Please enter your region!",
-                maxlength: "Region name can't exceed 255 characters!",
-            },
-            province: {
-                required: "Please enter your province!",
-                maxlength: "Province name can't exceed 255 characters!",
-            },
-            city: {
-                required: "Please enter your city!",
-                maxlength: "City name can't exceed 255 characters!",
-            },
-            barangay: {
-                required: "Please enter your barangay!",
-                maxlength: "Barangay name can't exceed 255 characters!",
-            },
-            street: {
-                required: "Please enter your street!",
-                maxlength: "Barangay name can't exceed 255 characters!",
-            },
-            houseNo: {
-                required: "Please enter your house number!",
-                maxlength: "House number name can't exceed 255 characters!",
-            },
-            zipCode: {
-                required: "Please enter your zip code!",
-                maxlength: "Zip code can't exceed 4 characters!",
             },
         },
         submitHandler: function (form) {

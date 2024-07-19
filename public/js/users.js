@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $("#btnAdd").on("click", function () {
+        openModal("add-modal");
+    });
     function closeModal(modalId) {
         const $targetEl = document.getElementById(modalId);
         const modal = new Modal($targetEl);
@@ -43,7 +46,7 @@ $(document).ready(function () {
             {
                 data: "is_disabled",
                 render: function (data, type, row) {
-                    return data ? "Active" : "Disabled";
+                    return data ? "Disabled" : "Active";
                 },
             },
             {
@@ -83,11 +86,11 @@ $(document).ready(function () {
                 required: true,
                 email: true,
                 remote: {
-                    url: "/api/checkEmail", // Endpoint to check email availability
+                    url: "/api/checkEmail",
                     type: "post",
                     data: {
                         email: function () {
-                            return $("#email").val(); // Get the value of email input
+                            return $("#email").val();
                         },
                     },
                 },
@@ -96,6 +99,15 @@ $(document).ready(function () {
                 required: true,
                 maxlength: 11,
                 minlength: 11,
+                remote: {
+                    url: "/api/checkPhoneNumber",
+                    type: "post",
+                    data: {
+                        phoneNumber: function () {
+                            return $("#phoneNumber").val();
+                        },
+                    },
+                },
             },
             password: {
                 required: true,
@@ -131,6 +143,7 @@ $(document).ready(function () {
             email: {
                 required: "Please enter your email address!",
                 email: "Please enter a valid email address!",
+                remote: "Email already taken",
             },
             phoneNumber: {
                 required: "Please enter your phone number!",
@@ -141,33 +154,8 @@ $(document).ready(function () {
                 required: "Please enter your password!",
                 minlength: "Your password must be at least 6 characters long!",
             },
-            region: {
-                required: "Please enter the region where you live!",
-                maxlength: "The region name must not exceed 255 characters!",
-            },
-            province: {
-                required: "Please enter the province where you live!",
-                maxlength: "The province name must not exceed 255 characters!",
-            },
-            city: {
-                required: "Please enter the city where you live!",
-                maxlength: "The city name must not exceed 255 characters!",
-            },
-            barangay: {
-                required: "Please enter the barangay where you live!",
-                maxlength: "The barangay name must not exceed 255 characters!",
-            },
-            street: {
-                required: "Please enter the street where you live!",
-                maxlength: "The street name must not exceed 255 characters!",
-            },
-            houseNo: {
-                required: "Please enter the house number where you live!",
-                maxlength: "The house number must not exceed 255 characters!",
-            },
-            zipCode: {
-                required: "Please enter the zip code!",
-                maxlength: "The zip code must not exceed 4 characters!",
+            address: {
+                required: "Please enter the address!",
             },
             role: {
                 required: "Please select a user role!",
@@ -196,12 +184,23 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    console.log("rinun");
                     Swal.fire({
                         title: "Success!",
                         text: "You added a new user!",
                         icon: "success",
                     });
+
+                    closeModal("add-modal");
+                    $("#userAddForm")
+                        .find("input, select")
+                        .each(function () {
+                            if ($(this).is("select")) {
+                                $(this).prop("selectedIndex", 0); // Reset select to the first option
+                            } else {
+                                $(this).val(""); // Clear input values
+                            }
+                        });
                 },
                 error: function (data) {
                     console.log(data);
@@ -236,33 +235,8 @@ $(document).ready(function () {
                 maxlength: 11,
                 minlength: 11,
             },
-            region: {
+            address: {
                 required: true,
-                maxlength: 255,
-            },
-            province: {
-                required: true,
-                maxlength: 255,
-            },
-            city: {
-                required: true,
-                maxlength: 255,
-            },
-            barangay: {
-                required: true,
-                maxlength: 255,
-            },
-            street: {
-                required: true,
-                maxlength: 255,
-            },
-            houseNo: {
-                required: true,
-                maxlength: 255,
-            },
-            zipCode: {
-                required: true,
-                maxlength: 4,
             },
             role: {
                 required: true,
@@ -297,33 +271,8 @@ $(document).ready(function () {
                 maxlength: "Your phone number must be exactly 11 digits!",
                 minlength: "Your phone number must be exactly 11 digits!",
             },
-            region: {
-                required: "Please enter the region where you live!",
-                maxlength: "The region name must not exceed 255 characters!",
-            },
-            province: {
-                required: "Please enter the province where you live!",
-                maxlength: "The province name must not exceed 255 characters!",
-            },
-            city: {
-                required: "Please enter the city where you live!",
-                maxlength: "The city name must not exceed 255 characters!",
-            },
-            barangay: {
-                required: "Please enter the barangay where you live!",
-                maxlength: "The barangay name must not exceed 255 characters!",
-            },
-            street: {
-                required: "Please enter the street where you live!",
-                maxlength: "The street name must not exceed 255 characters!",
-            },
-            houseNo: {
-                required: "Please enter the house number where you live!",
-                maxlength: "The house number must not exceed 255 characters!",
-            },
-            zipCode: {
-                required: "Please enter the zip code!",
-                maxlength: "The zip code must not exceed 4 characters!",
+            address: {
+                required: "Please enter the address!",
             },
             role: {
                 required: "Please select a user role!",
@@ -335,12 +284,13 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
-
             formData.append("_method", "PUT");
+
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
 
+            const table = $("#usersTable").DataTable();
             $.ajax({
                 type: "POST",
                 url: `/api/users/${id}`,
@@ -355,11 +305,23 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
+                    // table.ajax.reload();
                     Swal.fire({
                         title: "Success!",
-                        text: "You added a new user!",
+                        text: "You updated the user's details!",
                         icon: "success",
                     });
+
+                    closeModal("edit-modal");
+                    $("#usersEditForm")
+                        .find("input, select")
+                        .each(function () {
+                            if ($(this).is("select")) {
+                                $(this).prop("selectedIndex", 0);
+                            } else {
+                                $(this).val("");
+                            }
+                        });
                 },
                 error: function (data) {
                     console.log(data);
@@ -390,23 +352,15 @@ $(document).ready(function () {
                         $(this).prop("selected", true);
                     }
                 });
+                $("#editAddress").val(data.address);
                 $("#editDob").val(data.dob);
                 $("#editPhoneNumber").val(data.phoneNumber);
                 $("#editEmail").val(data.email);
-                $("#editRegion").val(data.region);
-                $("#editProvince").val(data.province);
-                $("#editCity").val(data.city);
-                $("#editBarangay").val(data.barangay);
-                $("#editStreet").val(data.street);
-                $("#editHouseNo").val(data.houseNo);
-                $("#editZipCode").val(data.zipCode);
                 $("#editRole").val(data.role);
-                $("#editIs_Disabled option").each(function () {
-                    console.log(data.is_disabled);
-                    if ($(this).val() === data.is_disabled) {
-                        $(this).prop("selected", true);
-                    }
-                });
+                $("#editIs_disabled").prop(
+                    "selectedIndex",
+                    data.is_disabled == 0 ? 1 : 2
+                );
 
                 openModal("edit-modal");
             },
@@ -442,7 +396,7 @@ $(document).ready(function () {
                         });
                         Swal.fire({
                             title: "Success!",
-                            text: "You successfully deleted it!",
+                            text: "You deleted a user!",
                             icon: "success",
                         });
                     },
