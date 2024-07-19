@@ -81,11 +81,7 @@ class ContactMessageController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                "fname" => "required|string|max:255",
-                "lname" => "required|string|max:255",
-                "email" => "required|string|email|max:255",
-                "subject" => "required|string",
-                "message" => "required|string",
+                "status" => "required",
             ]);
 
             $contactMessage = ContactMessage::FindOrFail($id);

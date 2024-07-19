@@ -105,6 +105,13 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
+                    closeModal("edit-modal");
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Updated Successfully!",
+                        icon: "success",
+                    });
+                    table.ajax.reload();
                 },
                 error: function (data) {
                     console.log(data);
@@ -112,6 +119,7 @@ $(document).ready(function () {
             });
         },
     });
+
     $("#contactsTable tbody").on("click", "i.editBtn", function () {
         const id = $(this).data("id");
         $.ajax({

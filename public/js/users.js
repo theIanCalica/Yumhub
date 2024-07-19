@@ -167,6 +167,7 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
+            const table = $("#usersTable").DataTable();
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
@@ -190,6 +191,7 @@ $(document).ready(function () {
                         text: "You added a new user!",
                         icon: "success",
                     });
+                    table.ajax.reload();
 
                     closeModal("add-modal");
                     $("#userAddForm")
