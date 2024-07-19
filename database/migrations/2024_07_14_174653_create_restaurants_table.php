@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->uuid("id")->primary();
+            $table->foreignUuid("owner_id");
             $table->string("name", 255);
             $table->text("address");
             $table->string("phoneNumber", 11);
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->longText("desc");
             $table->string("operatingHours");
             $table->timestamps();
+            $table->foreign("owner_id")->references("id")->on("users")->onDelete("cascade");
         });
     }
 

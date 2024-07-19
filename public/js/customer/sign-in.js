@@ -7,6 +7,7 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
+                minlength: 6,
             },
         },
         messages: {

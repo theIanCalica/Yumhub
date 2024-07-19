@@ -37,8 +37,10 @@ class ContactMessageController extends Controller
                 "email" => "required|string|email|max:255",
                 "subject" => "required|string",
                 "message" => "required|string",
+
             ]);
 
+            $validatedData = array_merge($validatedData, ['status' => 'Pending']);
             $contactMessage = ContactMessage::create($validatedData);
 
             return response()->json([

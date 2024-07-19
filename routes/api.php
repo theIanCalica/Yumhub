@@ -25,7 +25,7 @@ Route::apiResource("users", UserController::class);
 Route::apiResource("cuisines", CuisineController::class);
 Route::apiResource("categories", CategoryController::class);
 Route::apiResource("contactMessages", ContactMessageController::class);
-
+Route::apiResource("restaurants", RestaurantController::class);
 // Api for registeration for customer and seller
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/seller-register", [UserController::class, "registerSeller"]);
@@ -34,14 +34,16 @@ Route::post("/seller-register", [UserController::class, "registerSeller"]);
 Route::post("/checkEmail", [UserController::class, "checkEmail"]);
 Route::post("/restoCheckEmail", [RestaurantController::class, "checkEmail"]);
 
+//API for checking phoneNumber uniqueness
+Route::post("/checkPhoneNumber", [UserController::class, "checkPhoneNumber"]);
+Route::post("/checkRestoPhoneNum", [RestaurantController::class, "checkPhoneNum"]);
+
 // API ROUTE FOR HANDLING IMPORTS FOR LARAVEL EXCEL
 
 Route::post("/import-stockholder", [StockholderController::class, "import"]);
 Route::post("/import-rider", [RiderController::class, "import"]);
 
-//API for checking phoneNumber uniqueness
-Route::post("/checkPhoneNumber", [UserController::class, "checkPhoneNumber"]);
-Route::post("/checkRestoPhoneNum", [RestaurantController::class, "checkPhoneNum"]);
+
 // Api for logging in first time
 Route::put("/put-vendor-details/{id}", [UserController::class, "putVendorDetails"]);
 Route::put("/put-user-details/{id}", [UserController::class, "putUserDetails"]);

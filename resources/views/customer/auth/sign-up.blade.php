@@ -9,7 +9,7 @@
     <title>Sign up</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favlogo.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favlogo/fav.png') }}">
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.1/dist/jquery.validate.min.js"></script>
     <script src="{{ asset('js/customer/sign-up.js') }}"></script>
 
@@ -140,7 +140,7 @@
                         Phone Number</label>
                     <input type="tel" name="phoneNumber" id="phoneNumber"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="09*********" required>
+                        placeholder="09*********" required maxlength="11">
                 </div>
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your

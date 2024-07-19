@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    $.validator.addMethod(
+        "fileType",
+        function (value, element, param) {
+            // param is the array of allowed file extensions
+            var fileExtension = value.split(".").pop().toLowerCase();
+            return (
+                this.optional(element) || $.inArray(fileExtension, param) !== -1
+            );
+        },
+        "Please upload a file with a valid extension."
+    );
+
     $("#sign-up-form").validate({
         rules: {
             fname: {
@@ -96,7 +108,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/register",
+                url: "/api/seller-register",
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -108,14 +120,8 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    sessionStorage.setItem(
-                        "successMessage",
-                        "Your request was successful!"
-                    );
-                    $("#sign-up-form").find("input").val("");
-                    $("#seller_id").val(data.seller.id);
+                    $("#owner_id").val(data.user.id);
                     $("#restoForm").submit();
-                    // window.location.href = "/sign-in";
                 },
                 error: function (data) {
                     console.log(data);
@@ -152,7 +158,7 @@ $(document).ready(function () {
                     type: "post",
                     data: {
                         phoneNumber: function () {
-                            return $("#phoneNumber").val();
+                            return $("#restoPhone").val();
                         },
                     },
                 },
@@ -172,7 +178,7 @@ $(document).ready(function () {
             },
             logo: {
                 required: true,
-                accept: "image/png, image/jpeg, image/jpg",
+                fileType: ["png", "jpeg", "jpg"],
             },
             desc: {
                 required: true,
@@ -201,8 +207,8 @@ $(document).ready(function () {
                 remote: "Email already taken!",
             },
             logo: {
-                required: true,
-                accept: "image/png, image/jpeg, image/jpg",
+                required: "Please upload your logo",
+                fileType: "Only PNG, JPEG, and JPG files are allowed.",
             },
             desc: {
                 required: "Please enter description of restaurant!",
@@ -210,6 +216,38 @@ $(document).ready(function () {
             opHours: {
                 required: "PLease ebter operating hours",
             },
+        },
+        submitHandler: function (form) {
+            const formData = new FormData(form);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/restaurants",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                dataType: "json",
+                success: function (data) {
+                    $("#sign-up-form").find("input").val("");
+                    $("#sign-up-form").find("select").prop("selectedIndex", 0);
+                    $("#restoForm").find("input").val();
+                    sessionStorage.setItem(
+                        "successMessage",
+                        "Your request was successful!"
+                    );
+                    window.location.href = "/sign-in";
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+            });
         },
         errorPlacement: function (error, element) {
             error.insertAfter(element);
@@ -246,6 +284,31 @@ $(document).ready(function () {
             $(this).addClass("error");
         }
     });
+
+    $("#gender").on("change", function () {
+        const gender = $(this).val().trim();
+
+        if (gender != "") {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
+    $("#dob").on("change", function () {
+        const dob = $(this).val().trim();
+
+        if (dob != "") {
+            $(this).removeClass("error");
+            $(this).addClass("success");
+        } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
+        }
+    });
+
     $("#email").on("input", function () {
         const emailVal = $(this).val().trim();
 
@@ -275,6 +338,8 @@ $(document).ready(function () {
             $(this).removeClass("error");
             $(this).addClass("success");
         } else {
+            $(this).removeClass("success");
+            $(this).addClass("error");
         }
     });
 });

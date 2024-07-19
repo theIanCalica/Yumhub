@@ -16,7 +16,7 @@ Route::view("/stockholders", "admin.stockholders")->name("stockholders");
 Route::view("/cuisines", "admin.cuisines")->name("cuisines");
 Route::view("/admins", "admin.index")->name("admin.home");
 Route::view("/categories", "admin.categories")->name("categories");
-
+Route::view("/contacts", "admin.contacts")->name("contacts");
 Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
 Route::post("/import-rider", [RiderController::class, "import"])->name("import-rider");
 Route::post("/import-stockholder", [StockholderController::class, "import"])->name("import-stockholder");
@@ -40,7 +40,13 @@ Route::prefix("user")->middleware(["isAuthenticated"])->group(function () {
 
 
 
-//Route for vendors
+//Route for sellers
 Route::view("/seller/sign-up", "seller.sign-up")->name("seller.sign-up");
-Route::prefix("vendor")->middleware(["isAuthenticated"])->group(function () {
+
+
+// Route::prefix("seller")->middleware(["isAuthenticated"])->group(function () {
+// });
+
+Route::prefix("seller")->group(function () {
+  Route::view("/", "seller.index")->name("seller.home");
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
@@ -32,14 +33,17 @@ class RestaurantController extends Controller
     {
         try {
             $validatedData = $request->validate([
+                'owner_id' => "required",
                 "name" => "required|string|max:255",
                 'address' => "required|string",
                 "phoneNumber" => "required|string|min:11|max:11|unique:restaurants",
                 'email' => "required|email|unique:restaurants",
-                'logo_filePath' => "required|string",
+                'logo_filePath' => "required",
                 'desc' => "required|string",
                 'operatingHours' => "required|string",
             ]);
+            $path = Storage::putFile('public/seller/logo', $request->file('logo_filePath'));
+            $validatedData['logo'] = $path;
 
             $restaurant = Restaurant::create($validatedData);
             return response()->json([

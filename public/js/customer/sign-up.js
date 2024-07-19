@@ -117,10 +117,7 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             var formData = new FormData(form);
-
             formData.append("role", "customer");
-
-            // Log each form entry to the console
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }

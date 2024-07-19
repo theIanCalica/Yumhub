@@ -125,7 +125,7 @@ $(document).ready(function () {
                     $("#submitForm label.error").remove();
                     Swal.fire({
                         title: "Success!",
-                        text: "You added new manager!",
+                        text: "Your message has been sent! We will get back to you soon.",
                         icon: "success",
                     });
                 },

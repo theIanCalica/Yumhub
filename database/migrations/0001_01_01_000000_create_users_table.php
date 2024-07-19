@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date("dob");
             $table->string('email')->unique();
             $table->string('phoneNumber', 11)->unique();
-            $table->string("address");
+            $table->string("address")->nullable();
             $table->string('password');
             $table->string("role", 255);
             $table->boolean("is_disabled")->default(0);

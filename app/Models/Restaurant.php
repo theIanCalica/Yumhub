@@ -11,6 +11,7 @@ class Restaurant extends Model
     use HasFactory, HasUuids;
     protected $table = "restaurants";
     protected $fillable = [
+        'owner_id',
         "name",
         'address',
         'phoneNumber',

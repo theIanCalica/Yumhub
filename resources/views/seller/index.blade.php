@@ -1,0 +1,1 @@
+@extends('seller.layout.app')

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Yumhub</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favlogo/fav.png') }}">
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>

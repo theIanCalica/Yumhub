@@ -147,18 +147,15 @@ class UserController extends Controller
             if (!$user->email_verified_at) {
                 $user->email_verified_at = Carbon::now();
                 $user->save();
-                session()->flash('status_code', 'success');
-                session()->flash('status', 'Successfully Verified!');
-                return redirect()->route('login-patient');
+                return redirect()->route('sign-in')->with([
+                    'icon' => 'success',
+                    'message' => 'Email Verified!'
+                ]);
             } else {
-                session()->flash('status_code', 'info');
-                session()->flash('status', 'Email already verified');
-                return redirect()->route('login-patient');
+                return redirect()->route('sign-in')->with(["icon" => "info", "message" =>  "Email already verified!"]);
             }
         } else {
-            session()->flash('status_code', 'error');
-            session()->flash('status', 'Something went wrong!');
-            return redirect()->route('login-patient');
+            return redirect()->route('sign-in')->with(["icon" => "danger", "message" =>  "Something went wrong!"]);
         }
     }
 
@@ -178,6 +175,13 @@ class UserController extends Controller
             ]);
 
             $user = User::create($validatedData);
+
+            $verifyUser = VerifyUser::create([
+                'token' => Str::random(60),
+                'user_id' => $user->id,
+            ]);
+
+            Mail::to($user->email)->send(new ConfirmMail($user));
             return response()->json([
                 'title' => "Successfully Registered!",
                 'icon' => "success",
@@ -210,6 +214,13 @@ class UserController extends Controller
             ]);
 
             $user = User::create($validatedData);
+
+            $verifyUser = VerifyUser::create([
+                'token' => Str::random(60),
+                'user_id' => $user->id,
+            ]);
+
+            Mail::to($user->email)->send(new ConfirmMail($user));
             return response()->json([
                 'title' => "Successfully Registered!",
                 'icon' => "success",

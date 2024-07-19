@@ -15,6 +15,7 @@ class ContactMessage extends Model
         "lname",
         "email",
         "subject",
-        "message"
+        "message",
+        'status',
     ];
 }
