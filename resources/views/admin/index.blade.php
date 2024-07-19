@@ -1,5 +1,10 @@
 @extends('admin.layout.app')
 
+@php
+    use App\Models\User;
+    $user = auth()->user();
+    dd($user);
+@endphp
 @section('content')
     <div class="px-4 pt-6">
         <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
@@ -552,7 +557,8 @@
                                     class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 dark:text-white">
                                     <img class="w-6 h-6 mr-2 rounded-full"
                                         src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"alt="Michael Gough">Michael
-                                    Gough</p>
+                                    Gough
+                                </p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                         title="February 8th, 2022"> 01/03/2023 4:15 PM</time></p>
                             </div>
@@ -612,7 +618,8 @@
                                     class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 dark:text-white">
                                     <img class="w-6 h-6 mr-2 rounded-full"
                                         src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                                        alt="Bonnie avatar">Bonnie Green</p>
+                                        alt="Bonnie avatar">Bonnie Green
+                                </p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                         title="February 8th, 2022"> 01/03/2023 4:15 PM</time></p>
                             </div>
@@ -751,7 +758,8 @@
                                     class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 dark:text-white">
                                     <img class="w-6 h-6 mr-2 rounded-full"
                                         src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"alt="Jese avatar">Jese
-                                    Leos</p>
+                                    Leos
+                                </p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                         title="February 8th, 2022"> 01/03/2023 4:15 PM</time></p>
                             </div>
@@ -882,7 +890,8 @@
                                     class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 dark:text-white">
                                     <img class="w-6 h-6 mr-2 rounded-full"
                                         src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"alt="Joseph avatar">Joseph
-                                    McFallen</p>
+                                    McFallen
+                                </p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                         title="February 8th, 2022"> 01/03/2023 4:15 PM</time></p>
                             </div>
@@ -930,7 +939,8 @@
                                     class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900 dark:text-white">
                                     <img class="w-6 h-6 mr-2 rounded-full"
                                         src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"alt="Jese avatar">Jese
-                                    Leos</p>
+                                    Leos
+                                </p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                         title="February 8th, 2022"> 01/03/2023 4:15 PM</time></p>
                             </div>

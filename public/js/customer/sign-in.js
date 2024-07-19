@@ -12,10 +12,12 @@ $(document).ready(function () {
         },
         messages: {
             email: {
-                required: "Please enter your email",
+                required: "Please enter your email!",
+                email: "Invalid email format!",
             },
             password: {
                 required: "Please enter your password",
+                minlength: "Password must be atleast 6 characters!",
             },
         },
         submitHandler: function (form) {
@@ -36,7 +38,37 @@ $(document).ready(function () {
                     ),
                 },
                 dataType: "json",
-                success: function (data) {},
+                success: function (data) {
+                    console.log(data);
+                    if (data.status == 300) {
+                        Swal.fire({
+                            title: data.title,
+                            text: data.message,
+                            icon: data.icon,
+                        });
+                    }
+
+                    if (data.status === 200) {
+                        sessionStorage.setItem("title", data.title);
+                        sessionStorage.setItem("message", data.message);
+                        sessionStorage.setItem("icon", data.icon);
+
+                        if (data.role === "Admin") {
+                            window.location.href = "/admin/";
+                        } else if (data.role === "Seller") {
+                            console.log("seller");
+                            window.location.href = "/seller/";
+                        } else if (data.role === "Customer") {
+                            window.location.href = "/";
+                        }
+                    } else if (data.status === 500) {
+                        Swal.fire({
+                            title: data.title,
+                            text: data.message,
+                            icon: data.icon,
+                        });
+                    }
+                },
             });
         },
     });

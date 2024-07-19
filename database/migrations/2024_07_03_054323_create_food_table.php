@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string("name");
             $table->text("desc");
             $table->decimal("price");
-            $table->foreignUuid("user_id");
+            $table->foreignUuid("restaurant_id");
             $table->foreignUuid("cuisine_id");
             $table->timestamps();
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("restaurant_id")->references("id")->on("restaurants")->onDelete("cascade");
             $table->foreign("cuisine_id")->references("id")->on("cuisines")->onDelete("cascade");
         });
     }
