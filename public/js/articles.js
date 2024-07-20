@@ -112,7 +112,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/api/cuisines",
+                url: "/api/articles",
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -126,7 +126,7 @@ $(document).ready(function () {
                     console.log(data);
                     table.ajax.reload();
                     closeModal("add-modal");
-                    $("#cuisineAddForm").find("input, textarea").val("");
+                    $("#addForm").find("input, textarea").val("");
                     Swal.fire({
                         title: "Success!",
                         text: "You added new cuisine!",
