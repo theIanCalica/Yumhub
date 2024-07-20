@@ -39,6 +39,7 @@ class CuisineController extends Controller
             ]);
 
             $path = Storage::putFile('public/cuisines', $request->file('img_url'));
+            $path = asset("storage/" . substr($path, 7));
             $validatedData['img_url'] = $path;
 
             $cuisine = Cuisine::create($validatedData);

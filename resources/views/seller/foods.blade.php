@@ -32,7 +32,7 @@
 
 @section('scripts')
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-    <script src="{{ asset('js/cuisines.js') }}"></script>
+    <script src="{{ asset('js/seller/food.js') }}"></script>
 @endsection
 
 @section('content')
