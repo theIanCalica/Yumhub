@@ -13,7 +13,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        //
+        $foods = Food::orderBy("name", "asc")->get();
+        return response()->json($foods);
     }
 
     /**
@@ -29,7 +30,6 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-        //
     }
 
     /**
@@ -59,8 +59,9 @@ class FoodController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Food $food)
+    public function destroy(string $id)
     {
-        //
+        $food = Food::FindOrFail($id);
+        $food->delete();
     }
 }

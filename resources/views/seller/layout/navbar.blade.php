@@ -1,3 +1,6 @@
+@php
+    $user = Auth::user();
+@endphp
 <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
@@ -17,7 +20,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <a href="{{ route('admin.home') }}" class="flex ml-8 md:mr-24">
+                <a href="{{ route('seller.home') }}" class="flex ml-8 md:mr-24">
                     <img src="{{ asset('logo/logo.png') }}" class="h-16 mr-3" alt="Yumhub Logo" />
 
                 </a>
@@ -334,11 +337,6 @@
                             fill-rule="evenodd" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <div id="tooltip-toggle" role="tooltip"
-                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
-                    Toggle dark mode
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
                 <!-- Profile -->
                 <div class="flex items-center ml-3">
                     <div>
@@ -355,27 +353,17 @@
                         id="dropdown-2">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                Neil Sims
+                                {{ $user->fname . ' ' . $user->lname }}
                             </p>
                             <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                neil.sims@flowbite.com
+                                {{ $user->email }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
                             <li>
                                 <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Earnings</a>
+                                    role="menuitem">Profile</a>
                             </li>
                             <li>
                                 <a href="#"

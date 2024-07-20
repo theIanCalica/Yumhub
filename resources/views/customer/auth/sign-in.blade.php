@@ -57,7 +57,9 @@
             <h2 class="text-2xl text-center font-bold text-gray-900 dark:text-white">
                 Sign in
             </h2>
-            <form class="mt-8 space-y-6" action="#" id="sign-in-form">
+            <form class="mt-8 space-y-6" method="POST" id="sign-in-form">
+                @csrf
+                @method('post')
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                         email</label>

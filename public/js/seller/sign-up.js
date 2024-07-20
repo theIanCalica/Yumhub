@@ -99,7 +99,7 @@ $(document).ready(function () {
         submitHandler: function (form) {
             var formData = new FormData(form);
 
-            formData.append("role", "seller");
+            formData.append("role", "Seller");
 
             // Log each form entry to the console
             for (var pair of formData.entries()) {

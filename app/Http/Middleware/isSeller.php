@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class isSeller
 {
@@ -15,6 +16,10 @@ class isSeller
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (Auth::user()->role == "Seller") {
+            return $next($request);
+        } else {
+            abort(401);
+        }
     }
 }

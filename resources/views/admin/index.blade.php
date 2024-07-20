@@ -1,10 +1,5 @@
 @extends('admin.layout.app')
 
-@php
-    use App\Models\User;
-    $user = auth()->user();
-    dd($user);
-@endphp
 @section('content')
     <div class="px-4 pt-6">
         <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">

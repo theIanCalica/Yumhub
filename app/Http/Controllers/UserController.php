@@ -85,7 +85,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::FindOrFail($id);
+        return view("admin.profile");
     }
 
     /**

@@ -153,7 +153,7 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected disabled>Select a Role</option>
                                 <option value="Customer">Customer</option>
-                                <option value="Vendor">Vendor</option>
+                                <option value="Seller">Seller</option>
                                 <option value="Admin">Admin</option>
                             </select>
 
