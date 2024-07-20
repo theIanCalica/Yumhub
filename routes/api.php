@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
@@ -28,6 +29,8 @@ Route::apiResource("categories", CategoryController::class);
 Route::apiResource("contactMessages", ContactMessageController::class);
 Route::apiResource("restaurants", RestaurantController::class);
 Route::apiResource("foods", FoodController::class);
+Route::apiResource("articles", ArticleController::class);
+
 Route::get("/getFoods", [FoodController::class, "getFoods"]);
 
 // Api for registeration for customer and seller

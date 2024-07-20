@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Http\Requests\StoreArticleRequest;
-use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -28,17 +29,40 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request)
+    public function store(Request $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "title" => "required|string",
+                'content' => "required",
+                'category' => "required",
+                'filePath' => "required|image|mimes:jpeg,png,jpg",
+            ]);
+
+            $path = Storage::putFile('public/articles', $request->file('filePath'));
+            $path = asset("storage/" . substr($path, 7));
+            $validatedData['filePath'] = $path;
+            $article = Article::create($validatedData);
+            return response()->json([
+                "article" => $article,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(string $id)
     {
-        //
+        $article = Article::FindOrFail($id);
+        return response()->json($article);
     }
 
     /**
@@ -52,7 +76,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         //
     }

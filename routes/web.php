@@ -19,6 +19,7 @@ Route::prefix('admin')->middleware(['isAuthenticated', 'admin', 'isActive'])->gr
   Route::view("/cuisines", "admin.cuisines")->name("cuisines");
   Route::view("/categories", "admin.categories")->name("categories");
   Route::view("/contacts", "admin.contacts")->name("contacts");
+  Route::view("/articles", "admin.articles")->name("articles");
   Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
 });
 Route::post("/sign-in/auth", [AuthController::class, "login"])->name("login");
