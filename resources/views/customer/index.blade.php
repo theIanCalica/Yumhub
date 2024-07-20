@@ -70,7 +70,8 @@
                 </div>
             </div>
             <div class="rounded-lg p-6">
-                <h2 class="text-lg font-bold mb-2">Item 2</h2>
+                <img src="{{ asset('images/home_1.png') }}" alt="">
+                <h2 class="text-lg font-bold mb-2"></h2>
                 <p class="text-gray-700">Description for item 2.</p>
             </div>
 

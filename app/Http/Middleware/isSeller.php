@@ -19,7 +19,7 @@ class isSeller
         if (Auth::user()->role == "Seller") {
             return $next($request);
         } else {
-            abort(401);
+            return redirect()->route("sign-in")->with(['icon' => "warning", "message" => "Not Authorized!"]);
         }
     }
 }

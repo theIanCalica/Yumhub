@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string("address")->nullable();
             $table->string('password');
             $table->string("role", 255);
-            $table->boolean("is_disabled")->default(0);
+            $table->boolean("status")->default(0);
             $table->timestamp('email_verified_at')->nullable();
+            $table->longText("filePath")->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

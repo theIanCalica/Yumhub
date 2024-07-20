@@ -21,7 +21,7 @@ class IsAuthenticated
 
             return $next($request);
         } else {
-            return redirect()->route('sign-in');
+            return redirect()->route("sign-in")->with(['icon' => "info", "message" => "Login First!"]);
         }
     }
 }

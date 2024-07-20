@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CuisineController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\RegionController;
@@ -26,6 +27,9 @@ Route::apiResource("cuisines", CuisineController::class);
 Route::apiResource("categories", CategoryController::class);
 Route::apiResource("contactMessages", ContactMessageController::class);
 Route::apiResource("restaurants", RestaurantController::class);
+Route::apiResource("foods", FoodController::class);
+Route::get("/getFoods", [FoodController::class, "getFoods"]);
+
 // Api for registeration for customer and seller
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/seller-register", [UserController::class, "registerSeller"]);

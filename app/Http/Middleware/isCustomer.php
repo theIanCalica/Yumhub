@@ -19,7 +19,7 @@ class isCustomer
         if (Auth::user()->role == "Customer") {
             return $next($request);
         } else {
-            abort(401);
+            return redirect()->route("sign-in")->with(['icon' => "warning", "message" => "Not Authorized!"]);
         }
     }
 }

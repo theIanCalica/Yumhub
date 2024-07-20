@@ -48,6 +48,14 @@
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#logoutBtn").on("click", function(event) {
+                event.preventDefault();
+                $("#logoutForm").submit();
+            });
+        });
+    </script>
     @yield('scripts')
 </body>
 

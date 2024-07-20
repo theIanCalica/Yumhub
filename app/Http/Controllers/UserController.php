@@ -258,4 +258,23 @@ class UserController extends Controller
             echo "true";
         }
     }
+
+    public function showAdmin(string $id)
+    {
+        $user = User::FindOrFail($id);
+        return view("admin.profile", compact("user"));
+    }
+
+    public function showSeller(string $id)
+    {
+        $user = User::FindOrFail($id);
+        return view("seller.profile", compact("user"));
+    }
+
+
+    public function showCustomer(string $id)
+    {
+        $user = User::FindOrFail($id);
+        return view("customer.profile", compact("user"));
+    }
 }
