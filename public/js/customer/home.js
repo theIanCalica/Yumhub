@@ -1,6 +1,22 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
+        url: "/api/cuisines",
+        contentType: false,
+        processData: false,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    $.ajax({
+        type: "GET",
         url: `/api/categories`,
         contentType: false,
         processData: false,
@@ -9,12 +25,8 @@ $(document).ready(function () {
         },
         dataType: "json",
         success: function (data) {
-            // Assuming `data` is an array of category objects as shown in your JSON example
-            console.log(data); // Verify the structure of your data
-
-            var container = $("#categoryButtons"); // Select the specific container by its id
-
-            // Assuming each object in `data` has a `name` property representing the category name
+            console.log(data);
+            const container = $("#categoryButtons");
             if (Array.isArray(data)) {
                 // Iterate over each category object
                 data.forEach(function (category) {

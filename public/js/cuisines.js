@@ -120,7 +120,7 @@ $(document).ready(function () {
                     console.log(data);
                     table.ajax.reload();
                     closeModal("add-modal");
-                    $("#cuisineAddForm").find("input", "textarea").val("");
+                    $("#cuisineAddForm").find("input, textarea").val("");
                     Swal.fire({
                         title: "Success!",
                         text: "You added new cuisine!",
@@ -186,7 +186,7 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
                     table.ajax.reload();
-                    $("#cuisineEditForm").find("input", "textarea").val("");
+                    $("#cuisineEditForm").find("input, textarea").val("");
                     closeModal("edit-modal");
                     Swal.fire({
                         title: "Success!",
