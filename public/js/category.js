@@ -198,7 +198,6 @@ $(document).ready(function () {
     });
 
     $("#categoriesTable tbody").on("click", "i.editBtn", function (e) {
-        console.log("hi");
         const id = $(this).data("id");
         $.ajax({
             type: "GET",

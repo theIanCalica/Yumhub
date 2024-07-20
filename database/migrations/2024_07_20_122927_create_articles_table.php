@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("title");
+            $table->string("desc");
             $table->longText("content");
             $table->string("category");
             $table->longText("filePath");

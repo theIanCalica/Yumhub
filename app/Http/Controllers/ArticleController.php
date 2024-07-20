@@ -34,6 +34,7 @@ class ArticleController extends Controller
         try {
             $validatedData = $request->validate([
                 "title" => "required|string",
+                'description' => "required",
                 'content' => "required",
                 'category' => "required",
                 'filePath' => "required|image|mimes:jpeg,png,jpg",
@@ -78,7 +79,41 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                "title" => "required|string",
+                'description' => "required",
+                'content' => "required",
+                'category' => "required",
+                'filePath' => "nullable|image|mimes:jpeg,png,jpg",
+            ]);
+            $article = Article::FindOrFail($id);
+
+            if ($request->hasFile('filePath')) {
+                if ($article->filePath) {
+                    unlink(substr($article->filePath, 22));
+                    $path = Storage::putFile('public/articles', $request->file('filePath'));
+                    $path = asset("storage/" . substr($path, 7));
+                    $validatedData['filePath'] = $path;
+                    $article->update();
+                }
+            } else {
+                $validatedData['filePath'] = $article->filePath;
+            }
+
+            $article->update($validatedData);
+
+            return response()->json([
+                "article" => $article,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
@@ -87,7 +122,13 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         $article = Article::FindOrFail($id);
+        unlink(substr($article->filePath, 22));
         $article->delete();
         return response()->json(['icon' => "success", "title" => "Deleted Successfully!"]);
+    }
+
+    public function getArticles(Request $request)
+    {
+        $articles = Article::latest()->paginate(3);
     }
 }

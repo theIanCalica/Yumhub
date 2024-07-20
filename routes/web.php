@@ -36,7 +36,7 @@ Route::view("/", "customer.index")->name("home");
 Route::view("/about-us", "customer.about-us")->name("about-us");
 Route::view("/contact-us", "customer.contact")->name("contact");
 Route::view("/email", "customer.email")->name("email-confirmation");
-
+Route::view("/articles", "customer.articles")->name("articles.view");
 Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])->group(function () {
 });
 

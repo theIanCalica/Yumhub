@@ -54,7 +54,8 @@ Route::post("/import-rider", [RiderController::class, "import"]);
 Route::put("/put-vendor-details/{id}", [UserController::class, "putVendorDetails"]);
 Route::put("/put-user-details/{id}", [UserController::class, "putUserDetails"]);
 
-// API for signing in
+// API for jquery infinite scrolling
+Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 
 
 

@@ -80,7 +80,7 @@
     <header>
         @include('customer.layout.navbar')
     </header>
-    <main class="mt-28">
+    <main class="mt-32">
         @yield('content')
     </main>
     <footer>

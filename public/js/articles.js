@@ -15,7 +15,7 @@ $(document).ready(function () {
         openModal("add-modal");
     });
 
-    $("#cuisinesTable").dataTable({
+    $("#articlesTable").dataTable({
         ajax: {
             url: "/api/articles",
             dataSrc: "",
@@ -36,7 +36,8 @@ $(document).ready(function () {
         ],
         columns: [
             { data: "id" },
-            { data: "name" },
+            { data: "title" },
+            { data: "category" },
             {
                 data: "filePath",
                 render: function (data, type, row) {
@@ -74,6 +75,7 @@ $(document).ready(function () {
     );
 
     $("#addForm").validate({
+        ignore: [],
         rules: {
             title: {
                 required: true,
@@ -92,7 +94,7 @@ $(document).ready(function () {
         },
         messages: {
             title: {
-                required: "please enter the title!`",
+                required: "please enter the title!",
                 maxlength: "Title cannot exceed 255 characters!",
             },
             content: {
@@ -108,7 +110,7 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
-            const table = $("#cuisinesTable").DataTable();
+            const table = $("#articlesTable").DataTable();
 
             $.ajax({
                 type: "POST",
@@ -129,7 +131,7 @@ $(document).ready(function () {
                     $("#addForm").find("input, textarea").val("");
                     Swal.fire({
                         title: "Success!",
-                        text: "You added new cuisine!",
+                        text: "You added new Article!",
                         icon: "success",
                     });
                 },
@@ -138,31 +140,45 @@ $(document).ready(function () {
                 },
             });
         },
+        errorPlacement: function (error, element) {
+            if (element.attr("name") == "content") {
+                error.insertAfter("#content"); // Place error message below the CKEditor
+            } else {
+                error.insertAfter(element);
+            }
+        },
     });
 
-    $("#cuisineEditForm").validate({
+    $("#editForm").validate({
+        ignore: [],
         rules: {
-            name: {
+            title: {
                 required: true,
                 maxlength: 255,
             },
-            desc: {
+            content: {
                 required: true,
             },
-            img: {
+            category: {
+                required: true,
+            },
+            filePath: {
                 required: true,
                 fileType: /^image\/(jpeg|jpg|png)$/,
             },
         },
         messages: {
-            name: {
-                required: "This field is required!",
-                maxlength: "Name cannot exceed 255 characters!",
+            title: {
+                required: "please enter the title!",
+                maxlength: "Title cannot exceed 255 characters!",
             },
-            desc: {
-                required: "This field is required!",
+            content: {
+                required: "Please enter the content!",
             },
-            img_url: {
+            category: {
+                required: "Please select a category",
+            },
+            filePath: {
                 required: "This field is required!",
                 fileType: "Only JPEG, JPG, PNG files are allowed!",
             },
@@ -170,16 +186,12 @@ $(document).ready(function () {
         submitHandler: function (form) {
             const formData = new FormData(form);
             formData.append("_method", "PUT");
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
-
-            const table = $("#cuisinesTable").DataTable();
+            const table = $("#articlesTable").DataTable();
             const id = formData.get("id");
 
             $.ajax({
                 type: "POST",
-                url: `/api/cuisines/${id}`,
+                url: `/api/articles/${id}`,
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -205,5 +217,72 @@ $(document).ready(function () {
                 },
             });
         },
+    });
+
+    $("#articlesTable tbody").on("click", "i.editBtn", function (e) {
+        const id = $(this).data("id");
+        $.ajax({
+            type: "GET",
+            url: `/api/articles/${id}`,
+            contentType: false,
+            processData: false,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            success: function (data) {
+                $("#id").val(data.id);
+                $("#editTitle").val(data.title);
+                $("#editCategory option").each(function () {
+                    if ($(this).val() === data.category) {
+                        $(this).prop("selected", true);
+                    } else {
+                        $(this).prop("selected", false);
+                    }
+                });
+                $("#editContent").val(data.content);
+                openModal("edit-modal");
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
+    });
+    $("#articlesTable tbody").on("click", "i.deleteBtn", function (e) {
+        const id = $(this).data("id");
+        const $row = $(this).closest("tr");
+        const table = $("#articlesTable").DataTable();
+        Swal.fire({
+            title: "Do you want to delete this?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `/api/articles/${id}`,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        table.ajax.reload();
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You successfully deleted it!",
+                            icon: "success",
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            }
+        });
     });
 });
