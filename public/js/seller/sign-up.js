@@ -101,7 +101,7 @@ $(document).ready(function () {
             },
             filePath: {
                 required: "Please upload your profile picture!",
-                fileType: /^image\/(jpeg|jpg|png)$/,
+                fileType: ".jpeg, .jpg, and .png only!",
             },
             password: {
                 required: "Please enter your password!",

@@ -174,9 +174,15 @@ class UserController extends Controller
                 'address' => "required",
                 'phoneNumber' => "required|min:11|max:11|unique:users",
                 'email' => "required|email|unique:users",
+                "filePath" => "required|image|mimes:jpeg,png,jpg",
                 'password' => "required|min:6",
                 'role' => "required|string",
             ]);
+
+            $path = Storage::putFile('public/users/customer', $request->file('filePath'));
+            $path = asset("storage/" . substr($path, 7));
+            $validatedData['filePath'] = $path;
+
 
             $user = User::create($validatedData);
 

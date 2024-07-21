@@ -231,8 +231,8 @@
                     </div>
                     <div class="mt-5">
                         <label for="email"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Restaurant Phone
-                            Number</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Restaurant
+                            Email</label>
                         <input type="email" name="email" id="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Enter your email" required>
