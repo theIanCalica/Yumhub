@@ -10,9 +10,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 class UserController extends Controller
@@ -214,10 +213,15 @@ class UserController extends Controller
                 'dob' => "required|date",
                 'phoneNumber' => "required|min:11|max:11|unique:users",
                 'email' => "required|email|unique:users",
+                "filePath" => "required|image|mimes:jpeg,png,jpg",
                 'password' => "required|min:6",
                 'role' => "required|string",
             ]);
 
+            $validatedData['status'] = 1;
+            $path = Storage::putFile('public/users/seller', $request->file('filePath'));
+            $path = asset("storage/" . substr($path, 7));
+            $validatedData['filePath'] = $path;
             $user = User::create($validatedData);
 
             $verifyUser = VerifyUser::create([
@@ -294,7 +298,7 @@ class UserController extends Controller
         $user->password = Hash::make($validatedData['new_password']);
         $user->save();
 
-        return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Password updated successfully!', "title" => "Success!", "icon" => "success"]);
+        return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Password updated successfully!', "title" => "Hooray!", "icon" => "success"]);
     }
 
     public function updateSellerAcc(Request $request)
@@ -321,6 +325,6 @@ class UserController extends Controller
         $user = User::FindOrFail($request->user_id)->first();
         $user->update($validatedData);
 
-        return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Profile updated successfully!', "title" => "Success!", "icon" => "success"]);
+        return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Profile updated successfully!', "title" => "Hooray!", "icon" => "success"]);
     }
 }

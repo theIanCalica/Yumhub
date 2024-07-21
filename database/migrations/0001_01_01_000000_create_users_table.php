@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string("address")->nullable();
             $table->string('password');
             $table->string("role", 255);
-            $table->boolean("status")->default(0);
+            $table->boolean("status")->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->longText("filePath")->nullable();
             $table->rememberToken();

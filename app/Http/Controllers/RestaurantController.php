@@ -42,7 +42,8 @@ class RestaurantController extends Controller
                 'desc' => "required|string",
                 'operatingHours' => "required|string",
             ]);
-            $path = Storage::putFile('public/seller/logo', $request->file('logo_filePath'));
+            $path = Storage::putFile('public/restaurant', $request->file('logo_filePath'));
+            $path = asset("storage/" . substr($path, 7));
             $validatedData['logo'] = $path;
 
             $restaurant = Restaurant::create($validatedData);

@@ -89,14 +89,14 @@ $(document).ready(function () {
         },
         messages: {
             name: {
-                required: "This field is required!",
+                required: "Please enter the cuisine name!",
                 maxlength: "Name cannot exceed 255 characters!",
             },
             desc: {
-                required: "This field is required!",
+                required: "Please enter a description!",
             },
             img_url: {
-                required: "This field is required!",
+                required: "Please upload a picture!",
                 fileType: "Only JPEG, JPG, PNG files are allowed!",
             },
         },

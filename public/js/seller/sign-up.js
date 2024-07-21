@@ -11,6 +11,14 @@ $(document).ready(function () {
         "Please upload a file with a valid extension."
     );
 
+    $.validator.addMethod(
+        "fileType",
+        function (value, element, param) {
+            return this.optional(element) || param.test(element.files[0].type);
+        },
+        "Only JPEG, JPG, PNG files are allowed!"
+    );
+
     $("#sign-up-form").validate({
         rules: {
             fname: {
@@ -55,6 +63,10 @@ $(document).ready(function () {
                     },
                 },
             },
+            filePath: {
+                required: true,
+                fileType: /^image\/(jpeg|jpg|png)$/,
+            },
             password: {
                 required: true,
                 minlength: 6,
@@ -86,6 +98,10 @@ $(document).ready(function () {
                 required: "Please enter your email!",
                 email: "Invalid email format!",
                 remote: "This email is already taken!",
+            },
+            filePath: {
+                required: "Please upload your profile picture!",
+                fileType: /^image\/(jpeg|jpg|png)$/,
             },
             password: {
                 required: "Please enter your password!",
