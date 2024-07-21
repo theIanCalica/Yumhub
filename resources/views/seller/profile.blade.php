@@ -2,12 +2,7 @@
 
 @section('title', 'Profile')
 
-
-
 @section('content')
-
-
-
     <div class="flex justify-center mt-10 mb-20 pb-20">
         <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl">
             <form action="/update-profile" method="POST" enctype="multipart/form-data">
@@ -17,8 +12,6 @@
                     <img src="{{ $user->filePath }}" alt="Profile Picture"
                         class="w-40 h-40 rounded-full border-4 border-indigo-500 mb-4 object-cover">
                 </div>
-
-
                 <!-- Profile Information Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
