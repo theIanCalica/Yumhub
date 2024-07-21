@@ -6,16 +6,23 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::orderBy("title", "asc")->get();
-        return response()->json($articles);
+        $articles = Article::latest()->paginate(2);
+
+        if ($request->ajax()) {
+            $view = view('customer.load', compact('articles'))->render();
+            return Response::json(['view' => $view, 'nextPageUrl' => $articles->nextPageUrl()]);
+        }
+
+        return view('customer.articles', compact('articles'));
     }
 
     /**
@@ -129,6 +136,5 @@ class ArticleController extends Controller
 
     public function getArticles(Request $request)
     {
-        $articles = Article::latest()->paginate(3);
     }
 }
