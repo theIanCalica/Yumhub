@@ -50,4 +50,7 @@ Route::prefix("seller")->middleware(["isAuthenticated", "isActive", "isSeller"])
   Route::view("/", "seller.index")->name("seller.home");
   Route::view("/foods", "seller.foods")->name("foods");
   Route::get("/showProfile/{id}", [UserController::class, "showSeller"])->name("showSeller");
+  Route::view("/change-password", 'seller.changePass')->name("changePass.seller");
+  Route::post("/change-password/process", [UserController::class, "sellerUpdatePassword"])->name("seller.update.password");
+  Route::post("/updateAcc", [UserController::class, "updateSellerAcc"])->name("updateSellerAcc");
 });

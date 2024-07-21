@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
-use App\Http\Requests\StoreFoodRequest;
-use App\Http\Requests\UpdateFoodRequest;
+use App\Models\Restaurant;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
 {
@@ -28,8 +31,39 @@ class FoodController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFoodRequest $request)
+    public function store(Request $request)
     {
+        try {
+            $validatedData = $request->validate([
+                "name" => "required|string|max:255",
+                'cuisine' => "required",
+                'category' => "required",
+                "desc" => "required|string",
+                'price' => "required|numeric",
+                "filePath" => "required|image|mimes:jpeg,png,jpg",
+            ]);
+
+            $user = Auth::user();
+            $restaurant_id = Restaurant::where("user_id", $user->id)->first();
+            $validatedData['restaurant_id'] = $restaurant_id;
+            $path = Storage::putFile('public/food', $request->file('img'));
+            $path = asset("storage/" . substr($path, 7));
+            $validatedData['img'] = $path;
+
+            $food = Food::create($validatedData);
+
+            return response()->json([
+                "success" => "Added Successfully!",
+                "cuisine" => $food,
+                "status" => 200,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Validation failed.',
+                'errors' => $e->errors(),
+                'status' => 422
+            ]);
+        }
     }
 
     /**
@@ -51,9 +85,8 @@ class FoodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFoodRequest $request, Food $food)
+    public function update(Request $request, string $id)
     {
-        //
     }
 
     /**

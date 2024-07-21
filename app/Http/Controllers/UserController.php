@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 use Carbon\Carbon;
 
 class UserController extends Controller
@@ -276,5 +280,47 @@ class UserController extends Controller
     {
         $user = User::FindOrFail($id);
         return view("customer.profile", compact("user"));
+    }
+
+    public function sellerUpdatePassword(Request $request)
+    {
+        $validatedData = $request->validate([
+            "new_password" => "required|string|min:6",
+            "confirm_password" => "required|string|min:6|same:new_password",
+            "user_id" => "required",
+        ]);
+
+        $user = User::FindOrFail($validatedData['user_id']);
+        $user->password = Hash::make($validatedData['new_password']);
+        $user->save();
+
+        return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Password updated successfully!', "title" => "Success!", "icon" => "success"]);
+    }
+
+    public function updateSellerAcc(Request $request)
+    {
+        $validatedData = $request->validate([
+            "fname" => "required|string|max:255",
+            'lname' => "required|string|max:255",
+            'gender' => "required|string|max:5",
+            'dob' => "required|date",
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($request->user_id),
+            ],
+            'phoneNumber' => [
+                'required',
+                'min:11',
+                'max:11',
+                Rule::unique('users')->ignore($request->user_id),
+            ],
+            'address' => "required|string",
+        ]);
+
+        $user = User::FindOrFail($request->user_id)->first();
+        $user->update($validatedData);
+
+        return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Profile updated successfully!', "title" => "Success!", "icon" => "success"]);
     }
 }

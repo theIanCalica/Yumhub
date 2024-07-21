@@ -2,6 +2,9 @@
 
 @section('title', "Seller's Dashboard")
 
+@php
+    $user = Auth::user();
+@endphp
 @section('content')
     <div class="px-4 pt-6">
         <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
@@ -2229,4 +2232,23 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            const user = @json($user);
+            console.log(user);
+
+            const fname = user.fname;
+            const lname = user.lname;
+
+            Swal.fire({
+                title: 'Welcome!',
+                text: `Hello ${fname} ${lname}!`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
 @endsection
