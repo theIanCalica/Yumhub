@@ -25,6 +25,7 @@ class User extends  Authenticatable
         'gender',
         'dob',
         'email',
+        'filePath',
         'phoneNumber',
         'address',
         'role',

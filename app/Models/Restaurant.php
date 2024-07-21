@@ -17,6 +17,7 @@ class Restaurant extends Model
         'phoneNumber',
         'email',
         'logo_filePath',
+        'banner',
         'desc',
         'operatingHours',
     ];

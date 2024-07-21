@@ -67,6 +67,10 @@ $(document).ready(function () {
                 required: true,
                 fileType: /^image\/(jpeg|jpg|png)$/,
             },
+            banner: {
+                required: true,
+                fileType: /^image\/(jpeg|jpg|png)$/,
+            },
             password: {
                 required: true,
                 minlength: 6,
@@ -100,6 +104,10 @@ $(document).ready(function () {
                 remote: "This email is already taken!",
             },
             filePath: {
+                required: "Please upload your profile picture!",
+                fileType: ".jpeg, .jpg, and .png only!",
+            },
+            banner: {
                 required: "Please upload your profile picture!",
                 fileType: ".jpeg, .jpg, and .png only!",
             },

@@ -38,13 +38,18 @@ class RestaurantController extends Controller
                 'address' => "required|string",
                 "phoneNumber" => "required|string|min:11|max:11|unique:restaurants",
                 'email' => "required|email|unique:restaurants",
-                'logo_filePath' => "required",
+                "logo_filePath" => "required|image|mimes:jpeg,png,jpg",
                 'desc' => "required|string",
+                "banner" => "required|image|mimes:jpeg,png,jpg",
                 'operatingHours' => "required|string",
             ]);
-            $path = Storage::putFile('public/restaurant', $request->file('logo_filePath'));
+            $path = Storage::putFile('public/restaurant/logo', $request->file('logo_filePath'));
             $path = asset("storage/" . substr($path, 7));
-            $validatedData['logo'] = $path;
+            $validatedData['logo_filePath'] = $path;
+
+            $bannerPath = Storage::putFile('public/restaurant/banner', $request->file('banner'));
+            $bannerPath = asset("storage/" . substr($path, 7));
+            $validatedData['banner'] = $bannerPath;
 
             $restaurant = Restaurant::create($validatedData);
             return response()->json([

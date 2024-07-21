@@ -53,7 +53,7 @@ $(document).ready(function () {
                             console.log("seller");
                             window.location.href = "/seller/";
                         } else if (data.role === "Customer") {
-                            window.location.href = "/";
+                            window.location.href = "./";
                         }
                     } else if (data.status === 500) {
                         Swal.fire({

@@ -224,10 +224,10 @@ class UserController extends Controller
                 'role' => "required|string",
             ]);
 
-            $validatedData['status'] = 1;
             $path = Storage::putFile('public/users/seller', $request->file('filePath'));
             $path = asset("storage/" . substr($path, 7));
             $validatedData['filePath'] = $path;
+
             $user = User::create($validatedData);
 
             $verifyUser = VerifyUser::create([
@@ -240,6 +240,7 @@ class UserController extends Controller
                 'title' => "Successfully Registered!",
                 'icon' => "success",
                 "user" => $user,
+                'validatedData' => $validatedData,
                 "status" => 200
             ]);
         } catch (ValidationException $e) {

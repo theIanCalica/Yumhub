@@ -15,6 +15,7 @@ $(document).ready(function () {
             console.log(data);
         },
     });
+
     $.ajax({
         type: "GET",
         url: `/api/categories`,
@@ -34,13 +35,10 @@ $(document).ready(function () {
                     var button = $("<button>")
                         .addClass(
                             "text-yellow-400 categoryBtn mt-5 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
-                        ) // Add class for styling
-                        .text(category.name) // Set button text from category name
-                        .appendTo(container); // Append to button container
-
-                    // Optionally, you can add click functionality or other attributes as needed
+                        )
+                        .text(category.name)
+                        .appendTo(container);
                     button.click(function () {
-                        // Example: alert the category name on button click
                         alert(category.name);
                     });
                 });
