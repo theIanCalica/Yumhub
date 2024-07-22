@@ -94,6 +94,7 @@ $(document).ready(function () {
             console.log(data);
         },
     });
+
     function closeModal(modalId) {
         const $targetEl = document.getElementById(modalId);
         const modal = new Modal($targetEl);
@@ -166,7 +167,9 @@ $(document).ready(function () {
         submitHandler: function (form) {
             var formData = new FormData(form);
             const table = $("#foodsTable").DataTable();
-
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
             $.ajax({
                 type: "POST",
                 url: "/api/foods",
@@ -180,6 +183,7 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (data) {
+                    console.log(data);
                     table.ajax.reload();
                     Swal.fire({
                         title: "Success!",
@@ -319,6 +323,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 console.log(data);
+                $("#food_id").val(data.id);
                 $("#editName").val(data.name);
                 $("#editCuisine_id option").each(function () {
                     if ($(this).val() === data.cuisine_id) {
@@ -341,8 +346,9 @@ $(document).ready(function () {
     });
 
     $("#foodsTable tbody").on("click", "i.deleteBtn", function (e) {
-        const id = $(this).data("id");
+        const food = $(this).data("id");
         const table = $("#foodsTable").DataTable();
+
         Swal.fire({
             title: "Do you want to delete this?",
             showDenyButton: true,
@@ -353,7 +359,7 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: `/api/foods/${id}`,
+                    url: `/api/foods/${food}`,
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
                             "content"
@@ -362,13 +368,7 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
-                        Swal.fire({
-                            title: "Success!",
-                            text: "You successfully deleted it!",
-                            icon: "success",
-                        }).then(() => {
-                            table.ajax.reload();
-                        });
+                        table.ajax.reload();
                     },
                     error: function (error) {
                         console.log(error);

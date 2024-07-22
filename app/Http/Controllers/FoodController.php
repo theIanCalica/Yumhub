@@ -108,7 +108,7 @@ class FoodController extends Controller
             $validatedData['restaurant_id'] = $restaurant->id;
 
             if ($request->hasFile("filePath")) {
-                unlink($food->filePath);
+                unlink(substr($food->filePath, 22));
                 $path = Storage::putFile('public/food', $request->file('filePath'));
                 $path = asset("storage/" . substr($path, 7));
                 $validatedData['filePath'] = $path;
@@ -137,6 +137,7 @@ class FoodController extends Controller
     public function destroy(string $id)
     {
         $food = Food::FindOrFail($id);
+        unlink(substr($food->filePath, 22));
         $food->delete();
     }
 }

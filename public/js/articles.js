@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     $("#articlesTable").dataTable({
         ajax: {
-            url: "/api/articles",
+            url: "/api/get-articles",
             dataSrc: "",
         },
         dom: '<"flex justify-between items-center"lf>t<"flex justify-between items-center"ip>',

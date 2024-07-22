@@ -134,7 +134,9 @@ class ArticleController extends Controller
         return response()->json(['icon' => "success", "title" => "Deleted Successfully!"]);
     }
 
-    public function getArticles(Request $request)
+    public function getArticles()
     {
+        $articles = Article::orderBy("title", "asc")->get();
+        return response()->json($articles);
     }
 }

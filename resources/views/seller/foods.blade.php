@@ -48,6 +48,7 @@
 
     @php
         $user = Auth::user();
+        $id = $user->id;
     @endphp
     {{-- Add Modal --}}
     <div id="add-modal" tabindex="-1" aria-hidden="true"
@@ -72,8 +73,10 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="addForm">
-                    <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
+                <form class="p-4 md:p-5" id="addForm" method="POST">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ $id }}">
+
+
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -160,7 +163,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="editForm">
+                <form class="p-4 md:p-5" id="editForm" method="POST">
                     <input type="hidden" name="food_id" id="food_id">
                     <input type="hidden" name="user_id" id="edit_user_id" value="{{ $user->id }}">
                     <div class="grid gap-4 mb-4 grid-cols-2">

@@ -30,7 +30,7 @@ Route::apiResource("contactMessages", ContactMessageController::class);
 Route::apiResource("restaurants", RestaurantController::class);
 Route::apiResource("foods", FoodController::class);
 Route::apiResource("articles", ArticleController::class);
-
+Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 Route::get("/getFoods", [FoodController::class, "getFoods"]);
 
 // Api for registeration for customer and seller
