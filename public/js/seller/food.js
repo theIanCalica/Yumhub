@@ -9,7 +9,6 @@ $(document).ready(function () {
         },
         dataType: "json",
         success: function (data) {
-            console.log(data);
             $.each(data, function (index, item) {
                 $("#cuisine_id").append(
                     $("<option>", {
@@ -34,7 +33,6 @@ $(document).ready(function () {
         },
         dataType: "json",
         success: function (data) {
-            console.log(data);
             $.each(data, function (index, item) {
                 $("#category_id").append(
                     $("<option>", {
@@ -49,6 +47,53 @@ $(document).ready(function () {
         },
     });
 
+    $.ajax({
+        type: "GET",
+        url: "/api/cuisines",
+        contentType: false,
+        processData: false,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (index, item) {
+                $("#editCuisine_id").append(
+                    $("<option>", {
+                        value: item.id,
+                        text: item.name,
+                    })
+                );
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/api/categories",
+        contentType: false,
+        processData: false,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (index, item) {
+                $("#editCategory_id").append(
+                    $("<option>", {
+                        value: item.id,
+                        text: item.name,
+                    })
+                );
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
     function closeModal(modalId) {
         const $targetEl = document.getElementById(modalId);
         const modal = new Modal($targetEl);
@@ -120,10 +165,8 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             var formData = new FormData(form);
+            const table = $("#foodsTable").DataTable();
 
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
             $.ajax({
                 type: "POST",
                 url: "/api/foods",
@@ -137,7 +180,16 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    table.ajax.reload();
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You added a new food!",
+                        icon: "success",
+                    });
+                    closeModal("add-modal");
+                    $("#addForm").find("input").val("");
+                    $("#addForm").find("select").prop("selectedIndex", 0);
+                    $("#addForm").find("textarea").val("");
                 },
                 error: function (data) {
                     console.log(data);
@@ -205,13 +257,13 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             var formData = new FormData(form);
+            const table = $("#foodsTable").DataTable();
+            formData.append("_method", "PUT");
+            const food_id = formData.get("food_id");
 
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
             $.ajax({
                 type: "POST",
-                url: "/api/foods",
+                url: `/api/foods/${food_id}`,
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -222,7 +274,16 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    table.ajax.reload();
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You added a new food!",
+                        icon: "success",
+                    });
+                    closeModal("edit-modal");
+                    $("#editForm").find("input").val("");
+                    $("#editForm").find("select").prop("selectedIndex", 0);
+                    $("#editForm").find("textarea").val("");
                 },
                 error: function (data) {
                     console.log(data);
@@ -241,6 +302,42 @@ $(document).ready(function () {
             $(input).removeClass("error");
             $(input).addClass("success");
         },
+    });
+
+    $("#foodsTable tbody").on("click", "i.editBtn", function () {
+        const id = $(this).data("id");
+        const table = $("#foodsTable").DataTable();
+
+        $.ajax({
+            type: "GET",
+            url: `/api/foods/${id}`,
+            contentType: false,
+            processData: false,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#editName").val(data.name);
+                $("#editCuisine_id option").each(function () {
+                    if ($(this).val() === data.cuisine_id) {
+                        $(this).prop("selected", true);
+                    }
+                });
+                $("#editCategory_id option").each(function () {
+                    if ($(this).val() === data.category_id) {
+                        $(this).prop("selected", true);
+                    }
+                });
+                $("#edit_desc").val(data.desc);
+                $("#edit_price").val(data.price);
+                openModal("edit-modal");
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
     });
 
     $("#foodsTable tbody").on("click", "i.deleteBtn", function (e) {
@@ -264,11 +361,13 @@ $(document).ready(function () {
                     },
                     dataType: "json",
                     success: function (data) {
-                        table.ajax.reload();
+                        console.log(data);
                         Swal.fire({
                             title: "Success!",
                             text: "You successfully deleted it!",
                             icon: "success",
+                        }).then(() => {
+                            table.ajax.reload();
                         });
                     },
                     error: function (error) {
@@ -278,6 +377,7 @@ $(document).ready(function () {
             }
         });
     });
+
     $("#foodsTable").dataTable({
         ajax: {
             url: "/api/foods",

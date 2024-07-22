@@ -101,7 +101,7 @@ class CuisineController extends Controller
 
             return response()->json([
                 "success" => "Added Successfully!",
-                "manager" => $cuisine,
+                "cuisine" => $cuisine,
                 "status" => 200,
             ]);
         } catch (ValidationException $e) {
