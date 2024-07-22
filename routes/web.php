@@ -3,9 +3,11 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\UserController;
+use App\Models\Restaurant;
 use Illuminate\Support\Facades\Route;
 
 
@@ -50,6 +52,7 @@ Route::prefix("seller")->middleware(["isAuthenticated", "isActive", "isSeller"])
   Route::view("/", "seller.index")->name("seller.home");
   Route::view("/foods", "seller.foods")->name("foods");
   Route::get("/showProfile/{id}", [UserController::class, "showSeller"])->name("showSeller");
+  Route::get("/showRestaurant/{id}", [RestaurantController::class, "showProfile"])->name("showProfileResto");
   Route::view("/change-password", 'seller.changePass')->name("changePass.seller");
   Route::post("/change-password/process", [UserController::class, "sellerUpdatePassword"])->name("seller.update.password");
   Route::post("/updateAcc", [UserController::class, "updateSellerAcc"])->name("updateSellerAcc");

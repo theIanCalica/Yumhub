@@ -49,7 +49,8 @@
         </script>
     @endif
     <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
-        <a href="" class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
+        <a href="{{ route('home') }}"
+            class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
             <img src="{{ asset('logo/logo.png') }}" class="mr-4 h-36" alt="Yumhub Logo">
         </a>
         <!-- Card -->

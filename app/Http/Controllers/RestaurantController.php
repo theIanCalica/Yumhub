@@ -147,4 +147,10 @@ class RestaurantController extends Controller
             echo "true";
         }
     }
+
+    public function showProfile(string $id)
+    {
+        $restaurant = Restaurant::where("owner_id", $id)->first();
+        return view("seller.restaurant", compact("restaurant"));
+    }
 }
