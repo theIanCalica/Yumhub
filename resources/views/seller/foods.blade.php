@@ -2,6 +2,7 @@
 
 @section('title', 'Foods')
 
+
 @section('styles')
     <style>
         label.error {
@@ -44,6 +45,10 @@
 @endsection
 
 @section('content')
+
+    @php
+        $user = Auth::user();
+    @endphp
     {{-- Add Modal --}}
     <div id="add-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -68,6 +73,7 @@
                 </div>
                 <!-- Modal body -->
                 <form class="p-4 md:p-5" id="addForm">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -77,17 +83,17 @@
                                 placeholder="Enter Food Name" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="cuisine" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="cuisine_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Cuisine</label>
-                            <select name="cuisine" id="cuisine" required
+                            <select name="cuisine_id" id="cuisine_id" required
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected disabled>Select a Cuisine</option>
                             </select>
                         </div>
                         <div class="col-span-2">
-                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Category</label>
-                            <select name="category" id="category" required
+                            <select name="category_id" id="category_id" required
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected disabled>Select a Category</option>
                             </select>
@@ -109,7 +115,7 @@
                                 placeholder="Enter food price" required="">
                         </div>
                         <div class="col-span-2">
-                            <label for="img" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="filePath" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Image</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -135,7 +141,7 @@
         <div
             class="p-10 w-full bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div>
-                <h1 class="text-2xl mb-2">Cuisines</h1>
+                <h1 class="text-2xl mb-2">Foods</h1>
                 <button type="button" data-modal-target="add-modal" data-modal-toggle="add-modal"
                     class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Add
                     Food</button>
@@ -209,15 +215,5 @@
         </div>
     </div>
 
-
-@endsection
-
-@section('scripts')
-    @php
-        use App\Models\Restaurant;
-        $user = Auth::user();
-        $restaurant_id = Restaurant::where('user_id', $user->id)->first();
-        dd($restaurant_id);
-    @endphp
 
 @endsection

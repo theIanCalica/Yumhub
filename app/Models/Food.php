@@ -14,7 +14,19 @@ class Food extends Model
         "name",
         "desc",
         "price",
-        "seller_id",
+        'restaurant_id',
         "cuisine_id",
+        'category_id',
+        'filePath',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function cuisine()
+    {
+        return $this->belongsTo(Cuisine::class, "cuisine_id", "id");
+    }
 }

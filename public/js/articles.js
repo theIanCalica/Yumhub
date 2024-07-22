@@ -250,7 +250,6 @@ $(document).ready(function () {
     });
     $("#articlesTable tbody").on("click", "i.deleteBtn", function (e) {
         const id = $(this).data("id");
-        const $row = $(this).closest("tr");
         const table = $("#articlesTable").DataTable();
         Swal.fire({
             title: "Do you want to delete this?",
@@ -270,7 +269,6 @@ $(document).ready(function () {
                     },
                     dataType: "json",
                     success: function (data) {
-                        console.log(data);
                         table.ajax.reload();
                         Swal.fire({
                             title: "Success!",

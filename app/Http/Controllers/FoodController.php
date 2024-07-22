@@ -16,7 +16,9 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::orderBy("name", "asc")->get();
+        $foods = Food::with(['category', 'cuisine'])
+            ->orderBy('name', 'asc') // or 'desc' for descending order
+            ->get();
         return response()->json($foods);
     }
 
@@ -36,19 +38,20 @@ class FoodController extends Controller
         try {
             $validatedData = $request->validate([
                 "name" => "required|string|max:255",
-                'cuisine' => "required",
-                'category' => "required",
+                'cuisine_id' => "required",
+                'category_id' => "required",
+                'user_id' => "required",
                 "desc" => "required|string",
                 'price' => "required|numeric",
                 "filePath" => "required|image|mimes:jpeg,png,jpg",
             ]);
 
-            $user = Auth::user();
-            $restaurant_id = Restaurant::where("user_id", $user->id)->first();
-            $validatedData['restaurant_id'] = $restaurant_id;
-            $path = Storage::putFile('public/food', $request->file('img'));
+            $restaurant = Restaurant::where("owner_id", $validatedData['user_id'])->first();
+            $validatedData['restaurant_id'] = $restaurant->id;
+
+            $path = Storage::putFile('public/food', $request->file('filePath'));
             $path = asset("storage/" . substr($path, 7));
-            $validatedData['img'] = $path;
+            $validatedData['filePath'] = $path;
 
             $food = Food::create($validatedData);
 
