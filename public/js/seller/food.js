@@ -1,23 +1,6 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "/api/get",
-        contentType: false,
-        processData: false,
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (data) {
-            console.log(data);
-        },
-    });
-
-    $.ajax({
-        type: "GET",
         url: "/api/cuisines",
         contentType: false,
         processData: false,
@@ -253,7 +236,7 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: `/api/foods/${food}`,
+                    url: `/seller/delete-food/${food}`,
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
                             "content"
@@ -269,6 +252,35 @@ $(document).ready(function () {
                     },
                 });
             }
+        });
+    });
+
+    $("#foodsTable tbody").on("click", "i.editBtn", function () {
+        console.log("hi");
+        const id = $(this).data("id");
+
+        $("#editForm").attr("action", finalRoute);
+        $.ajax({
+            type: "GET",
+            url: `/api/get-single-food/${id}`,
+            contentType: false,
+            processData: false,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#food_id").val(data.id);
+                $("#editName").val(data.name);
+                $("#editCuisine_id").val(data.cuisine_id);
+                $("#editCategory_id").val(data.category_id);
+                $("#edit_price").val(data.price);
+                openModal("edit-modal");
+            },
+            error: function (data) {
+                console.log(data);
+            },
         });
     });
 

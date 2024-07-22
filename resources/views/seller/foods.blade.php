@@ -166,8 +166,6 @@
                 </div>
                 <!-- Modal body -->
                 <form class="p-4 md:p-5" id="editForm" method="POST">
-                    @csrf
-                    @method('put')
                     <input type="hidden" name="food_id" id="food_id">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
@@ -290,38 +288,4 @@
 
         </div>
     </div>
-
-
-@endsection
-
-@section('script')
-    <script>
-        $("#foodsTable tbody").on("click", "i.editBtn", function() {
-            const id = $(this).data("id");
-            const updateUrl = "{{ route('foods.update', ['food' => '']) }}";
-            $.ajax({
-                type: "GET",
-                url: `/api/get-single-food/${id}`,
-                contentType: false,
-                processData: false,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                    $("#editForm").attr("action", updateUrl.replace("food", data.id));
-                    $("#food_id").val(data.id);
-                    $("#editName").val(data.name);
-                    $("#editCuisine_id").val(data.cuisine_id); // Use val() to select the option
-                    $("#editCategory_id").val(data.category_id); // Use val() to select the option
-                    $("#edit_price").val(data.price);
-                    openModal("edit-modal");
-                },
-                error: function(data) {
-                    console.log(data);
-                },
-            });
-        });
-    </script>
 @endsection

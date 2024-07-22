@@ -32,6 +32,7 @@ Route::apiResource("articles", ArticleController::class);
 Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 Route::get("/get-foods", [FoodController::class, "getFoods"]);
 Route::get("get-single-food/{id}", [FoodController::class, "getSingleFood"]);
+
 // Api for registeration for customer and seller
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/seller-register", [UserController::class, "registerSeller"]);

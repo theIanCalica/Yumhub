@@ -149,4 +149,12 @@ class FoodController extends Controller
             ->get();
         return response()->json($foods);
     }
+
+    public function updateFood(Request $request, string $id)
+    {
+    }
+
+    public function deleteFood(string $id)
+    {
+    }
 }

@@ -64,4 +64,6 @@ Route::prefix("seller")->middleware(["isAuthenticated", "isActive", "isSeller"])
     'update' => 'foods.update',
     'delete' => 'foods.destroy'
   ]);
+  Route::put("/update-food/{id}", [FoodController::class, "updateFood"])->name("updateFood");
+  Route::delete("/delete-food/{id}", [FoodController::class, "deleteFood"])->name("deleteFood");
 });
