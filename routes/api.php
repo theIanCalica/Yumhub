@@ -28,11 +28,10 @@ Route::apiResource("cuisines", CuisineController::class);
 Route::apiResource("categories", CategoryController::class);
 Route::apiResource("contactMessages", ContactMessageController::class);
 Route::apiResource("restaurants", RestaurantController::class);
-Route::apiResource("foods", FoodController::class);
 Route::apiResource("articles", ArticleController::class);
 Route::get("/get-articles", [ArticleController::class, "getArticles"]);
-Route::get("/getFoods", [FoodController::class, "getFoods"]);
-
+Route::get("/get-foods", [FoodController::class, "getFoods"]);
+Route::get("get-single-food/{id}", [FoodController::class, "getSingleFood"]);
 // Api for registeration for customer and seller
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/seller-register", [UserController::class, "registerSeller"]);

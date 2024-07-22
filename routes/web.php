@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
@@ -57,4 +58,10 @@ Route::prefix("seller")->middleware(["isAuthenticated", "isActive", "isSeller"])
   Route::view("/change-password", 'seller.changePass')->name("changePass.seller");
   Route::post("/change-password/process", [UserController::class, "sellerUpdatePassword"])->name("seller.update.password");
   Route::post("/updateAcc", [UserController::class, "updateSellerAcc"])->name("updateSellerAcc");
+  Route::resource('foods', FoodController::class)->names([
+    'store' => 'foods.store',
+    'edit' => 'foods.edit',
+    'update' => 'foods.update',
+    'delete' => 'foods.destroy'
+  ]);
 });

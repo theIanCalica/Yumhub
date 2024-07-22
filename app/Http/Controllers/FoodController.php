@@ -11,15 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
 {
+
+    public function get()
+    {
+        $user = Auth::user();
+        return response()->json($user);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $foods = Food::with(['category', 'cuisine'])
-            ->orderBy('name', 'asc') // or 'desc' for descending order
-            ->get();
-        return response()->json($foods);
+        return view("seller.foods");
     }
 
     /**
@@ -36,17 +39,17 @@ class FoodController extends Controller
     public function store(Request $request)
     {
         try {
+            $user = Auth::user();
+            $restaurant = Restaurant::where("owner_id", $user->id)->first();
+
             $validatedData = $request->validate([
                 "name" => "required|string|max:255",
                 'cuisine_id' => "required",
                 'category_id' => "required",
-                'user_id' => "required",
-                "desc" => "required|string",
                 'price' => "required|numeric",
                 "filePath" => "required|image|mimes:jpeg,png,jpg",
             ]);
 
-            $restaurant = Restaurant::where("owner_id", $validatedData['user_id'])->first();
             $validatedData['restaurant_id'] = $restaurant->id;
 
             $path = Storage::putFile('public/food', $request->file('filePath'));
@@ -55,17 +58,9 @@ class FoodController extends Controller
 
             $food = Food::create($validatedData);
 
-            return response()->json([
-                "success" => "Added Successfully!",
-                "food" => $food,
-                "status" => 200,
-            ]);
+            return redirect()->route("foods.index")->with(["icon" => "success", "title" => "Hooray!", "text" => "You added new food!"]);
         } catch (ValidationException $e) {
-            return response()->json([
-                'error' => 'Validation failed.',
-                'errors' => $e->errors(),
-                'status' => 422
-            ]);
+            return redirect()->route("foods.index")->with(["icon" => "error", "title" => "Warning!", "text" => $e->errors()]);
         }
     }
 
@@ -78,6 +73,11 @@ class FoodController extends Controller
         return response()->json($food);
     }
 
+    public function getSingleFood(string $id)
+    {
+        $food = Food::FindOrFail($id);
+        return response()->json($food);
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -91,6 +91,7 @@ class FoodController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        dd($request);
         try {
             $validatedData = $request->validate([
                 "name" => "required|string|max:255",
@@ -139,5 +140,13 @@ class FoodController extends Controller
         $food = Food::FindOrFail($id);
         unlink(substr($food->filePath, 22));
         $food->delete();
+    }
+
+    public function getFoods()
+    {
+        $foods = Food::with(['category', 'cuisine'])
+            ->orderBy('name', 'asc')
+            ->get();
+        return response()->json($foods);
     }
 }

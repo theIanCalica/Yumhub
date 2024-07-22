@@ -6,12 +6,39 @@
     <div class="flex justify-center mt-10 mb-20 pb-20">
         <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl">
             <form action="/update-profile" method="POST" enctype="multipart/form-data">
+                @csrf
                 <input type="hidden" name="restaurant_id" id="restaurant_id" value="{{ $restaurant->id }}">
-                <!-- Profile Picture -->
-                <div class="flex flex-col items-center mb-8">
-                    <img src="{{ $restaurant->logo_filePath }}" alt="Profile Picture"
-                        class="w-40 h-40 rounded-full border-4 border-indigo-500 mb-4 object-cover">
+
+                <!-- Banner Image -->
+                <div class="relative mb-24">
+                    <img src="{{ $restaurant->banner }}" alt="Banner Image"
+                        class="w-full h-60 object-cover rounded-t-lg border-4 border-indigo-500 mb-4">
+                    <label for="banner_file"
+                        class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md cursor-pointer">
+                        <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M5 12h14">
+                            </path>
+                        </svg>
+                        <input type="file" id="banner_file" name="banner_file" class="hidden">
+                    </label>
                 </div>
+
+                <!-- Profile Picture -->
+                <div class="flex justify-center mb-8 relative -top-20">
+                    <img src="{{ $restaurant->logo_filePath }}" alt="Profile Picture"
+                        class="w-40 h-40 rounded-full border-4 border-indigo-500 object-cover">
+                    <label for="logo_file"
+                        class="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-md cursor-pointer">
+                        <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M5 12h14">
+                            </path>
+                        </svg>
+                        <input type="file" id="logo_file" name="logo_file" class="hidden">
+                    </label>
+                </div>
+
                 <!-- Profile Information Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>

@@ -88,7 +88,9 @@
 <body class="roboto-regular dark:bg-gray-900">
     <div class="form-container">
         <div class="logo-container">
-            <img src="{{ asset('logo/logo.png') }}" class="h-36" alt="Yumhub Logo">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('logo/logo.png') }}" class="h-36" alt="Yumhub Logo">
+            </a>
         </div>
         <!-- Card -->
         <div class="form-card dark:bg-gray-800">

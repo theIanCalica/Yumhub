@@ -1,6 +1,23 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
+        url: "/api/get",
+        contentType: false,
+        processData: false,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+
+    $.ajax({
+        type: "GET",
         url: "/api/cuisines",
         contentType: false,
         processData: false,
@@ -131,9 +148,6 @@ $(document).ready(function () {
             category_id: {
                 required: true,
             },
-            desc: {
-                required: true,
-            },
             price: {
                 required: true,
             },
@@ -153,9 +167,6 @@ $(document).ready(function () {
             category_id: {
                 required: "Please select a category!",
             },
-            desc: {
-                required: "Please enter a description",
-            },
             price: {
                 required: "Please enter a price",
             },
@@ -163,42 +174,6 @@ $(document).ready(function () {
                 required: "Please upload a picture!",
                 fileType: "Only JPEG, JPG, PNG files are allowed!",
             },
-        },
-        submitHandler: function (form) {
-            var formData = new FormData(form);
-            const table = $("#foodsTable").DataTable();
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
-            $.ajax({
-                type: "POST",
-                url: "/api/foods",
-                data: formData,
-                contentType: false,
-                processData: false,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    table.ajax.reload();
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You added a new food!",
-                        icon: "success",
-                    });
-                    closeModal("add-modal");
-                    $("#addForm").find("input").val("");
-                    $("#addForm").find("select").prop("selectedIndex", 0);
-                    $("#addForm").find("textarea").val("");
-                },
-                error: function (data) {
-                    console.log(data);
-                },
-            });
         },
 
         errorPlacement: function (error, element) {
@@ -226,14 +201,10 @@ $(document).ready(function () {
             category_id: {
                 required: true,
             },
-            desc: {
-                required: true,
-            },
             price: {
                 required: true,
             },
             filePath: {
-                required: true,
                 fileType: /^image\/(jpeg|jpg|png)$/,
             },
         },
@@ -248,53 +219,13 @@ $(document).ready(function () {
             category_id: {
                 required: "Please select a category!",
             },
-            desc: {
-                required: "Please enter a description",
-            },
             price: {
                 required: "Please enter a price",
             },
             filePath: {
-                required: "Please upload a picture!",
                 fileType: "Only JPEG, JPG, PNG files are allowed!",
             },
         },
-        submitHandler: function (form) {
-            var formData = new FormData(form);
-            const table = $("#foodsTable").DataTable();
-            formData.append("_method", "PUT");
-            const food_id = formData.get("food_id");
-
-            $.ajax({
-                type: "POST",
-                url: `/api/foods/${food_id}`,
-                data: formData,
-                contentType: false,
-                processData: false,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-                dataType: "json",
-                success: function (data) {
-                    table.ajax.reload();
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You added a new food!",
-                        icon: "success",
-                    });
-                    closeModal("edit-modal");
-                    $("#editForm").find("input").val("");
-                    $("#editForm").find("select").prop("selectedIndex", 0);
-                    $("#editForm").find("textarea").val("");
-                },
-                error: function (data) {
-                    console.log(data);
-                },
-            });
-        },
-
         errorPlacement: function (error, element) {
             error.insertAfter(element);
             $(element).addClass("error");
@@ -306,43 +237,6 @@ $(document).ready(function () {
             $(input).removeClass("error");
             $(input).addClass("success");
         },
-    });
-
-    $("#foodsTable tbody").on("click", "i.editBtn", function () {
-        const id = $(this).data("id");
-        const table = $("#foodsTable").DataTable();
-
-        $.ajax({
-            type: "GET",
-            url: `/api/foods/${id}`,
-            contentType: false,
-            processData: false,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                $("#food_id").val(data.id);
-                $("#editName").val(data.name);
-                $("#editCuisine_id option").each(function () {
-                    if ($(this).val() === data.cuisine_id) {
-                        $(this).prop("selected", true);
-                    }
-                });
-                $("#editCategory_id option").each(function () {
-                    if ($(this).val() === data.category_id) {
-                        $(this).prop("selected", true);
-                    }
-                });
-                $("#edit_desc").val(data.desc);
-                $("#edit_price").val(data.price);
-                openModal("edit-modal");
-            },
-            error: function (data) {
-                console.log(data);
-            },
-        });
     });
 
     $("#foodsTable tbody").on("click", "i.deleteBtn", function (e) {
@@ -380,7 +274,7 @@ $(document).ready(function () {
 
     $("#foodsTable").dataTable({
         ajax: {
-            url: "/api/foods",
+            url: "/api/get-foods",
             dataSrc: "",
         },
         dom: '<"flex justify-between items-center"lf>t<"flex justify-between items-center"ip>',
@@ -389,7 +283,6 @@ $(document).ready(function () {
             { data: "name" },
             { data: "cuisine.name" },
             { data: "category.name" },
-            { data: "desc" },
             { data: "price" },
             {
                 data: "filePath",
