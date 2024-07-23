@@ -316,7 +316,32 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($foods as $food)
+                                <tr>
+                                    <td class="px-6 py-3">{{ $food->id }}</td>
+                                    <td class="px-6 py-3">{{ $food->name }}</td>
+                                    <td class="px-6 py-3">{{ $food->cuisine->name }}</td>
+                                    <td class="px-6 py-3">{{ $food->category->name }}</td>
+                                    <td class="px-6 py-3">{{ '₱' . $food->price }}</td>
+                                    <td class="px-6 py-3">
+                                        <img src="{{ $food->filePath }}" alt="{{ $food->name }}"
+                                            class="w-16 h-16 object-cover">
+                                    </td>
+                                    <td class="px-6 py-3">
+                                        <!-- Actions like Edit and Delete -->
+                                        <button class="text-blue-500 hover:text-blue-600 mr-3">
+                                            <i class="fi fi-rr-edit editBtn" data-id="{{ $food->id }}"></i>
+                                        </button>
+                                        <form action="{{ route('foods.destroy', $food->id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500 hover:text-red-700"><i
+                                                    class="fi fi-rr-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>

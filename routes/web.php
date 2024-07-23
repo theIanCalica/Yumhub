@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
@@ -42,7 +43,10 @@ Route::view("/contact-us", "customer.contact")->name("contact");
 Route::view("/email", "customer.email")->name("email-confirmation");
 Route::get("/articles", [ArticleController::class, "index"])->name("articles.view");
 Route::view("/cuisines", "customer.cuisines")->name("customerView.cuisines");
+Route::view("/foods", 'customer.foods')->name("customer.foods");
+Route::get("cuisine/{cuisine}", [FoodController::class, "getFoodBasedOnCuisine"])->name("cuisine.based");
 Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])->group(function () {
+  Route::get("/add-to-cart/{food_id}", [OrderController::class, "add_to_cart"])->name("add-to-cart");
 });
 
 

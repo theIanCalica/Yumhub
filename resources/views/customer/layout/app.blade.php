@@ -86,6 +86,7 @@
     <footer>
         @include('customer.layout.footer')
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
     @yield('script')
 </body>
 

@@ -223,42 +223,6 @@ $(document).ready(function () {
     });
 
     $("#foodsTable").dataTable({
-        ajax: {
-            url: "/api/get-foods",
-            dataSrc: "",
-        },
         dom: '<"flex justify-between items-center"lf>t<"flex justify-between items-center"ip>',
-        columns: [
-            { data: "id" },
-            { data: "name" },
-            { data: "cuisine.name" },
-            { data: "category.name" },
-            { data: "price" },
-            {
-                data: "filePath",
-                render: function (data, type, row) {
-                    return (
-                        '<img src="' +
-                        data +
-                        '" alt="' +
-                        "haha" +
-                        '" class="w-full h-full object-cover"/>'
-                    );
-                },
-            },
-            {
-                data: null,
-                render: function (data, type, row) {
-                    return (
-                        "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
-                        data.id +
-                        "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                        data.id +
-                        "'></i>"
-                    );
-                },
-            },
-        ],
-        order: [[1, "asc"]],
     });
 });

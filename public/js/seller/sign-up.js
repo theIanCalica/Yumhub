@@ -204,9 +204,6 @@ $(document).ready(function () {
                 required: true,
                 fileType: ["png", "jpeg", "jpg"],
             },
-            desc: {
-                required: true,
-            },
             opHours: {
                 required: true,
             },
@@ -233,9 +230,6 @@ $(document).ready(function () {
             logo: {
                 required: "Please upload your logo",
                 fileType: "Only PNG, JPEG, and JPG files are allowed.",
-            },
-            desc: {
-                required: "Please enter description of restaurant!",
             },
             opHours: {
                 required: "PLease ebter operating hours",

@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'algolia' => [
+        'id' => env('ALGOLIA_APP_ID'),
+        'secret' => env('ALGOLIA_SECRET'),
+    ],
 
 ];

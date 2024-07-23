@@ -33,6 +33,10 @@ Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 Route::get("/get-foods", [FoodController::class, "getFoods"]);
 Route::get("get-single-food/{id}", [FoodController::class, "getSingleFood"]);
 
+
+// API filters for food
+Route::get("/filters", [FoodController::class, "filters"]);
+
 // Api for registeration for customer and seller
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/seller-register", [UserController::class, "registerSeller"]);

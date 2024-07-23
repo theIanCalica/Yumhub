@@ -108,8 +108,22 @@ class RestaurantController extends Controller
                 'operatingHours' => "required|string",
             ]);
 
-
             $restaurant = Restaurant::FindOrFail($id);
+
+            if ($request->hasFile("banner_file")) {
+                unlink(substr($restaurant->banner, 22));
+                $path = Storage::putFile('public/restaurant/banner', $request->file('banner_file'));
+                $path = asset("storage/" . substr($path, 7));
+                $validatedData['banner'] = $path;
+            }
+
+            if ($request->hasFile("logo_file")) {
+                unlink(substr($restaurant->logo_filePath, 22));
+                $profilePath = Storage::putFile('public/restaurant/logo', $request->file('logo_file'));
+                $profilePath = asset("storage/" . substr($profilePath, 7));
+                $validatedData['logo_filePath'] = $profilePath;
+            }
+
             $restaurant->update($validatedData);
             return response()->json([
                 "success" => "Updated successfully.",

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuisine;
 use App\Models\Food;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -22,7 +23,13 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view("seller.foods");
+        $user = Auth::user();
+        $resto = Restaurant::where("owner_id", $user->id)->first();
+        $foods = Food::with(['category', 'cuisine'])
+            ->where('restaurant_id', $resto->id)
+            ->orderBy('name', 'asc')
+            ->get();
+        return view("seller.foods", compact("foods"));
     }
 
     /**
@@ -139,11 +146,36 @@ class FoodController extends Controller
         return response()->json($foods);
     }
 
-    public function updateFood(Request $request, string $id)
+    public function getFoodBasedOnCuisine(string $name)
     {
+
+        $cuisine = Cuisine::where("name", $name)->first();
+        $foods = Food::where("cuisine_id", $cuisine->id)->get();
+        return view("customer.cuisineBased", compact("foods"));
     }
 
-    public function deleteFood(string $id)
+    public function filters(Request $request)
     {
+        $category = $request->input('category');
+        $cuisine = $request->input('cuisine');
+
+        // Start with a query to get all foods with related category and cuisine
+        $query = Food::with(['category', 'cuisine'])
+            ->orderBy('name', 'asc');
+
+        // Apply filters if they are provided
+        if ($category) {
+            $query->where('category_id', $category);
+        }
+
+        if ($cuisine) {
+            $query->where('cuisine_id', $cuisine);
+        }
+
+        // Execute the query and get the results
+        $foods = $query->get();
+
+        // Return the filtered foods as JSON response
+        return response()->json($foods);
     }
 }

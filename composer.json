@@ -6,8 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "algolia/algoliasearch-client-php": "^3.4",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
+        "laravel/scout": "^10.10",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1"
     },
