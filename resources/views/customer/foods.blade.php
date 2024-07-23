@@ -1,5 +1,8 @@
 @extends('customer.layout.app')
 
+@php
+    $user = Auth::user();
+@endphp
 @section('content')
     <div class="container mx-auto py-8 px-8">
         <!-- Search Bar -->
@@ -194,6 +197,34 @@
                 error: function(data) {
                     console.log('Error:', data);
                 }
+            });
+
+            $('#foods-container').on('click', '.add-to-cart', function() {
+                const id = $(this).data("id");
+                const user_id = @json($user->id);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/carts",
+                    data: {
+                        food_ID: id,
+                        user_id: user_id,
+                    },
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        Swal.fire({
+                            title: "Yum!😋",
+                            text: "You've successfully added a delicious dish to your cart",
+                            icon: "success"
+                        });
+                    }
+                })
             });
         });
     </script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactMessageController;
@@ -32,7 +33,7 @@ Route::apiResource("articles", ArticleController::class);
 Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 Route::get("/get-foods", [FoodController::class, "getFoods"]);
 Route::get("get-single-food/{id}", [FoodController::class, "getSingleFood"]);
-
+Route::apiResource("carts", CartController::class);
 
 // API filters for food
 Route::get("/filters", [FoodController::class, "filters"]);

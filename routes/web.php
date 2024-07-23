@@ -47,6 +47,8 @@ Route::view("/foods", 'customer.foods')->name("customer.foods");
 Route::get("cuisine/{cuisine}", [FoodController::class, "getFoodBasedOnCuisine"])->name("cuisine.based");
 Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])->group(function () {
   Route::get("/add-to-cart/{food_id}", [OrderController::class, "add_to_cart"])->name("add-to-cart");
+  Route::post("/order", [OrderController::class, "order"])->name("order");
+  Route::view("/cart", "customer.cart")->name("customer.cart");
 });
 
 
