@@ -137,9 +137,11 @@ class FoodController extends Controller
      */
     public function destroy(string $id)
     {
+
         $food = Food::FindOrFail($id);
         unlink(substr($food->filePath, 22));
         $food->delete();
+        return redirect()->route("foods.index")->with(["icon" => "success", "title" => "Hooray!", "text" => "Successfully Deleted!"]);
     }
 
     public function getFoods()

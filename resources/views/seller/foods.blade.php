@@ -42,6 +42,66 @@
 @section('scripts')
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script src="{{ asset('js/seller/food.js') }}"></script>
+    <script>
+        $("#foodsTable tbody").on("click", "i.deleteBtn", function(e) {
+
+            const food = $(this).data("id");
+            const table = $("#foodsTable").DataTable();
+            const routeFormat =
+                "{{ route('foods.destroy', ['food' => ':food']) }}";
+            const finalRoute = routeFormat.replace(":food", food);
+            $("#deleteForm").attr("action", finalRoute);
+            Swal.fire({
+                title: "Do you want to delete this?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                denyButtonText: `No`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#deleteForm").submit();
+
+                }
+            });
+        });
+
+
+        function openModal(modalId) {
+            const $targetEl = document.getElementById(modalId);
+            const modal = new Modal($targetEl);
+            modal.show();
+        }
+        $("#foodsTable tbody").on("click", "i.editBtn", function() {
+            console.log("hi");
+            const id = $(this).data("id");
+            const routeFormat =
+                "{{ route('foods.update', ['food' => ':food']) }}";
+            const finalRoute = routeFormat.replace(":food", id);
+            $("#editForm").attr("action", finalRoute);
+            $.ajax({
+                type: "GET",
+                url: `/api/get-single-food/${id}`,
+                contentType: false,
+                processData: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $("#food_id").val(data.id);
+                    $("#editName").val(data.name);
+                    $("#editCuisine_id").val(data.cuisine_id);
+                    $("#editCategory_id").val(data.category_id);
+                    $("#edit_price").val(data.price);
+                    openModal("edit-modal");
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+            });
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -166,6 +226,8 @@
                 </div>
                 <!-- Modal body -->
                 <form class="p-4 md:p-5" id="editForm" method="POST">
+                    @csrf
+                    @method('put')
                     <input type="hidden" name="food_id" id="food_id">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
@@ -283,9 +345,12 @@
                         </tfoot>
                     </table>
                 </div>
-
             </div>
-
         </div>
+        <form method="POST" id="deleteForm" style="display: none;">
+            @csrf
+            @method('delete')
+            <input type="hidden" name="food_id" id="food_id_delete">
+        </form>
     </div>
 @endsection

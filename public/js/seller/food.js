@@ -222,68 +222,6 @@ $(document).ready(function () {
         },
     });
 
-    $("#foodsTable tbody").on("click", "i.deleteBtn", function (e) {
-        const food = $(this).data("id");
-        const table = $("#foodsTable").DataTable();
-
-        Swal.fire({
-            title: "Do you want to delete this?",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Yes",
-            denyButtonText: `No`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "DELETE",
-                    url: `/seller/delete-food/${food}`,
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content"
-                        ),
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        console.log(data);
-                        table.ajax.reload();
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    },
-                });
-            }
-        });
-    });
-
-    $("#foodsTable tbody").on("click", "i.editBtn", function () {
-        console.log("hi");
-        const id = $(this).data("id");
-
-        $("#editForm").attr("action", finalRoute);
-        $.ajax({
-            type: "GET",
-            url: `/api/get-single-food/${id}`,
-            contentType: false,
-            processData: false,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                $("#food_id").val(data.id);
-                $("#editName").val(data.name);
-                $("#editCuisine_id").val(data.cuisine_id);
-                $("#editCategory_id").val(data.category_id);
-                $("#edit_price").val(data.price);
-                openModal("edit-modal");
-            },
-            error: function (data) {
-                console.log(data);
-            },
-        });
-    });
-
     $("#foodsTable").dataTable({
         ajax: {
             url: "/api/get-foods",
