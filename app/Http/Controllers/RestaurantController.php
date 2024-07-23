@@ -6,6 +6,7 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class RestaurantController extends Controller
 {
@@ -48,7 +49,7 @@ class RestaurantController extends Controller
             $validatedData['logo_filePath'] = $path;
 
             $bannerPath = Storage::putFile('public/restaurant/banner', $request->file('banner'));
-            $bannerPath = asset("storage/" . substr($path, 7));
+            $bannerPath = asset("storage/" . substr($bannerPath, 7));
             $validatedData['banner'] = $bannerPath;
 
             $restaurant = Restaurant::create($validatedData);
@@ -92,17 +93,26 @@ class RestaurantController extends Controller
             $validatedData = $request->validate([
                 "name" => "required|string|max:255",
                 'address' => "required|string",
-                "phoneNumber" => "required|string|min:11|max:11|unique:restaurants",
-                'email' => "required|email|unique:restaurants",
-                'logo_filePath' => "required|string",
-                'desc' => "required|string",
+                "phoneNumber" => [
+                    "required",
+                    "string",
+                    "min:11",
+                    "max:11",
+                    Rule::unique('restaurants', 'phoneNumber')->ignore($id),
+                ],
+                'email' => [
+                    "required",
+                    "email",
+                    Rule::unique('restaurants', 'email')->ignore($id),
+                ],
                 'operatingHours' => "required|string",
             ]);
+
 
             $restaurant = Restaurant::FindOrFail($id);
             $restaurant->update($validatedData);
             return response()->json([
-                "success" => "Registered Restaurant successfully.",
+                "success" => "Updated successfully.",
                 "restaurant" => $restaurant,
                 "status" => 200
             ]);

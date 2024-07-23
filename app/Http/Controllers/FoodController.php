@@ -91,23 +91,19 @@ class FoodController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request);
+        $user = Auth::user();
+        $restaurant = Restaurant::where("owner_id", $user->id)->first();
+
         try {
             $validatedData = $request->validate([
                 "name" => "required|string|max:255",
                 'cuisine_id' => "required",
                 'category_id' => "required",
-                'user_id' => "required",
-                "desc" => "required|string",
                 'price' => "required|numeric",
                 "filePath" => "required|image|mimes:jpeg,png,jpg",
             ]);
-
             $food = Food::FindOrFail($id);
-
-            $restaurant = Restaurant::where("owner_id", $validatedData['user_id'])->first();
             $validatedData['restaurant_id'] = $restaurant->id;
-
             if ($request->hasFile("filePath")) {
                 unlink(substr($food->filePath, 22));
                 $path = Storage::putFile('public/food', $request->file('filePath'));
@@ -117,18 +113,9 @@ class FoodController extends Controller
             } else {
                 $food->update($validatedData);
             }
-
-            return response()->json([
-                "success" => "Updated Successfully!",
-                "food" => $food,
-                "status" => 200,
-            ]);
+            return redirect()->route("foods.index")->with(["icon" => "success", "title" => "Hooray!", "text" => "You updated food!"]);
         } catch (ValidationException $e) {
-            return response()->json([
-                'error' => 'Validation failed.',
-                'errors' => $e->errors(),
-                'status' => 422
-            ]);
+            return redirect()->route("foods.index")->with(["icon" => "error", "title" => "Warning!", "text" => $e->errors()]);
         }
     }
 

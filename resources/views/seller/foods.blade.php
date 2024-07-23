@@ -225,7 +225,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5" id="editForm" method="POST">
+                <form class="p-4 md:p-5" id="editForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <input type="hidden" name="food_id" id="food_id">
