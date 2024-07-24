@@ -11,10 +11,8 @@ class Order extends Model
     use HasFactory, HasUuids;
     protected $table = "orders";
     protected $fillable = [
-        "order-date",
+        "order_date",
         "user_id",
-        "seller_id",
         "status",
-        "specialInstruction",
     ];
 }

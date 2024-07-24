@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\Orders_Items;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Webhook;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Stripe\Exception\SignatureVerificationException;
 
 class StripeController extends Controller
 {
@@ -71,57 +76,87 @@ class StripeController extends Controller
         $endpoint_secret = config('stripe.webhook_secret');
 
         // Get the payload and signature header from the request
-        $payload = $request->getContent();
+        $payload = @file_get_contents('php://input');
         $sig_header = $request->header('Stripe-Signature');
         $event = null;
+
 
         try {
             // Verify and construct the event
             $event = Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
         } catch (\UnexpectedValueException $e) {
-            // Invalid payload
+            // Log the error
+            Log::error('Invalid payload received for webhook', [
+                'exception' => $e->getMessage(),
+                'payload' => $payload,
+            ]);
+            // Respond with an error
             return response()->json(['error' => 'Invalid payload'], 400);
-        } catch (\Stripe\Exception\SignatureVerificationException $e) {
-            // Invalid signature
+        } catch (SignatureVerificationException $e) {
+            // Log the error
+            Log::error('Invalid signature for webhook', [
+                'exception' => $e->getMessage(),
+                'signature' => $sig_header,
+                'payload' => $payload,
+            ]);
+            // Respond with an error
             return response()->json(['error' => 'Invalid signature'], 400);
+        } catch (\Exception $e) {
+            // Log any other unexpected errors
+            Log::error('Webhook processing error', [
+                'exception' => $e->getMessage(),
+                'payload' => $payload,
+                'signature' => $sig_header,
+            ]);
+            // Respond with a generic error
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
 
-        if ($event->type == 'checkout.session.completed') {
-            $session = $event->data->object;
+        // if ($event->type == 'checkout.session.completed') {
 
-            // Retrieve the client reference ID
-            $clientReferenceId = $session->client_reference_id;
+        //     $session = $event->data->object;
 
-            // Find the cart associated with the session
-            $cart = Cart::where('stripe_session_id', $session->id)->first();
+        //     $user = Auth::user();
 
-            if ($cart) {
-                // Create an order and move cart items to the order
-                $order = Order::create([
-                    'user_id' => $clientReferenceId,
-                    'total' => $cart->items->sum(fn ($item) => $item->quantity * $item->food->price),
-                    // Add other necessary fields
-                ]);
+        //     // Find the cart associated with the session
+        //     $cart = Cart::where('user_id', $user->id)->first();
 
-                foreach ($cart->items as $item) {
-                    $order->items()->create([
-                        'food_id' => $item->food_id,
-                        'quantity' => $item->quantity,
-                        'price' => $item->food->price,
-                    ]);
-                }
+        //     if ($cart) {
+        //         // Create an order and move cart items to the order
+        //         $order = Order::create([
+        //             'user_id' => $user->id,
+        //             'order_date' => Carbon::now(),
+        //             'status' => "Processing",
+        //         ]);
 
-                // Clear the cart
-                $cart->items()->delete();
-                $cart->delete();
-            }
-        }
+        //         foreach ($cart->cartItems as $item) {
+        //             $orderItem = Orders_Items::create([
+        //                 'order_id' => $order->id,
+        //                 'food_id' => $item->food_id,
+        //                 'qty' => $item->qty,
+        //             ]);
+        //         }
+        //         $cart->delete();
+        //     }
+        // }
 
-        return response()->json(['status' => 'success'], 200);
+        return response()->json(['status' => 'success', 'event' => $event->type], 200);
     }
 
     public function success()
     {
         return view("index");
+    }
+
+    public function try()
+    {
+        $user = Auth::user();
+
+
+        // Find the cart associated with the session
+        $cart = Cart::where('user_id', $user->id)->first();
+        foreach ($cart->cartItems as $item) {
+            dd($item->qty);
+        }
     }
 }
