@@ -6,18 +6,14 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\RiderController;
-use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
-use App\Models\Restaurant;
 use Illuminate\Support\Facades\Route;
 
 
 // Routes for admins
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin', 'isActive'])->group(function () {
   Route::view("/", "admin.index")->name("admin.home");
-  Route::view("/regions-all", "admin.regions");
   Route::view("/managers", "admin.managers")->name("managers");
   Route::view("/riders", "admin.riders")->name("riders");
   Route::view("/users", "admin.users")->name("users");
@@ -26,6 +22,9 @@ Route::prefix('admin')->middleware(['isAuthenticated', 'admin', 'isActive'])->gr
   Route::view("/categories", "admin.categories")->name("categories");
   Route::view("/contacts", "admin.contacts")->name("contacts");
   Route::view("/articles", "admin.articles")->name("articles");
+  Route::view("/profile", 'admin.profile')->name("admin.profile");
+  Route::view("/change-password", 'admin.changePass')->name("admin.changePass");
+  Route::post("/change-password/admin-process", [UserController::class, "adminChangePass"])->name("admin.changePass.process");
   Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
 });
 Route::post("/sign-in/auth", [AuthController::class, "login"])->name("login");

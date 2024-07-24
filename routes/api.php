@@ -1,23 +1,18 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
-use App\Http\Controllers\ProvinceController;
-use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
-use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

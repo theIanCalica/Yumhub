@@ -334,4 +334,19 @@ class UserController extends Controller
 
         return redirect()->route('showSeller', ['id' => $user->id])->with(['text' => 'Profile updated successfully!', "title" => "Hooray!", "icon" => "success"]);
     }
+
+    public function adminChangePass(Request $request)
+    {
+        $validatedData = $request->validate([
+            "new_password" => "required|string|min:6",
+            "confirm_password" => "required|string|min:6|same:new_password",
+            "user_id" => "required",
+        ]);
+
+        $user = User::FindOrFail($validatedData['user_id']);
+        $user->password = Hash::make($validatedData['new_password']);
+        $user->save();
+
+        return redirect()->route('admin.profile', ['id' => $user->id])->with(['text' => 'Password updated successfully!', "title" => "Hooray!", "icon" => "success"]);
+    }
 }

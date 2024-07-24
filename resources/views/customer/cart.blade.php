@@ -7,7 +7,7 @@
 @endphp
 @section('content')
     <div class="container mx-auto px-4  py-20 mb-20 ">
-        <h1 class="text-2xl font-bold mb-4">My Cart</h1>
+        <h1 class="text-2xl font-bold mb-4 merriweather-bold">My Cart</h1>
 
         <form action="#" method="POST">
             <table class="min-w-full border rounded-lg shadow-md">
