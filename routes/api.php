@@ -15,6 +15,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\UserController;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,8 @@ Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 Route::get("/get-foods", [FoodController::class, "getFoods"]);
 Route::get("get-single-food/{id}", [FoodController::class, "getSingleFood"]);
 Route::apiResource("carts", CartController::class);
+Route::apiResource("cartItems", CartItem::class);
+Route::post("getCartFood", [CartController::class, "getCartItems"]);
 
 // API filters for food
 Route::get("/filters", [FoodController::class, "filters"]);

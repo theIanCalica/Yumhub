@@ -63,4 +63,8 @@ class CartItemController extends Controller
     {
         //
     }
+
+    public function getCartItems()
+    {
+    }
 }
