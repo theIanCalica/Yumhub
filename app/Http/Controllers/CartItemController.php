@@ -40,20 +40,17 @@ class CartItemController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CartItem $cartItem)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $cartItem = CartItem::FindOrFail($id);
+        $cartItem->qty = $request->quantity;
+        $cartItem->update();
+        return response()->json(["message" => $cartItem]);
     }
 
     /**

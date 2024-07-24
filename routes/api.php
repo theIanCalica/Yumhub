@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactMessageController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
@@ -35,8 +37,10 @@ Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 Route::get("/get-foods", [FoodController::class, "getFoods"]);
 Route::get("get-single-food/{id}", [FoodController::class, "getSingleFood"]);
 Route::apiResource("carts", CartController::class);
-Route::apiResource("cartItems", CartItem::class);
+Route::apiResource("cartItems", CartItemController::class);
 Route::post("getCartFood", [CartController::class, "getCartItems"]);
+
+Route::post("/checkout", [StripeController::class, "checkout"]);
 
 // API filters for food
 Route::get("/filters", [FoodController::class, "filters"]);

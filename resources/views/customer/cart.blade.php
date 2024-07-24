@@ -34,7 +34,8 @@
             </table>
 
             <div class="mt-4">
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+                <button type="button" id="checkoutBtn"
+                    class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
                     Confirm Order</button>
             </div>
         </form>
@@ -52,15 +53,64 @@
                 var $input = $(this).siblings('.qty-input');
                 var currentVal = parseInt($input.val(), 10);
                 var action = $(this).data('action');
+                var id = $input.data('id');
+                console.log(id);
 
+                var newVal;
                 if (action === 'increment') {
-                    $input.val(currentVal + 1);
+                    newVal = currentVal + 1;
                 } else if (action === 'decrement') {
                     if (currentVal > 1) {
-                        $input.val(currentVal - 1);
+                        newVal = currentVal - 1;
+                    } else {
+                        return; // Prevent decrementing below 1
                     }
                 }
+
+                // Update the input value
+                $input.val(newVal);
+
+                var formData = new FormData();
+                formData.append("quantity", newVal); // Your data payload
+                formData.append("_method", "PUT"); // Simulate PUT request
+
+
+                $.ajax({
+                    type: "POST",
+                    url: `/api/cartItems/${id}`,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        const price = parseFloat($input.closest('tr').find('td').eq(2).text()
+                            .replace('₱', ''));
+                        const subtotal = price * newVal;
+                        $input.closest('tr').find('td').eq(4).text(`₱${subtotal.toFixed(2)}`);
+
+                        // Recalculate total price
+                        recalculateTotal();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    },
+                });
             });
+
+            function recalculateTotal() {
+                let totalPrice = 0;
+                $('#cart-items tr').each(function() {
+                    const subtotal = parseFloat($(this).find('td').eq(4).text().replace('₱', ''));
+                    totalPrice += isNaN(subtotal) ? 0 : subtotal;
+                });
+                $('tfoot').find('td').eq(1).text(`₱${totalPrice.toFixed(2)}`);
+            }
 
             function loadCart() {
                 $.ajax({
@@ -95,7 +145,7 @@
                                     class="qty-btn bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                                     data-action="decrement">-</button>
                                 <input type="text" name="quantities[${item.id}]" value="${item.qty}" min="1"
-                                    class="qty-input w-12 text-center border border-gray-300 rounded">
+                                    class="qty-input w-12 text-center border border-gray-300 rounded" data-id="${item.id}">
                                 <button type="button"
                                     class="qty-btn bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
                                     data-action="increment">+</button>
@@ -155,6 +205,11 @@
                         Swal.fire("Changes are not saved", "", "info");
                     }
                 });
+
+            });
+
+
+            $("#checkoutBtn").on("click", function() {
 
             });
         });
