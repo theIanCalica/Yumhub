@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\CartItem;
-use App\Http\Requests\StoreCartItemRequest;
-use App\Http\Requests\UpdateCartItemRequest;
+use Illuminate\Http\Request;
 
 class CartItemController extends Controller
 {
@@ -27,7 +27,7 @@ class CartItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCartItemRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class CartItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CartItem $cartItem)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +51,7 @@ class CartItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCartItemRequest $request, CartItem $cartItem)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,12 +59,17 @@ class CartItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CartItem $cartItem)
+    public function destroy(string $id)
     {
-        //
+        $cartItem = CartItem::FindOrFail($id);
+        $cartItem->delete();
+        return response()->json(["message" => "success"]);
     }
 
-    public function getCartItems()
+    public function getCartItems(Request $request)
     {
+        $cart = Cart::where("user_id", $request->user_id)->first();
+        $cartItems = $cart->items()->with(['food.cuisine', 'food.category'])->get();
+        return response()->json($cartItems);
     }
 }

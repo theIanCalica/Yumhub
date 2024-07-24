@@ -84,4 +84,15 @@ class CartController extends Controller
     {
         //
     }
+
+    public function getCartItems(Request $request)
+    {
+        $cartItems = CartItem::whereHas('cart', function ($query) use ($request) {
+            $query->where('user_id', $request->user_id);
+        })
+            ->with('food')  // Eager load the related food items
+            ->get();
+
+        return response()->json($cartItems);
+    }
 }
