@@ -58,7 +58,9 @@ class StripeController extends Controller
             'mode' => 'payment',
             'success_url' => route('home'),
             'cancel_url' => route('home'),
-            'client_reference_id' => $request->user_id,
+            'metadata' => [
+                'user_id' => $request->user_id, // Save user_id in metadata
+            ],
         ]);
 
         return response()->json([
@@ -112,51 +114,49 @@ class StripeController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
 
-        // if ($event->type == 'checkout.session.completed') {
-
-        //     $session = $event->data->object;
-
-        //     $user = Auth::user();
-
-        //     // Find the cart associated with the session
-        //     $cart = Cart::where('user_id', $user->id)->first();
-
-        //     if ($cart) {
-        //         // Create an order and move cart items to the order
-        //         $order = Order::create([
-        //             'user_id' => $user->id,
-        //             'order_date' => Carbon::now(),
-        //             'status' => "Processing",
-        //         ]);
-
-        //         foreach ($cart->cartItems as $item) {
-        //             $orderItem = Orders_Items::create([
-        //                 'order_id' => $order->id,
-        //                 'food_id' => $item->food_id,
-        //                 'qty' => $item->qty,
-        //             ]);
-        //         }
-        //         $cart->delete();
-        //     }
-        // }
+        try {
+            if ($event->type == 'checkout.session.completed') {
+                $session = $event->data->object;
+                $this->handleSuccessCheckout($session);
+            }
+        } catch (\Exception $e) {
+            Log::error('Error handling event: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
 
         return response()->json(['status' => 'success', 'event' => $event->type], 200);
     }
 
+
+    protected function handleSuccessCheckout($session)
+    {
+        $userId = $session->metadata->user_id;
+
+        // Find the cart associated with the session
+        $cart = Cart::where('user_id', $userId)->first();
+        $cartItems = $cart->cartItems;
+        if ($cart) {
+            // Create an order and move cart items to the order
+            $order = Order::create([
+                'user_id' => $userId,
+                'order_date' => Carbon::now(),
+                'status' => "Processing",
+            ]);
+
+            foreach ($cartItems as $cartItem) {
+                Orders_Items::create([
+                    'order_id' => $order->id,
+                    'food_id' => $cartItem->food_id,
+                    'qty' => $cartItem->qty,
+                ]);
+            }
+            $cart->delete();
+        }
+    }
+
+
     public function success()
     {
         return view("index");
-    }
-
-    public function try()
-    {
-        $user = Auth::user();
-
-
-        // Find the cart associated with the session
-        $cart = Cart::where('user_id', $user->id)->first();
-        foreach ($cart->cartItems as $item) {
-            dd($item->qty);
-        }
     }
 }
