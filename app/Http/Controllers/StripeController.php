@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Webhook;
 
 class StripeController extends Controller
 {
@@ -11,27 +16,108 @@ class StripeController extends Controller
         return view("index");
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
-        $session = \Stripe\Checkout\Session::create([
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'gbp',
-                        'product_data' => [
-                            'name' => 'Send me money',
-                        ],
-                        'unit_amount' => 500,
+
+        // Validate the request
+        $request->validate([
+            'user_id' => 'required|exists:users,id', // Ensure user_id is valid
+        ]);
+
+        // Retrieve the user's cart
+        $cartItems = CartItem::whereHas('cart', function ($query) use ($request) {
+            $query->where('user_id', $request->user_id);
+        })
+            ->with('food') // Eager load the related food items
+            ->get();
+
+        // Prepare line items for Stripe
+        $lineItems = $cartItems->map(function ($item) {
+            return [
+                'price_data' => [
+                    'currency' => 'php', // Set currency to Philippine Peso
+                    'product_data' => [
+                        'name' => $item->food->name, // Food name
                     ],
-                    'quantity' => 1,
+                    'unit_amount' => $item->food->price * 100,
                 ],
-            ],
+                'quantity' => $item->qty,
+
+            ];
+        })->toArray();
+
+        // Create Stripe Checkout session
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url' => route('home'),
-            'cancel_url' => route("home"),
+            'cancel_url' => route('home'),
+            'client_reference_id' => $request->user_id,
         ]);
-        return redirect()->away($session->url);
+
+        return response()->json([
+            'sessionUrl' => $session->url
+        ]);
+    }
+
+
+    public function handleWebhook(Request $request)
+    {
+        // Set the Stripe API secret key
+        Stripe::setApiKey(config('stripe.sk'));
+
+        // Define your Stripe webhook secret
+        $endpoint_secret = config('stripe.webhook_secret');
+
+        // Get the payload and signature header from the request
+        $payload = $request->getContent();
+        $sig_header = $request->header('Stripe-Signature');
+        $event = null;
+
+        try {
+            // Verify and construct the event
+            $event = Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
+        } catch (\UnexpectedValueException $e) {
+            // Invalid payload
+            return response()->json(['error' => 'Invalid payload'], 400);
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Invalid signature
+            return response()->json(['error' => 'Invalid signature'], 400);
+        }
+
+        if ($event->type == 'checkout.session.completed') {
+            $session = $event->data->object;
+
+            // Retrieve the client reference ID
+            $clientReferenceId = $session->client_reference_id;
+
+            // Find the cart associated with the session
+            $cart = Cart::where('stripe_session_id', $session->id)->first();
+
+            if ($cart) {
+                // Create an order and move cart items to the order
+                $order = Order::create([
+                    'user_id' => $clientReferenceId,
+                    'total' => $cart->items->sum(fn ($item) => $item->quantity * $item->food->price),
+                    // Add other necessary fields
+                ]);
+
+                foreach ($cart->items as $item) {
+                    $order->items()->create([
+                        'food_id' => $item->food_id,
+                        'quantity' => $item->quantity,
+                        'price' => $item->food->price,
+                    ]);
+                }
+
+                // Clear the cart
+                $cart->items()->delete();
+                $cart->delete();
+            }
+        }
+
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function success()

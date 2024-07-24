@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,7 @@ Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])
   Route::get("/add-to-cart/{food_id}", [OrderController::class, "add_to_cart"])->name("add-to-cart");
   Route::post("/order", [OrderController::class, "order"])->name("order");
   Route::view("/cart", "customer.cart")->name("customer.cart");
+  Route::post('/webhook', [StripeController::class, 'handleWebhook']);
 });
 
 

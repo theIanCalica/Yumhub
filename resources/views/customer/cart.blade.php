@@ -210,7 +210,27 @@
 
 
             $("#checkoutBtn").on("click", function() {
-
+                const user = @json($user);
+                const user_id = user.id;
+                console.log(user_id);
+                $.ajax({
+                    type: "POST",
+                    url: "/api/checkout",
+                    data: {
+                        user_id: user_id,
+                    },
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        window.location.href = data.sessionUrl;
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
             });
         });
     </script>
