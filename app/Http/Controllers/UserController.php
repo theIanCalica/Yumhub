@@ -315,17 +315,8 @@ class UserController extends Controller
             'lname' => "required|string|max:255",
             'gender' => "required|string|max:5",
             'dob' => "required|date",
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users')->ignore($request->user_id),
-            ],
-            'phoneNumber' => [
-                'required',
-                'min:11',
-                'max:11',
-                Rule::unique('users')->ignore($request->user_id),
-            ],
+            'email' => "required|email|unique:users, " . $request->user_id,
+            'phoneNumber' => "required|min:11|max:11|unique:users, " . $request->user_id,
             'address' => "required|string",
         ]);
 
@@ -348,5 +339,35 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('admin.profile', ['id' => $user->id])->with(['text' => 'Password updated successfully!', "title" => "Hooray!", "icon" => "success"]);
+    }
+
+    public function adminChangeProfile(Request $request)
+    {
+        $validatedData = $request->validate([
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'gender' => 'required|string|max:5',
+            'dob' => 'required|date',
+            'email' => 'required|email|unique:users,email,' . $request->user_id,
+            'phoneNumber' => 'required|min:11|max:11|unique:users,phoneNumber,' . $request->user_id,
+            'address' => 'required|string',
+        ]);
+
+        if ($request->hasFile('profilePicture')) {
+            $path = Storage::putFile('public/users/admin', $request->file('profilePicture'));
+            $path = asset('storage/' . substr($path, 7));
+            $validatedData['filePath'] = $path;
+        }
+
+        $user = User::findOrFail($request->user_id);
+        $user->update($validatedData);
+
+        return response()->json([
+            "title" => "Success!",
+            "message" => "You updated the users details!",
+            "icon" => "success",
+            "user" => $user,
+            "status" => 200
+        ]);
     }
 }

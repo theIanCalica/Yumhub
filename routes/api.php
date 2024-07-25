@@ -64,8 +64,10 @@ Route::put("/put-user-details/{id}", [UserController::class, "putUserDetails"]);
 // API for jquery infinite scrolling
 Route::get("/get-articles", [ArticleController::class, "getArticles"]);
 
-
-
+// API for updating profile
+Route::put("/update-admin/{id}", [UserController::class, "adminChangeProfile"]);
+Route::put("/update-customer/{id}", [UserController::class, "updateCustomer"]);
+Route::put("/update-seller/{id}", [UserController::class, "updateSeller"]);
 
 // Api for MP1,MP2,MP3
 Route::apiResource("managers", ManagerController::class);

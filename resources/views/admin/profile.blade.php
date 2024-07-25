@@ -9,9 +9,7 @@
 @section('content')
     <div class="flex justify-center mt-10 mb-20 pb-20">
         <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl">
-            <form action="{{ route('admin.changePass.process') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @methiod
+            <form method="POST" enctype="multipart/form-data" id="profileForm">
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
 
                 <!-- Profile Picture -->
@@ -64,7 +62,8 @@
                     </div>
                     <div>
                         <label for="phone" class="block text-gray-700 font-medium">Phone Number</label>
-                        <input type="text" id="phone" name="phone" value="{{ $user->phoneNumber }}"
+                        <input type="text" id="phoneNumber" name="phoneNumber" maxlength="11"
+                            value="{{ $user->phoneNumber }}"
                             class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
                     <div class="md:col-span-2 flex justify-center">
@@ -95,6 +94,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/profile.js') }}"></script>
     @if (session()->has('text'))
         <script>
             Swal.fire({
