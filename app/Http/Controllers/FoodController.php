@@ -188,4 +188,14 @@ class FoodController extends Controller
 
         return response()->json($foods);
     }
+
+    public function getTopFood()
+    {
+        $topFoods = Food::withCount('orderItems') // Get count of related order items
+            ->orderBy('order_items_count', 'desc') // Order by count
+            ->limit(10) // Limit to top 10
+            ->get(); // Retrieve results
+
+        return response()->json($topFoods); // Return as JSON
+    }
 }

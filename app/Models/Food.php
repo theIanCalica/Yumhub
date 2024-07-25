@@ -39,4 +39,9 @@ class Food extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(Orders_Items::class);
+    }
 }

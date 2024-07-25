@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
@@ -85,3 +86,7 @@ Route::apiResource("stockholders", StockholderController::class);
 
 // API for getting products based on search in cuisine based
 Route::post("foods-cuisine", [FoodController::class, "searchBasedOnCuisine"]);
+
+// API ROUTE FOR CHARTS
+Route::get("/getTopFoods", [FoodController::class, "getTopFood"]);
+Route::get("/getOrders", [OrderController::class, "getMonthlyProfit"]);
