@@ -1,10 +1,36 @@
-@extends('seller.layout.app')
+@extends('admin.layout.app')
 
 @section('title', 'Profile')
 
 @php
     $user = Auth::user();
 @endphp
+
+@section('styles')
+    <style>
+        label.error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        input.error {
+            border-color: red;
+        }
+
+        input.success {
+            border-color: green;
+        }
+
+        select.success {
+            border-color: green;
+        }
+
+        select.error {
+            border-color: red;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="flex justify-center mt-10 mb-20 pb-20">

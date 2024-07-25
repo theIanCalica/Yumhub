@@ -258,9 +258,9 @@ class UserController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            echo "false";
+            return response()->json(false);
         } else {
-            echo "true";
+            return response()->json(true);
         }
     }
 
@@ -341,15 +341,24 @@ class UserController extends Controller
         return redirect()->route('admin.profile', ['id' => $user->id])->with(['text' => 'Password updated successfully!', "title" => "Hooray!", "icon" => "success"]);
     }
 
-    public function adminChangeProfile(Request $request)
+    public function adminChangeProfile(Request $request, string $id)
     {
         $validatedData = $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
             'gender' => 'required|string|max:5',
             'dob' => 'required|date',
-            'email' => 'required|email|unique:users,email,' . $request->user_id,
-            'phoneNumber' => 'required|min:11|max:11|unique:users,phoneNumber,' . $request->user_id,
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+            'phoneNumber' => [
+                'required',
+                'min:11',
+                'max:11',
+                Rule::unique('users')->ignore($id),
+            ],
             'address' => 'required|string',
         ]);
 
@@ -367,7 +376,8 @@ class UserController extends Controller
             "message" => "You updated the users details!",
             "icon" => "success",
             "user" => $user,
-            "status" => 200
+            "status" => 200,
+            'user_id' => $request->user_id,
         ]);
     }
 }

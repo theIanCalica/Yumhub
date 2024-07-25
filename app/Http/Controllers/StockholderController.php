@@ -20,14 +20,6 @@ class StockholderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -78,14 +70,6 @@ class StockholderController extends Controller
     {
         $stockholder = Stockholder::FindOrFail($id);
         return response()->json($stockholder);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Stockholder $stockholder)
-    {
-        //
     }
 
     /**

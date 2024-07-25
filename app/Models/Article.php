@@ -13,6 +13,7 @@ class Article extends Model
     protected $fillable = [
         "title",
         'content',
+        'description',
         'category', //Food Trends,  Cooking Tips, Recipes, Health and Nutrition, Cooking Challenges
         'filePath',
     ];

@@ -96,11 +96,11 @@
         <div class="grid w-full grid-cols-1 gap-4 mt-4 sm:grid-cols-2 lg:grid-cols-3">
             <div
                 class="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div class="w-full">
-                    <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Number of Food</h3>
-                    <span class="text-xl font-bold leading-none text-gray-900 dark:text-white">2,340</span>
+                <div class="w-full mb-5">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-400">Top 10 Foods</h3>
+                    <span class="text-base font-normal leading-none text-gray-500 dark:text-white">Number of Orders</span>
                 </div>
-                <div class="w-full" id="new-products-chart"></div>
+                <canvas class="w-full" id="top-food-chart" height="350"></canvas>
             </div>
 
             <div
@@ -1117,6 +1117,7 @@
     <script>
         $(document).ready(function() {
 
+
             // Data for the chart (example data, replace with your actual data)
             const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const data = {
@@ -1187,6 +1188,67 @@
             // Create the chart
             const ctx = $('#main-chart')[0].getContext('2d');
             new Chart(ctx, config);
+
+            var ct = $('#top-food-chart')[0].getContext('2d');
+            var topFoodChart = new Chart(ct, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Pizza', 'Burger', 'Pasta', 'Sushi', 'Tacos', 'Salad', 'Steak', 'Ice Cream',
+                        'Soup', 'Sandwich'
+                    ], // Replace with your data
+                    datasets: [{
+                        label: 'Number of Orders',
+                        data: [230, 210, 190, 180, 170, 160, 150, 140, 130,
+                            120
+                        ], // Replace with your data
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.raw;
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         });
     </script>
 @endsection

@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-span-2">
                             <label for="category"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Article Category
                             </label>
                             <select name="category" id="category"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -85,7 +85,13 @@
                                 <option value="Cooking Challenges">Cooking Challenges</option>
                             </select>
                         </div>
-
+                        <div class="col-span-2">
+                            <label for="category"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description
+                            </label>
+                            <textarea name="description" id="description" cols="30" rows="5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"></textarea>
+                        </div>
                         <div class="col-span-2">
                             <label for="content"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content

@@ -19,11 +19,47 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
+                remote: {
+                    url: "/api/checkEmail",
+                    type: "post",
+                    data: {
+                        email: function () {
+                            return $("#email").val();
+                        },
+                    },
+                    dataFilter: function (response) {
+                        return response;
+                        console.log(response);
+                        // var json = JSON.parse(response);
+                        // if (json.valid) {
+                        //     return true;
+                        // } else {
+                        //     return "This email is already taken.";
+                        // }
+                    },
+                },
             },
             phoneNumber: {
                 required: true,
                 minlength: 11,
                 maxlength: 11,
+                remote: {
+                    url: "/api/checkPhoneNumber",
+                    type: "post",
+                    data: {
+                        phoneNumber: function () {
+                            return $("#phoneNumber").val();
+                        },
+                    },
+                    dataFilter: function (response) {
+                        var json = JSON.parse(response);
+                        if (json.valid) {
+                            return true;
+                        } else {
+                            return "This phone number is already taken.";
+                        }
+                    },
+                },
             },
             address: {
                 required: true,
@@ -49,11 +85,13 @@ $(document).ready(function () {
             email: {
                 required: "Please enter your email!",
                 email: "Not a valid email!",
+                remote: "Email already taken!",
             },
             phoneNumber: {
                 required: "Please enter your phone number!",
                 minlength: "Not a valid phone number!",
                 maxlength: "Not a valid phone number!",
+                remote: "Phone number already taken!",
             },
             address: {
                 required: "Please enter your address!",
@@ -98,7 +136,7 @@ $(document).ready(function () {
                     });
                     $("#dob").val(data.user.dob);
                     $("#email").val(data.user.email);
-                    $("#phoneNumber").val(data.user.filePath);
+                    $("#phoneNumber").val(data.user.phoneNumber);
                     $("#address").val(data.user.address);
                     $("#profilePicture").val(data.user.filePath);
                 },

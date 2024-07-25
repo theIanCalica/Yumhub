@@ -20,14 +20,6 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -74,14 +66,6 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::FindOrFail($id);
         return response()->json($restaurant);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Restaurant $restaurant)
-    {
-        //
     }
 
     /**

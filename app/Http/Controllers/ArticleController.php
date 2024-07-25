@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = Article::latest()->paginate(2);
+        $articles = Article::latest()->paginate(3);
 
         if ($request->ajax()) {
             $view = view('customer.load', compact('articles'))->render();
@@ -23,14 +23,6 @@ class ArticleController extends Controller
         }
 
         return view('customer.articles', compact('articles'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -71,14 +63,6 @@ class ArticleController extends Controller
     {
         $article = Article::FindOrFail($id);
         return response()->json($article);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Article $article)
-    {
-        //
     }
 
     /**
