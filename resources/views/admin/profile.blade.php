@@ -47,8 +47,7 @@
                     <label for="profilePicture"
                         class="absolute bottom-10 right-1/2 flex items-center justify-center w-10 h-10 bg-red-500 rounded-full shadow-md cursor-pointer transform translate-x-1/2 translate-y-1/2">
                         <i class="fi fi-rr-camera text-white text-xl"></i>
-                        <input type="file" id="profilePicture" name="profilePicture" class="hidden" accept="image/*"
-                            onchange="previewImage(event)">
+                        <input type="file" id="profilePicture" name="profilePicture" class="hidden" accept="image/*">
                     </label>
                 </div>
 
@@ -131,17 +130,5 @@
             });
         </script>
     @endif
-    <script>
-        function previewImage(event) {
-            const input = event.target;
-            const img = document.getElementById('profileImage');
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    img.src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
+
 @endsection

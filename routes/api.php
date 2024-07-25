@@ -82,3 +82,6 @@ Route::put("/update-seller/{id}", [UserController::class, "updateSeller"]);
 Route::apiResource("managers", ManagerController::class);
 Route::apiResource("riders", RiderController::class);
 Route::apiResource("stockholders", StockholderController::class);
+
+// API for getting products based on search in cuisine based
+Route::post("foods-cuisine", [FoodController::class, "searchBasedOnCuisine"]);

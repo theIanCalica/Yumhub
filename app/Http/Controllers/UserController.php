@@ -317,7 +317,7 @@ class UserController extends Controller
             'dob' => "required|date",
             'email' => "required|email|unique:users, " . $request->user_id,
             'phoneNumber' => "required|min:11|max:11|unique:users, " . $request->user_id,
-            'address' => "required|string",
+
         ]);
 
         $user = User::FindOrFail($request->user_id)->first();

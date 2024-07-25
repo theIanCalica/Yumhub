@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Algolia\AlgoliaSearch\SearchClient;
+use Illuminate\Support\Facades\DB;
 
 class FoodController extends Controller
 {
@@ -32,10 +34,14 @@ class FoodController extends Controller
         return view("seller.foods", compact("foods"));
     }
 
-    public function search($query)
+    public function search(Request $request)
     {
-        $foods = Food::search($query)->get();
-        return $foods;
+        $query = $request->input('query');
+        $client = SearchClient::create(config('services.algolia.id'), config('services.algolia.secret'));
+        $index = $client->initIndex('foods');
+        $results = $index->search($query);
+
+        return view('customer.results', ['results' => $results['hits']]);
     }
 
     /**
@@ -142,7 +148,7 @@ class FoodController extends Controller
 
         $cuisine = Cuisine::where("name", $name)->first();
         $foods = Food::where("cuisine_id", $cuisine->id)->get();
-        return view("customer.cuisineBased", compact("foods"));
+        return view("customer.cuisineBased", compact("foods", "cuisine"));
     }
 
     public function filters(Request $request)
@@ -167,6 +173,19 @@ class FoodController extends Controller
         $foods = $query->get();
 
         // Return the filtered foods as JSON response
+        return response()->json($foods);
+    }
+
+    public function searchBasedOnCuisine(Request $request)
+    {
+        $cuisineId = $request->input("cuisine_id");
+        $query = $request->input("query");
+
+        $foods = Food::where('cuisine_id', $cuisineId)
+            ->where('name', 'LIKE', $query . '%')
+            ->with('cuisine', 'category')
+            ->get();
+
         return response()->json($foods);
     }
 }

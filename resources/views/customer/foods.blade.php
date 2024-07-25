@@ -1,7 +1,9 @@
 @extends('customer.layout.app')
 
 @php
+
     $user = Auth::user();
+
 @endphp
 @section('content')
     <div class="container mx-auto py-8 px-8">
@@ -181,11 +183,9 @@
                                       
                                     </p>
                                     <p class="text-2xl font-bold text-red-600 mb-4">₱${food.price}</p>
-                                    <button data-id="${food.id}" data-name="${food.name}"
-                                        data-category="${food.category.name}" data-price="${food.price}"
-                                        class="add-to-cart bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-                                        Add to Cart
-                                    </button>
+                                     ${
+                                        @json($user) ? `<button data-id="${food.id}" data-name="${food.name}" data-category="${food.category.name}" data-price="${food.price}" class="add-to-cart bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Add to Cart</button>` : ''
+                                    }
                                 </div>
                             </div>
                         `;
@@ -201,14 +201,14 @@
 
             $('#foods-container').on('click', '.add-to-cart', function() {
                 const id = $(this).data("id");
-                const user_id = @json($user->id);
+                let userId = @json($user ? $user->id : null);
 
                 $.ajax({
                     type: "POST",
                     url: "/api/carts",
                     data: {
                         food_ID: id,
-                        user_id: user_id,
+                        user_id: userId,
                     },
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(

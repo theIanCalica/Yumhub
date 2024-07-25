@@ -136,4 +136,30 @@ $(document).ready(function () {
             });
         },
     });
+
+    $("#profilePicture").on("change", function (event) {
+        previewImage(event);
+    });
+
+    function previewImage(event) {
+        const input = event.target;
+        const img = document.getElementById("profileImage");
+        const file = input.files[0];
+        const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+        if (file && validImageTypes.includes(file.type)) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Invalid file type",
+                text: "Please upload an image file with the extension jpeg, jpg, or png.",
+            });
+            input.value = ""; // Clear the input
+        }
+    }
 });
