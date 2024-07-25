@@ -123,4 +123,10 @@ class ArticleController extends Controller
         $articles = Article::orderBy("title", "asc")->get();
         return response()->json($articles);
     }
+
+    public function getSingleArticle(string $title)
+    {
+        $article = Article::where("title", $title)->first();
+        return view("customer.article", compact("article"));
+    }
 }

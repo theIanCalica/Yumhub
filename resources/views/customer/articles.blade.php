@@ -1,6 +1,6 @@
 @extends('customer.layout.app')
 
-@section('title', 'Article')
+@section('title', 'Articles')
 
 @section('content')
     <div class="max-w-4xl mx-auto" id="articles-container">

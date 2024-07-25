@@ -42,6 +42,7 @@ Route::view("/about-us", "customer.about-us")->name("about-us");
 Route::view("/contact-us", "customer.contact")->name("contact");
 Route::view("/email", "customer.email")->name("email-confirmation");
 Route::get("/articles", [ArticleController::class, "index"])->name("articles.view");
+Route::get("/article/{id}", [ArticleController::class, "getSingleArticle"])->name("article.view");
 Route::view("/cuisines", "customer.cuisines")->name("customerView.cuisines");
 Route::view("/foods", 'customer.foods')->name("customer.foods");
 Route::get("cuisine/{cuisine}", [FoodController::class, "getFoodBasedOnCuisine"])->name("cuisine.based");
