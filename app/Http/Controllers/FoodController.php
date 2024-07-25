@@ -32,6 +32,12 @@ class FoodController extends Controller
         return view("seller.foods", compact("foods"));
     }
 
+    public function search($query)
+    {
+        $foods = Food::search($query)->get();
+        return $foods;
+    }
+
     /**
      * Store a newly created resource in storage.
      */

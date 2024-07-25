@@ -20,6 +20,11 @@ class Food extends Model
         'filePath',
     ];
 
+    public function searchableAs(): string
+    {
+        return 'myfoods_index';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

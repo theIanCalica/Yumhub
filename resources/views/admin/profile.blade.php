@@ -83,13 +83,14 @@
                     <div>
                         <label for="email" class="block text-gray-700 font-medium">Email</label>
                         <input type="email" id="email" name="email" value="{{ $user->email }}"
+                            data-id="{{ $user->id }}"
                             class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             required>
                     </div>
                     <div>
                         <label for="phone" class="block text-gray-700 font-medium">Phone Number</label>
                         <input type="text" id="phoneNumber" name="phoneNumber" maxlength="11"
-                            value="{{ $user->phoneNumber }}"
+                            data-id="{{ $user->id }}" value="{{ $user->phoneNumber }}"
                             class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
                     <div class="md:col-span-2 flex justify-center">

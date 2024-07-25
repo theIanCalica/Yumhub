@@ -20,22 +20,15 @@ $(document).ready(function () {
                 required: true,
                 email: true,
                 remote: {
-                    url: "/api/checkEmail",
+                    url: "/api/checkEmail-update",
                     type: "post",
                     data: {
                         email: function () {
                             return $("#email").val();
                         },
-                    },
-                    dataFilter: function (response) {
-                        return response;
-                        console.log(response);
-                        // var json = JSON.parse(response);
-                        // if (json.valid) {
-                        //     return true;
-                        // } else {
-                        //     return "This email is already taken.";
-                        // }
+                        id: function () {
+                            return $("#email").data("id");
+                        },
                     },
                 },
             },
@@ -44,20 +37,15 @@ $(document).ready(function () {
                 minlength: 11,
                 maxlength: 11,
                 remote: {
-                    url: "/api/checkPhoneNumber",
+                    url: "/api/checkPhoneNumber-update",
                     type: "post",
                     data: {
                         phoneNumber: function () {
                             return $("#phoneNumber").val();
                         },
-                    },
-                    dataFilter: function (response) {
-                        var json = JSON.parse(response);
-                        if (json.valid) {
-                            return true;
-                        } else {
-                            return "This phone number is already taken.";
-                        }
+                        id: function () {
+                            return $("#phoneNumber").data("id");
+                        },
                     },
                 },
             },
@@ -138,7 +126,12 @@ $(document).ready(function () {
                     $("#email").val(data.user.email);
                     $("#phoneNumber").val(data.user.phoneNumber);
                     $("#address").val(data.user.address);
-                    $("#profilePicture").val(data.user.filePath);
+                    $("#profilePicture").attr("src", data.user.filePath);
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Profile Updated",
+                        icon: "success",
+                    });
                 },
             });
         },

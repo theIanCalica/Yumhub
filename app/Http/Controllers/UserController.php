@@ -372,12 +372,50 @@ class UserController extends Controller
         $user->update($validatedData);
 
         return response()->json([
-            "title" => "Success!",
-            "message" => "You updated the users details!",
-            "icon" => "success",
             "user" => $user,
             "status" => 200,
-            'user_id' => $request->user_id,
+
         ]);
+    }
+
+    public function checkEmailUpdate(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'email' => 'required|email',
+            'id' => "required",
+        ]);
+
+        $email = $request->input('email');
+        $id = $request->input("id");
+        $exists = User::where('email', $email)
+            ->where('id', '!=', $id)
+            ->exists();
+
+        if ($exists) {
+            return response()->json(false);
+        }
+
+        return response()->json(true);
+    }
+
+    public function checkPhoneNumberUpdate(Request $request)
+    {
+        $request->validate([
+            'phoneNumber' => 'required|min:11|max:11',
+            'id' => "required",
+        ]);
+
+        $phoneNumber = $request->input("phoneNumber");
+        $id = $request->input("id");
+        $exists = User::where('phoneNumber', $phoneNumber)
+            ->where('id', '!=', $id)
+            ->exists();
+
+        if ($exists) {
+            return response()->json(false);
+        }
+
+        return response()->json(true);
     }
 }

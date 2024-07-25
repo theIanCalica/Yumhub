@@ -13,6 +13,7 @@ use App\Http\Controllers\RiderController;
 use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,14 @@ Route::post("/seller-register", [UserController::class, "registerSeller"]);
 // API for checking email uniqueness
 Route::post("/checkEmail", [UserController::class, "checkEmail"]);
 Route::post("/restoCheckEmail", [RestaurantController::class, "checkEmail"]);
+
+//Api for update of profile checking of email uniqueness
+Route::post("/checkEmail-update", [UserController::class, "checkEmailUpdate"]);
+Route::post("/restoCheckEmailUpdate", [RestaurantController::class, "checkEmailUpdate"]);
+
+//Api for update of profile checking of phoneNumber uniqueness
+Route::post("/checkPhoneNumber-update", [UserController::class, "checkPhoneNumberUpdate"]);
+Route::post("/restoCheckPhoneNumber-update", [UserController::class, "checkPhoneNumberUpdate"]);
 
 //API for checking phoneNumber uniqueness
 Route::post("/checkPhoneNumber", [UserController::class, "checkPhoneNumber"]);

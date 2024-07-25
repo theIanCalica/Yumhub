@@ -45,6 +45,7 @@ Route::get("/articles", [ArticleController::class, "index"])->name("articles.vie
 Route::get("/article/{id}", [ArticleController::class, "getSingleArticle"])->name("article.view");
 Route::view("/cuisines", "customer.cuisines")->name("customerView.cuisines");
 Route::view("/foods", 'customer.foods')->name("customer.foods");
+Route::get("/search/{query}", [FoodController::class, "search"])->name("search");
 Route::get("cuisine/{cuisine}", [FoodController::class, "getFoodBasedOnCuisine"])->name("cuisine.based");
 Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])->group(function () {
   Route::get("/add-to-cart/{food_id}", [OrderController::class, "add_to_cart"])->name("add-to-cart");
