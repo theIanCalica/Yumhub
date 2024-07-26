@@ -58,4 +58,9 @@ class OrderController extends Controller
 
         return $ordersPerCuisine;
     }
+
+    public function receipt()
+    {
+        return view("customer.receipt");
+    }
 }
