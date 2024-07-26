@@ -12,8 +12,6 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            // Pass the route URL from Blade
-
             $.ajax({
                 type: "GET",
                 url: "/api/cuisines",

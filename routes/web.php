@@ -34,6 +34,7 @@ Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 //Route for verification
 Route::get('/user/verify/{token}', [UserController::class, "verifyEmail"])->name('user.verify');
 
+
 //Routes for customers
 Route::view("/sign-up", "customer.auth.sign-up")->name("sign-up");
 Route::view("/sign-in", "customer.auth.sign-in")->name("sign-in");

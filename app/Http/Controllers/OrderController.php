@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -20,8 +21,8 @@ class OrderController extends Controller
         $startOfYear = Carbon::now()->startOfYear();
         $endOfYear = Carbon::now()->endOfYear();
 
-        // Query the orders to get total profit per month
-        $profits = Order::selectRaw('YEAR(orders.order_date) as year, MONTH(orders.order_date) as month, SUM(orders_items.qty * foods.price) as total_profit')
+        // Query the orders to get total revenue and commission per month
+        $profits = Order::selectRaw('YEAR(orders.order_date) as year, MONTH(orders.order_date) as month, SUM(orders_items.qty * foods.price) as total_revenue')
             ->join('orders_items', 'orders.id', '=', 'orders_items.order_id')
             ->join('foods', 'orders_items.food_id', '=', 'foods.id')
             ->whereBetween('orders.order_date', [$startOfYear, $endOfYear])
@@ -32,13 +33,29 @@ class OrderController extends Controller
 
         // Format the data for the chart
         $data = $profits->map(function ($profit) {
+            $totalRevenue = $profit->total_revenue;
+            $commission = $totalRevenue * 0.30;
             return [
                 'month' => Carbon::create()->month($profit->month)->format('F'), // Get month name
-                'profit' => $profit->total_profit
+                'revenue' => $totalRevenue,
+                'commission' => $commission
             ];
         });
 
         // Return the data as JSON
         return response()->json($data);
+    }
+
+    public function getByCuisine()
+    {
+        $ordersPerCuisine = DB::table('orders')
+            ->join('orders_items', 'orders.id', '=', 'orders_items.order_id')
+            ->join('foods', 'orders_items.food_id', '=', 'foods.id')
+            ->join('cuisines', 'foods.cuisine_id', '=', 'cuisines.id')
+            ->select('cuisines.name', DB::raw('COUNT(DISTINCT orders.id) as total_orders'))
+            ->groupBy('cuisines.name')
+            ->get();
+
+        return $ordersPerCuisine;
     }
 }

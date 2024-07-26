@@ -76,6 +76,15 @@
                             <span class="ml-3" sidebar-toggle-item>Articles</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('articles') }}"
+                            class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700 ">
+                            <i
+                                class="fi fi-rr-messages-question w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"></i>
+
+                            <span class="ml-3" sidebar-toggle-item>Inquiries</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ asset('style/style.css') }}">
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container px-8">
         <div class="flex justify-center">
             <div class="aa-input-container" id="aa-input-container">
                 <form method="POST">

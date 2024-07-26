@@ -80,37 +80,64 @@ $(document).ready(function () {
         success: function (data) {
             // Extract labels and data from the response
             console.log(data);
-            let totalAnnualProfit = 0;
+            let totalAnnualRevenue = 0;
+            let totalAnnualCommission = 0;
 
-            // Iterate over each item in the data to calculate the total profit
+            // Iterate over each item in the data to calculate the total revenue and commission
             data.forEach((item) => {
-                // Convert profit from string to number
-                let profit = parseFloat(item.profit);
+                // Convert revenue and commission from string to number
+                let revenue = parseFloat(item.revenue);
+                let commission = parseFloat(item.commission);
 
                 // Check for NaN (Not-a-Number) values
-                if (!isNaN(profit)) {
-                    totalAnnualProfit += profit; // Add to total
+                if (!isNaN(revenue)) {
+                    totalAnnualRevenue += revenue; // Add to total revenue
                 } else {
-                    console.error("Invalid profit value:", item.profit);
+                    console.error("Invalid revenue value:", item.revenue);
+                }
+
+                if (!isNaN(commission)) {
+                    totalAnnualCommission += commission; // Add to total commission
+                } else {
+                    console.error("Invalid commission value:", item.commission);
                 }
             });
-            $("#tot").text("₱" + totalAnnualProfit.toLocaleString());
+
+            // Update total values on the page
+            $("#totRevenue").text("₱" + totalAnnualRevenue.toLocaleString());
+            $("#totCommission").text(
+                "₱" + totalAnnualCommission.toLocaleString()
+            );
+
             const labels = data.map((item) => item.month); // Extract month names
-            const chartData = data.map((item) => item.profit); // Extract monthly profit values
+            const revenueData = data.map((item) => item.revenue); // Extract monthly revenue values
+            const commissionData = data.map((item) => item.commission); // Extract monthly commission values
 
             // Data for the chart
             const dataForChart = {
                 labels: labels,
                 datasets: [
                     {
-                        label: "Orders per Month",
-                        data: chartData,
+                        label: "Revenue per Month",
+                        data: revenueData,
                         backgroundColor: "rgba(75, 192, 192, 0.2)",
                         borderColor: "rgba(75, 192, 192, 1)",
                         borderWidth: 2,
                         tension: 0.4, // Smooth curve
                         pointRadius: 5, // Larger points
                         pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                        pointBorderColor: "#fff",
+                        pointBorderWidth: 2,
+                    },
+                    {
+                        label: "Commission per Month",
+                        data: commissionData,
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 2,
+                        tension: 0.4, // Smooth curve
+                        pointRadius: 5, // Larger points
+                        pointBackgroundColor: "rgba(255, 99, 132, 1)",
                         pointBorderColor: "#fff",
                         pointBorderWidth: 2,
                     },
@@ -137,6 +164,7 @@ $(document).ready(function () {
                                     }
                                     if (context.parsed.y !== null) {
                                         label +=
+                                            "₱" +
                                             context.parsed.y.toLocaleString();
                                     }
                                     return label;
@@ -150,7 +178,7 @@ $(document).ready(function () {
                                 weight: "bold",
                             },
                             formatter: function (value) {
-                                return "$" + value.toLocaleString();
+                                return "₱" + value.toLocaleString();
                             },
                         },
                         annotation: {
@@ -188,7 +216,7 @@ $(document).ready(function () {
                             ticks: {
                                 color: "#666",
                                 callback: function (value) {
-                                    return "$" + value.toLocaleString(); // Format y-axis values as currency
+                                    return "₱" + value.toLocaleString(); // Format y-axis values as currency
                                 },
                             },
                         },
@@ -202,6 +230,84 @@ $(document).ready(function () {
         },
         error: function (xhr, status, error) {
             console.error("AJAX request failed:", status, error);
+        },
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/api/getCuisine",
+        dataType: "json",
+        success: function (data) {
+            // Prepare data for the chart
+            const labels = data.map((item) => item.name);
+            const values = data.map((item) => item.total_orders);
+
+            // Create chart
+            const ctx = document
+                .getElementById("cuisine-chart")
+                .getContext("2d");
+            if (ctx) {
+                // Check if ctx is not null
+                new Chart(ctx, {
+                    type: "horizontalBar", // Horizontal bar chart type for Chart.js v2.9.4
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: "Orders per Cuisine",
+                                data: values,
+                                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                borderWidth: 1,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            xAxes: [
+                                {
+                                    ticks: {
+                                        beginAtZero: true,
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Number of Orders",
+                                    },
+                                },
+                            ],
+                            yAxes: [
+                                {
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Cuisine",
+                                    },
+                                },
+                            ],
+                        },
+                        legend: {
+                            display: true,
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    return (
+                                        data.datasets[tooltipItem.datasetIndex]
+                                            .label +
+                                        ": " +
+                                        tooltipItem.yLabel
+                                    );
+                                },
+                            },
+                        },
+                    },
+                });
+            } else {
+                console.error("Canvas element not found");
+            }
+        },
+        error: function (data) {
+            console.log(data);
         },
     });
 });
