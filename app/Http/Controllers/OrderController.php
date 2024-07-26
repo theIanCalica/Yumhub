@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -59,8 +60,20 @@ class OrderController extends Controller
         return $ordersPerCuisine;
     }
 
-    public function receipt()
+    public function receipt(Request $request)
     {
-        return view("customer.receipt");
+        $orderId = "9c99533e-1476-4328-a8b9-89b532e1ce78";
+        // Fetch the order with its items and associated food details
+        $order = Order::with('orderItems.food')->findOrFail($orderId);
+
+        // Pass the order data to the PDF view
+        $data = [
+            'order' => $order,
+            'orderItems' => $order->orderItems,
+        ];
+
+
+        $pdf = PDF::loadView('customer.receipt', $data);
+        return $pdf->download('receipt.pdf');
     }
 }
