@@ -54,6 +54,7 @@ Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])
   Route::get("/add-to-cart/{food_id}", [OrderController::class, "add_to_cart"])->name("add-to-cart");
   Route::post("/order", [OrderController::class, "order"])->name("order");
   Route::view("/cart", "customer.cart")->name("customer.cart");
+  Route::vieW("/profile", "customer.profile")->name("customer.profile");
 });
 
 Route::post('/webhook', [StripeController::class, 'handleWebhook']);

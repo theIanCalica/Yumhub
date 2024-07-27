@@ -418,4 +418,41 @@ class UserController extends Controller
 
         return response()->json(true);
     }
+
+    public function updateCustomer(Request $request, string $id)
+    {
+        $validatedData = $request->validate([
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'gender' => 'required|string|max:5',
+            'dob' => 'required|date',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+            'phoneNumber' => [
+                'required',
+                'min:11',
+                'max:11',
+                Rule::unique('users')->ignore($id),
+            ],
+            'address' => 'required|string',
+        ]);
+
+        if ($request->hasFile('profilePicture')) {
+            $path = Storage::putFile('public/users/admin', $request->file('profilePicture'));
+            $path = asset('storage/' . substr($path, 7));
+            $validatedData['filePath'] = $path;
+        }
+
+        $user = User::findOrFail($request->user_id);
+        $user->update($validatedData);
+
+        return response()->json([
+            "user" => $user,
+            "status" => 200,
+
+        ]);
+    }
 }
