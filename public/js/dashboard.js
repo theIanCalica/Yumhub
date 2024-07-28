@@ -310,4 +310,58 @@ $(document).ready(function () {
             console.log(data);
         },
     });
+
+    // Get all recent registered users
+    $.ajax({
+        type: "GET",
+        url: "/api/getRecentUsers",
+        dataType: "json",
+        success: function (response) {
+            console.log("Response:", response); // Check if response is defined
+            if (response && response.data) {
+                var userList = $("#recent-users-list");
+                userList.empty(); // Clear existing users
+
+                response.data.forEach(function (user) {
+                    var roleClass;
+
+                    // Apply role-based color class
+                    if (user.role === "Admin") {
+                        roleClass = "bg-red-100 text-red-800";
+                    } else if (user.role === "Customer") {
+                        roleClass = "bg-green-100 text-green-800";
+                    } else if (user.role === "Seller") {
+                        roleClass = "bg-yellow-300 text-yellow-800";
+                    } else {
+                        roleClass = "bg-gray-100 text-gray-800"; // Default color for unknown roles
+                    }
+
+                    var userItem = `
+                        <li class="py-3 flex items-center space-x-4">
+                            <img class="w-12 h-12 rounded-full border-2 border-${roleClass}"
+                                src="${user.filePath}" alt="User Avatar">
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">${
+                                    user.fname + " " + user.lname
+                                } </p>
+                                <p class="text-xs text-gray-500">${
+                                    user.email
+                                }</p>
+                            </div>
+                            <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full ${roleClass}">
+                                ${user.role}
+                            </span>
+                        </li>
+                    `;
+                    userList.append(userItem);
+                });
+            } else {
+                console.error("No data found in response");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.log(xhr.responseText); // Log the raw response for debugging
+        },
+    });
 });

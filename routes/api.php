@@ -91,3 +91,4 @@ Route::post("foods-cuisine", [FoodController::class, "searchBasedOnCuisine"]);
 Route::get("/getTopFoods", [FoodController::class, "getTopFood"]);
 Route::get("/getOrders", [OrderController::class, "getMonthlyProfit"]);
 Route::get("/getCuisine", [OrderController::class, "getByCuisine"]);
+Route::get("/getRecentUsers", [UserController::class, "getRecentUsers"]);

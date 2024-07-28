@@ -57,9 +57,10 @@ Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])
   Route::vieW("/profile", "customer.profile")->name("customer.profile");
 });
 
+Route::view("/try", "admin.try");
 Route::post('/webhook', [StripeController::class, 'handleWebhook']);
 
-Route::get("/try", [StripeController::class, "try"]);
+
 //Route for sellers
 Route::view("/seller/sign-up", "seller.sign-up")->name("seller.sign-up");
 

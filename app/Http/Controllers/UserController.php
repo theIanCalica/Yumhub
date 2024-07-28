@@ -25,12 +25,10 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getRecentUsers()
     {
-        //
+        $recentUsers = User::orderBy('created_at', 'desc')->take(6)->get();
+        return response()->json(["data" => $recentUsers]);
     }
 
     /**

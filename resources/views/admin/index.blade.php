@@ -2,7 +2,14 @@
 
 @section('styles')
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
 
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
     </style>
 @endsection
 
@@ -373,6 +380,29 @@
                     </div>
                 </div>
                 </section>
+
+            </div>
+        </div>
+
+        {{-- map and recent registered users --}}
+        <div class="container mx-auto p-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Map Chart -->
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h2 class="text-lg font-semibold mb-4">World Map</h2>
+                    <div id="chartdiv"></div>
+
+                </div>
+
+                <!-- Recent Registered Users -->
+                <!-- Recent Registered Users -->
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h2 class="text-lg font-semibold mb-4">Recent Registered Users</h2>
+                    <ul id="recent-users-list" class="divide-y divide-gray-200">
+                        <!-- User list will be populated here by AJAX -->
+                    </ul>
+                </div>
+
 
             </div>
         </div>
@@ -1022,5 +1052,67 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script>
+        // Create root element
+        var root = am5.Root.new("chartdiv");
+
+        // Set themes
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+        // Create the map chart
+        var chart = root.container.children.push(am5map.MapChart.new(root, {
+            panX: "translateX",
+            panY: "translateY",
+            projection: am5map.geoMercator()
+        }));
+
+        // Create main polygon series for countries
+        var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+            geoJSON: am5geodata_worldLow,
+            exclude: ["AQ"]
+        }));
+
+        polygonSeries.mapPolygons.template.setAll({
+            tooltipText: "{name}",
+            toggleKey: "active",
+            interactive: true
+        });
+
+        polygonSeries.mapPolygons.template.states.create("hover", {
+            fill: root.interfaceColors.get("primaryButtonHover")
+        });
+
+        polygonSeries.mapPolygons.template.states.create("active", {
+            fill: root.interfaceColors.get("primaryButtonHover")
+        });
+
+        // Highlight Philippines
+        var philippinesPolygon = polygonSeries.getPolygonById("PH");
+        philippinesPolygon.setAll({
+            fill: am5.color(0xff0000),
+            stroke: am5.color(0x000000),
+            strokeWidth: 2,
+            strokeOpacity: 1
+        });
+
+        // Add zoom control
+        var zoomControl = chart.set("zoomControl", am5map.ZoomControl.new(root, {}));
+        zoomControl.homeButton.set("visible", true);
+
+        // Set clicking on "water" to zoom out
+        chart.chartContainer.get("background").events.on("click", function() {
+            chart.goHome();
+        });
+
+        // Make stuff animate on load
+        chart.appear(1000, 100);
+    </script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 @endsection
