@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -488,5 +489,17 @@ class UserController extends Controller
             "status" => 200,
 
         ]);
+    }
+
+    public function generateReport()
+    {
+        // Fetch users from the database
+        $users = User::all();
+
+        // Load the view and pass the users data
+        $pdf = PDF::loadView('admin.report.usersReport', compact('users'));
+
+        // Download the PDF file
+        return $pdf->download('users_list.pdf');
     }
 }

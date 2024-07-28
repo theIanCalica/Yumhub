@@ -63,9 +63,9 @@ Route::post("/checkPhoneNumber", [UserController::class, "checkPhoneNumber"]);
 Route::post("/checkRestoPhoneNum", [RestaurantController::class, "checkPhoneNum"]);
 
 // API ROUTE FOR HANDLING IMPORTS FOR LARAVEL EXCEL
-Route::post("/import-stockholder", [StockholderController::class, "import"]);
-Route::post("/import-rider", [RiderController::class, "import"]);
-
+Route::post("/import-stockholder", [StockholderController::class, "import"])->name("import-stockholder");
+Route::post("/import-rider", [RiderController::class, "import"])->name("import-rider");
+Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
 
 // Api for logging in first time
 Route::put("/put-vendor-details/{id}", [UserController::class, "putVendorDetails"]);

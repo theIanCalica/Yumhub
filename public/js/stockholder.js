@@ -475,12 +475,40 @@ $(document).ready(function () {
             { data: "id" },
             { data: "name" },
             { data: "sex" },
-            { data: "dob" },
+            {
+                data: "dob",
+                render: function (data, type, row) {
+                    if (type === "display" || type === "filter") {
+                        var date = new Date(data);
+                        var options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        };
+                        return date.toLocaleDateString("en-US", options);
+                    }
+                    return data;
+                },
+            },
             { data: "address" },
             { data: "phoneNumber" },
             { data: "email" },
             { data: "sharesOwned" },
-            { data: "investmentDate" },
+            {
+                data: "investmentDate",
+                render: function (data, type, row) {
+                    if (type === "display" || type === "filter") {
+                        var date = new Date(data);
+                        var options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        };
+                        return date.toLocaleDateString("en-US", options);
+                    }
+                    return data;
+                },
+            },
             { data: "prefferedContact" },
             {
                 data: null,

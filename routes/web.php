@@ -6,10 +6,11 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\StockholderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
+use App\Models\Stockholder;
 use Illuminate\Support\Facades\Route;
-
 
 // Routes for admins
 Route::prefix('admin')->middleware(['isAuthenticated', 'admin', 'isActive'])->group(function () {
@@ -25,7 +26,8 @@ Route::prefix('admin')->middleware(['isAuthenticated', 'admin', 'isActive'])->gr
   Route::view("/profile", 'admin.profile')->name("admin.profile");
   Route::view("/change-password", 'admin.changePass')->name("admin.changePass");
   Route::post("/change-password/admin-process", [UserController::class, "adminChangePass"])->name("admin.changePass.process");
-  Route::post("/import-manager", [ManagerController::class, "import"])->name("import");
+  Route::get('/users/report', [UserController::class, 'generateReport'])->name('users.report');
+  Route::get("/stockholders/report", [StockholderController::class, "generateReport"])->name("stockholders.report");
 });
 Route::post("/sign-in/auth", [AuthController::class, "login"])->name("login");
 Route::post("/logout", [AuthController::class, "logout"])->name("logout");

@@ -7,6 +7,7 @@ use App\Models\Stockholder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StockholderController extends Controller
 {
@@ -127,5 +128,17 @@ class StockholderController extends Controller
             return redirect()->route('stockholders')
                 ->with('success', 'File imported successfully.');
         }
+    }
+
+    public function generateReport()
+    {
+        // Fetch users from the database
+        $stockholders = Stockholder::all();
+
+        // Load the view and pass the users data
+        $pdf = PDF::loadView('admin.report.stockholderReport', compact('stockholders'));
+
+        // Download the PDF file
+        return $pdf->download('stockholder_list.pdf');
     }
 }

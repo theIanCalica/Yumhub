@@ -202,7 +202,21 @@ $(document).ready(function () {
             { data: "fname" },
             { data: "lname" },
             { data: "sex" },
-            { data: "dob" },
+            {
+                data: "dob",
+                render: function (data, type, row) {
+                    if (type === "display" || type === "filter") {
+                        var date = new Date(data);
+                        var options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        };
+                        return date.toLocaleDateString("en-US", options);
+                    }
+                    return data;
+                },
+            },
             { data: "address" },
             { data: "phoneNumber" },
             { data: "email" },
