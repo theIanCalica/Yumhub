@@ -86,7 +86,7 @@ Route::apiResource("stockholders", StockholderController::class);
 
 // API for getting products based on search in cuisine based
 Route::post("foods-cuisine", [FoodController::class, "searchBasedOnCuisine"]);
-
+Route::post("/food-search", [FoodController::class, "searchFood"]);
 // API ROUTE FOR CHARTS
 Route::get("/getTopFoods", [FoodController::class, "getTopFood"]);
 Route::get("/getOrders", [OrderController::class, "getMonthlyProfit"]);

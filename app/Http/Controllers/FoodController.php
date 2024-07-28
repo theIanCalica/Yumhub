@@ -179,11 +179,27 @@ class FoodController extends Controller
 
     public function searchBasedOnCuisine(Request $request)
     {
-        $cuisineId = $request->input("cuisine_id");
+        // $cuisineId = $request->input("cuisine_id");
         $query = $request->input("query");
 
-        $foods = Food::where('cuisine_id', $cuisineId)
-            ->where('name', 'LIKE', $query . '%')
+        // $foods = Food::where('cuisine_id', $cuisineId)
+        //     ->where('name', 'LIKE', $query . '%')
+        //     ->with('cuisine', 'category')
+        //     ->get();
+
+
+        $foods = Food::where('name', 'LIKE', $query . '%')
+            ->with('cuisine', 'category')
+            ->get();
+
+        return response()->json($foods);
+    }
+
+    public function searchFood(Request $request)
+    {
+        $query = $request->input("query");
+
+        $foods = Food::where('name', 'LIKE', $query . '%')
             ->with('cuisine', 'category')
             ->get();
 
