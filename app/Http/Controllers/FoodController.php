@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Algolia\AlgoliaSearch\SearchClient;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FoodController extends Controller
 {
@@ -214,5 +215,18 @@ class FoodController extends Controller
             ->orderBy('total_quantity', 'desc')
             ->get();
         return response()->json($topFoods);
+    }
+
+    public function generateReport()
+    {
+        // Fetch users from the database
+        $foods = Food::with(['cuisine', 'restaurant', 'category'])->get();
+
+
+        // Load the view and pass the users data
+        $pdf = PDF::loadView('admin.report.foodReport', compact('foods'));
+
+        // Download the PDF file
+        return $pdf->download('foods_list.pdf');
     }
 }

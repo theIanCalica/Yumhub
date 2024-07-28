@@ -84,7 +84,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -92,13 +91,11 @@
                     <th>Date of Birth</th>
                     <th>Phone Number</th>
                     <th>Address</th>
-                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
                         <td>{{ $user->fname }}</td>
                         <td>{{ $user->lname }}</td>
                         <td>{{ $user->email }}</td>
@@ -106,7 +103,6 @@
                         <td>{{ \Carbon\Carbon::parse($user->dob)->format('F d, Y') }}</td>
                         <td>{{ $user->phoneNumber }}</td>
                         <td>{{ $user->address }}</td>
-                        <td class="role-{{ $user->role }}">{{ ucfirst($user->role) }}</td>
                     </tr>
                 @endforeach
             </tbody>

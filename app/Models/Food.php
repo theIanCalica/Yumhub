@@ -25,6 +25,11 @@ class Food extends Model
         return 'myfoods_index';
     }
 
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

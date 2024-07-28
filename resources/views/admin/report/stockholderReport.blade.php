@@ -134,11 +134,8 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Gender</th>
-                    <th>Date of Birth</th>
                     <th>Email</th>
                     <th>Phone Number</th>
-                    <th>Address</th>
                     <th>Shares Owned</th>
                     <th>Investment Date</th>
                     <th>Preferred Contact</th>
@@ -148,14 +145,11 @@
                 @foreach ($stockholders as $stockholder)
                     <tr>
                         <td>{{ $stockholder->name }}</td>
-                        <td>{{ $stockholder->sex }}</td>
-                        <td>{{ \Carbon\Carbon::parse($stockholder->dob)->format('F d, Y') }}</td>
                         <td>{{ $stockholder->email }}</td>
                         <td>{{ $stockholder->phoneNumber }}</td>
-                        <td>{{ $stockholder->address }}</td>
                         <td>{{ $stockholder->sharesOwned }}</td>
                         <td>{{ \Carbon\Carbon::parse($stockholder->investmentDate)->format('F d, Y') }}</td>
-                        <td>{{ $stockholder->preferredContact }}</td>
+                        <td>{{ $stockholder->prefferedContact }}</td>
                     </tr>
                 @endforeach
             </tbody>

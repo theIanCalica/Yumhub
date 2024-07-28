@@ -21,4 +21,9 @@ class Restaurant extends Model
         'desc',
         'operatingHours',
     ];
+
+    public function foods()
+    {
+        return $this->hasMany(Food::class);
+    }
 }

@@ -28,6 +28,7 @@ Route::prefix('admin')->middleware(['isAuthenticated', 'admin', 'isActive'])->gr
   Route::post("/change-password/admin-process", [UserController::class, "adminChangePass"])->name("admin.changePass.process");
   Route::get('/users/report', [UserController::class, 'generateReport'])->name('users.report');
   Route::get("/stockholders/report", [StockholderController::class, "generateReport"])->name("stockholders.report");
+  Route::get("/foods/report", [FoodController::class, "generateReport"])->name("foods.report");
 });
 Route::post("/sign-in/auth", [AuthController::class, "login"])->name("login");
 Route::post("/logout", [AuthController::class, "logout"])->name("logout");
