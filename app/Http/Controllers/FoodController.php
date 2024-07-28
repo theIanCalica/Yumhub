@@ -198,4 +198,21 @@ class FoodController extends Controller
 
         return response()->json($topFoods); // Return as JSON
     }
+
+    public function getTopFoodPerResto(string $id)
+    {
+        $restaurant = Restaurant::where("owner_id", $id)->first();
+        if (!$restaurant) {
+            return response()->json(['message' => 'Restaurant not found'], 404);
+        }
+        $topFoods = DB::table('orders_items')
+            ->join('orders', 'orders_items.order_id', '=', 'orders.id')
+            ->join('foods', 'orders_items.food_id', '=', 'foods.id')
+            ->where('foods.restaurant_id', $restaurant->id)
+            ->select('foods.name', DB::raw('SUM(orders_items.qty) as total_quantity'))
+            ->groupBy('orders_items.food_id', 'foods.name')
+            ->orderBy('total_quantity', 'desc')
+            ->get();
+        return response()->json($topFoods);
+    }
 }

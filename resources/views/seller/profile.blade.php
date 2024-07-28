@@ -100,7 +100,7 @@
                         class="bg-red-500 text-white px-6 py-3 rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                         Save Changes
                     </button>
-                    <a href="{{ route('admin.changePass') }}">
+                    <a href="{{ route('changePass.seller') }}">
                         <button type="button"
                             class="bg-transparent text-red-700 ml-5 hover:text-white border border-red-700 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 px-6 py-3 rounded-md shadow-sm">
                             Change Password
@@ -113,7 +113,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{ asset('js/seller/profile.js') }}"></script>
     @if (session()->has('text'))
         <script>
             Swal.fire({

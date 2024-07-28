@@ -55,14 +55,14 @@
                 <div class="mb-4">
                     <label for="old_password" class="block text-gray-700 font-semibold mb-2">Old Password</label>
                     <input type="password" name="old_password" id="old_password" required=""
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 </div>
 
                 <!-- New Password -->
                 <div class="mb-4">
                     <label for="new_password" class="block text-gray-700 font-semibold mb-2">New Password</label>
                     <input type="password" name="new_password" id="new_password" required=""
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 </div>
 
                 <!-- Confirm Password -->
@@ -70,13 +70,13 @@
                     <label for="confirm_password" class="block text-gray-700 font-semibold mb-2">Confirm New
                         Password</label>
                     <input type="password" name="confirm_password" id="confirm_password" required=""
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
                 </div>
 
                 <!-- Submit Button -->
-                <div class="flex justify-end">
+                <div class="flex justify-center">
                     <button type="submit"
-                        class="bg-indigo-500 text-white px-6 py-3 rounded-md shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        class="bg-red-500 w-full text-white px-6 py-3 rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         Save Changes
                     </button>
                 </div>

@@ -103,7 +103,7 @@ class CuisineController extends Controller
     public function destroy(string $id)
     {
         $cuisine = Cuisine::FindOrFail($id);
-        unlink("storage/" . substr($cuisine->img_url, 7));
+        unlink(substr($cuisine->img_url, 22));
         $cuisine->delete();
         return response()->json([
             "success" => "Deleted Successfully!",

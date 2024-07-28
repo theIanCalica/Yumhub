@@ -92,3 +92,8 @@ Route::get("/getTopFoods", [FoodController::class, "getTopFood"]);
 Route::get("/getOrders", [OrderController::class, "getMonthlyProfit"]);
 Route::get("/getCuisine", [OrderController::class, "getByCuisine"]);
 Route::get("/getRecentUsers", [UserController::class, "getRecentUsers"]);
+
+// api for charts in seller
+Route::get("/getTopFoodPerResto/{id}", [FoodController::class, "getTopFoodPerResto"]);
+Route::get("/category-resto/{id}", [OrderController::class, "getCategoryPerResto"]);
+Route::get("/getOrdersResto/{id}", [OrderController::class, "getSalesDataResto"]);

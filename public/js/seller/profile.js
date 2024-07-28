@@ -100,7 +100,7 @@ $(document).ready(function () {
             const id = formData.get("user_id");
             $.ajax({
                 type: "POST",
-                url: `/api/update-admin/${id}`,
+                url: `/api/update-seller/${id}`,
                 data: formData,
                 contentType: false,
                 processData: false,
