@@ -40,6 +40,8 @@ Route::post("getCartFood", [CartController::class, "getCartItems"]);
 Route::post("/checkout", [StripeController::class, "checkout"]);
 Route::post("/checkout-cod", [OrderController::class, "checkout_cod"]);
 Route::get("/myOrders/{id}", [OrderController::class, "my_order"]);
+Route::get("/my-order-items/{id}", [OrderController::class, "my_order_items"]);
+
 // API filters for food
 Route::get("/filters", [FoodController::class, "filters"]);
 

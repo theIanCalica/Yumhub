@@ -38,7 +38,7 @@ Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 Route::get('/user/verify/{token}', [UserController::class, "verifyEmail"])->name('user.verify');
 
 
-Route::get("/receipt", [OrderController::class, "receipt"]);
+Route::get("/receipt/{orderID}", [OrderController::class, "receipt"])->name("receipt");
 //Routes for customers
 Route::view("/sign-up", "customer.auth.sign-up")->name("sign-up");
 Route::view("/sign-in", "customer.auth.sign-in")->name("sign-in");

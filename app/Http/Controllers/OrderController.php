@@ -63,11 +63,11 @@ class OrderController extends Controller
         return $ordersPerCuisine;
     }
 
-    public function receipt(Request $request)
+    public function receipt(string $id)
     {
-        $orderId = "9c99533e-1476-4328-a8b9-89b532e1ce78";
+
         // Fetch the order with its items and associated food details
-        $order = Order::with('orderItems.food')->findOrFail($orderId);
+        $order = Order::with('orderItems.food')->findOrFail($id);
 
         // Pass the order data to the PDF view
         $data = [
@@ -170,5 +170,14 @@ class OrderController extends Controller
         $orders = Order::where('user_id', $id)->get();
 
         return response()->json(['orders' => $orders]);
+    }
+
+    public function my_order_items(string $id)
+    {
+
+        $order = Order::with("orderItems.food")->findOrFail($id);
+        // Pass the order data to the PDF view
+        $orderItems = $order->orderItems;
+        return response($orderItems);
     }
 }
