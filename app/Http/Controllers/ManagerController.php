@@ -159,7 +159,7 @@ class ManagerController extends Controller
 
 
             Excel::import(new ManagerImport, $file);
-            return response()->json(['success' => 'File imported successfully.']);
+            return redirect()->route("managers");
         }
     }
 }

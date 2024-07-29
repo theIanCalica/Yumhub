@@ -84,18 +84,6 @@ $(document).ready(function () {
         }
     });
 
-    $("#phoneNumber").on("input", function () {
-        const phoneNumber = $(this).val().trim();
-
-        if (phoneNumber != "" && phoneNumber.length() != 11) {
-            $(this).removeClass("error");
-            $(this).addClass("success");
-        } else {
-            $(this).removeClass("success");
-            $(this).addClass("error");
-        }
-    });
-
     $("#email").on("input", function () {
         const email = $(this).val().trim();
 
@@ -258,7 +246,7 @@ $(document).ready(function () {
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
-
+            var table = $("#managersTable").DataTable();
             $.ajax({
                 type: "POST",
                 url: "/api/managers",
@@ -272,103 +260,7 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 success: function (data) {
-                    var tr = $("<tr>");
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.id)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.fname)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.lname)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.sex)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.DOB)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.address)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.phoneNumber)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.email)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.hiredDate)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.employmentStatus)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.salary)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.manager.salary)
-                    );
-
-                    tr.append(
-                        $("<th>").html(
-                            "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
-                                data.manager.id +
-                                "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                                data.manager.id +
-                                "'></i>"
-                        )
-                    );
-                    $("table tbody").append(tr);
-
+                    table.ajax.reload();
                     closeModal("add-modal");
                     Swal.fire({
                         title: "Success!",

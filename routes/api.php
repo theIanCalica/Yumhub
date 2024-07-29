@@ -100,3 +100,7 @@ Route::get("/getRecentUsers", [UserController::class, "getRecentUsers"]);
 Route::get("/getTopFoodPerResto/{id}", [FoodController::class, "getTopFoodPerResto"]);
 Route::get("/category-resto/{id}", [OrderController::class, "getCategoryPerResto"]);
 Route::get("/getOrdersResto/{id}", [OrderController::class, "getSalesDataResto"]);
+
+Route::get("/orderForAdmin", [OrderController::class, "getOrdersAdmin"]);
+Route::put("/update-Order-Admin/{id}", [OrderController::class, "updateOrderAdmin"]);
+Route::get("/orderSingle/{id}", [OrderController::class, "getSingleOrder"]);

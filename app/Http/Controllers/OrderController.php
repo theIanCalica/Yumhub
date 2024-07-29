@@ -180,4 +180,24 @@ class OrderController extends Controller
         $orderItems = $order->orderItems;
         return response($orderItems);
     }
+
+    public function getOrdersAdmin()
+    {
+        $orders = Order::all();
+        return response()->json($orders);
+    }
+
+    public function updateOrderAdmin(Request $request, string $id)
+    {
+        $order = Order::FindOrFail($id);
+        $order->status = $request->status;
+        $order->save();
+        return response()->json(["status" => 200, "order" => $order]);
+    }
+
+    public function getSingleOrder(string $id)
+    {
+        $order = Order::FindOrFail($id);
+        return response()->json($order);
+    }
 }

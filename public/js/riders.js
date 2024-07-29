@@ -288,6 +288,7 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
+            const table = $("#ridersTable").dataTable();
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
