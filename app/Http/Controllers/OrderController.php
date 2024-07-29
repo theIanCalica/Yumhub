@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Orders_Items;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -68,11 +69,12 @@ class OrderController extends Controller
 
         // Fetch the order with its items and associated food details
         $order = Order::with('orderItems.food')->findOrFail($id);
-
+        $user = User::where("id", $order->user_id)->first();
         // Pass the order data to the PDF view
         $data = [
             'order' => $order,
             'orderItems' => $order->orderItems,
+            'user' => $user,
         ];
 
 

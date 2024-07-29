@@ -221,7 +221,21 @@ $(document).ready(function () {
             { data: "phoneNumber" },
             { data: "email" },
             { data: "motorModel" },
-            { data: "hiredDate" },
+            {
+                data: "hiredDate",
+                render: function (data, type, row) {
+                    if (type === "display" || type === "filter") {
+                        var date = new Date(data);
+                        var options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        };
+                        return date.toLocaleDateString("en-US", options);
+                    }
+                    return data;
+                },
+            },
             { data: "employmentStatus" },
             { data: "salary" },
             {
@@ -288,7 +302,7 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
-            const table = $("#ridersTable").dataTable();
+            const table = $("#ridersTable").DataTable();
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
@@ -307,111 +321,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    var tr = $("<tr>");
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.id)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.fname)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.lname)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.sex)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.DOB)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.address)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.phoneNumber)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.email)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.motorModel)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.hiredDate)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.employmentStatus)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.salary)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.rider.salary)
-                    );
+                    closeModal("add-modal");
+                    table.ajax.reload();
 
-                    tr.append(
-                        $("<th>").html(
-                            "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
-                                data.rider.id +
-                                "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                                data.rider.id +
-                                "'></i>"
-                        )
-                    );
-                    $("table tbody").append(tr);
-
-                    closeModal();
                     Swal.fire({
                         title: "Success!",
                         text: "You added new manager!",
@@ -575,7 +487,7 @@ $(document).ready(function () {
         let riderID = $(this).data("id");
         let $row = $(this).closest("tr");
         console.log(riderID);
-
+        var table = $("#ridersTable").DataTable();
         Swal.fire({
             title: "Do you want to delete this?",
             showDenyButton: true,
@@ -595,9 +507,7 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
-                        $row.fadeOut(2000, function () {
-                            $row.remove();
-                        });
+                        table.ajax.reload();
                         Swal.fire({
                             title: "Success!",
                             text: "You successfully deleted it!",

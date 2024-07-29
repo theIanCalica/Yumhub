@@ -133,10 +133,10 @@
 
         <div class="receipt-details">
             <h2>Receipt Details</h2>
-            <p><strong>Order Number:</strong> #123456</p>
-            <p><strong>Date:</strong> July 26, 2024</p>
-            <p><strong>Customer Name:</strong> John Doe</p>
-            <p><strong>Delivery Address:</strong> 123 Elm Street, Springfield</p>
+            <p><strong>Order Number:</strong> {{ $order->id }}</p>
+            <p><strong>Date:</strong> {{ $order->order_date }}</p>
+            <p><strong>Customer Name:</strong> {{ $user->fname . ' ' . $user->lname }}</p>
+            <p><strong>Delivery Address:</strong> {{ $user->address }}</p>
         </div>
 
         <div class="receipt-items">
