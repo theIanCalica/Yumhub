@@ -98,23 +98,23 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'fname' => "required|max:255",
-                'lname' => "required|max:255",
-                'gender' => "required|max:5",
-                'dob' => "required|date",
+                'fname' => 'required|max:255',
+                'lname' => 'required|max:255',
+                'gender' => 'required|max:5',
+                'dob' => 'required|date',
                 'phoneNumber' => 'required|max:11|min:11|unique:users,phoneNumber,' . $id,
                 'email' => 'required|email|unique:users,email,' . $id,
-                'address' => "required",
-                'role' => "required",
-                'is_Disabled' => "required",
+                'address' => 'required',
+                'role' => 'required',
+                'status' => 'required|boolean',
             ]);
 
-            $user = User::FindOrFail($id);
+            $user = User::findOrFail($id);
             $user->update($validatedData);
 
             return response()->json([
                 "title" => "Success!",
-                "message" => "You updated the users details!",
+                "message" => "You updated the user's details!",
                 "icon" => "success",
                 "user" => $user,
                 "status" => 200
@@ -128,6 +128,7 @@ class UserController extends Controller
             ]);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

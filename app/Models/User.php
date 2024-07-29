@@ -30,6 +30,7 @@ class User extends  Authenticatable
         'address',
         'role',
         'password',
+        'status',
     ];
 
     public function verifyUser()

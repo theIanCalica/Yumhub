@@ -23,31 +23,41 @@ class AuthController extends Controller
 
             $user = Auth::user();
             Auth::login(Auth::user());
-            if ($user->role === "Admin") {
+            if ($user->status === 1) {
+                if ($user->role === "Admin") {
 
+                    return response()->json([
+                        "status" => 200,
+                        "icon" => "success",
+                        "title" => "Hooray!",
+                        "message" => "You have successfully logged in!",
+                        'role' => "Admin",
+                        'user' => $user,
+                    ]);
+                } else if ($user->role === "Seller") {
+                    return response()->json([
+                        "status" => 200,
+                        "icon" => "success",
+                        "title" => "Hooray!",
+                        "message" => "You have successfully logged in!",
+                        'role' => "Seller",
+                        'user' => Auth::user(),
+                    ]);
+                } else if ($user->role === "Customer") {
+                    return response()->json([
+                        "status" => 200,
+                        "icon" => "success",
+                        "title" => "Hooray!",
+                        "message" => "You have successfully logged in!",
+                        'role' => "Customer",
+                    ]);
+                }
+            } else {
                 return response()->json([
-                    "status" => 200,
-                    "icon" => "success",
-                    "title" => "Hooray!",
-                    "message" => "You have successfully logged in!",
-                    'role' => "Admin",
-                    'user' => $user,
-                ]);
-            } else if ($user->role === "Seller") {
-                return response()->json([
-                    "status" => 200,
-                    "icon" => "success",
-                    "title" => "Hooray!",
-                    "message" => "You have successfully logged in!",
-                    'role' => "Seller",
-                    'user' => Auth::user(),
-                ]);
-            } else if ($user->role === "Customer") {
-                return response()->json([
-                    "status" => 200,
-                    "icon" => "success",
-                    "title" => "Hooray!",
-                    "message" => "You have successfully logged in!",
+                    "status" => 300,
+                    "icon" => "warning",
+                    "title" => "Warning!",
+                    "message" => "Account is Disabled!",
                     'role' => "Customer",
                 ]);
             }
