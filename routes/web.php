@@ -58,6 +58,7 @@ Route::prefix("user")->middleware(["isActive", "isAuthenticated", "isCustomer"])
   Route::post("/order", [OrderController::class, "order"])->name("order");
   Route::view("/cart", "customer.cart")->name("customer.cart");
   Route::vieW("/profile", "customer.profile")->name("customer.profile");
+  Route::view("/order", "customer.order")->name("customer.order");
 });
 
 Route::view("/try", "admin.try");

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Orders_Items;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -134,5 +136,39 @@ class OrderController extends Controller
             ->get();
 
         return response()->json($categoryOrders);
+    }
+
+    public function checkout_cod(Request $request)
+    {
+        $id = $request->input("user_id");
+        $cart = Cart::where('user_id', $id)->first();
+        $cartItems = $cart->cartItems;
+        if ($cart) {
+            // Create an order and move cart items to the order
+            $order = Order::create([
+                'user_id' => $id,
+                'order_date' => Carbon::now(),
+                'status' => "Processing",
+                'mode' => "COD",
+            ]);
+
+            foreach ($cartItems as $cartItem) {
+                Orders_Items::create([
+                    'order_id' => $order->id,
+                    'food_id' => $cartItem->food_id,
+                    'qty' => $cartItem->qty,
+                ]);
+            }
+            $cart->delete();
+        }
+
+        return response()->json(["order" => $order, "status" => 202]);
+    }
+
+    public function my_order(string $id)
+    {
+        $orders = Order::where('user_id', $id)->get();
+
+        return response()->json(['orders' => $orders]);
     }
 }

@@ -5,6 +5,8 @@
 @php
     $user = Auth::user();
 @endphp
+
+
 @section('content')
     <div class="container mx-auto px-4  py-20 mb-20 ">
         <h1 class="text-2xl font-bold mb-4 merriweather-bold">My Cart</h1>
@@ -24,10 +26,17 @@
                 <tbody id="cart-items">
 
                 </tbody>
-                <tfoot class="">
-                    <tr class="">
-                        <td colspan="5" class="py-3 px-6 text-right font-semibold text-red-800">Total</td>
-                        <td class="py-3 px-6 text-red-600">$60.44</td>
+                <tfoot>
+                    <tr>
+                        <td class="py-3 px-6">
+                            <select class="border border-yellow-300 rounded px-2 py-1" id="mode">
+                                <option value="COD">Cash on Delivery</option>
+                                <option value="Card">Card</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                        </td>
+                        <td colspan="4" class="py-3 px-6 text-right font-semibold text-red-800">Total</td>
+                        <td class="py-3 px-6 text-red-600"></td>
                         <td class="py-3 px-6"></td>
                     </tr>
                 </tfoot>
@@ -208,29 +217,73 @@
 
             });
 
+            function isCartEmpty() {
+                return $('#cart-items').children('tr').length === 0;
+            }
 
             $("#checkoutBtn").on("click", function() {
-                const user = @json($user);
-                const user_id = user.id;
-                console.log(user_id);
-                $.ajax({
-                    type: "POST",
-                    url: "/api/checkout",
-                    data: {
-                        user_id: user_id,
-                    },
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        console.log(data);
-                        window.location.href = data.sessionUrl;
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    }
-                });
+                if (isCartEmpty()) {
+                    Swal.fire({
+                        title: "Your cart is empty",
+                        text: "Please add items to your cart before proceeding.",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    });
+                    return; // Stop further execution
+                }
+                const mode = $("#mode").val().trim();
+                console.log(mode);
+                if (mode == "COD") {
+                    const user = @json($user);
+                    const user_id = user.id;
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/checkout-cod/",
+                        data: {
+                            user_id: user_id,
+                        },
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            Swal.fire({
+                                title: "Hooray!",
+                                text: "Your order is on the way!",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            });
+                            window.location.href = "/user/order";
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                } else {
+                    const user = @json($user);
+                    const user_id = user.id;
+                    console.log(user_id);
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/checkout",
+                        data: {
+                            user_id: user_id,
+                        },
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            window.location.href = data.sessionUrl;
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
+
             });
         });
     </script>

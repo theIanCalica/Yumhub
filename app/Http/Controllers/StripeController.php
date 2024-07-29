@@ -141,6 +141,7 @@ class StripeController extends Controller
                 'user_id' => $userId,
                 'order_date' => Carbon::now(),
                 'status' => "Processing",
+                'mode' => "Card",
             ]);
 
             foreach ($cartItems as $cartItem) {
