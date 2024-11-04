@@ -47,7 +47,7 @@
     @endif
     <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
         <a href="{{ route('home') }}"
-            class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
+            czlass="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
             <img src="{{ asset('logo/logo.png') }}" class="mr-4 h-36" alt="Yumhub Logo">
         </a>
         <!-- Card -->
@@ -55,7 +55,7 @@
             <h2 class="text-2xl text-center font-bold text-gray-900 dark:text-white">
                 Sign in
             </h2>
-            <form class="mt-8 space-y-6" method="POST" id="sign-in-form">
+            <form class="mt-8 space-y-6" method="POST" id="sign-in-form" action="{{ route('login') }}">
                 @csrf
                 @method('post')
                 <div>

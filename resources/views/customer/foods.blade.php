@@ -10,7 +10,7 @@
 @section('content')
     <div class="container mx-auto py-8 px-8">
         <!-- Search Bar -->
-        <div class="flex justify-center">
+        {{-- <div class="flex justify-center">
             <div class="aa-input-container" id="aa-input-container">
                 <form method="POST">
                     <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Search for food"
@@ -21,7 +21,7 @@
                     </svg>
                 </form>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Filters -->
         <div class="flex flex-col md:flex-row mb-8 gap-6">

@@ -23,6 +23,7 @@ class AuthController extends Controller
 
             $user = Auth::user();
             Auth::login(Auth::user());
+            Auth::guard('web')->login($user);
             if ($user->status === 1) {
                 if ($user->role === "Admin") {
 
@@ -44,13 +45,15 @@ class AuthController extends Controller
                         'user' => Auth::user(),
                     ]);
                 } else if ($user->role === "Customer") {
-                    return response()->json([
-                        "status" => 200,
-                        "icon" => "success",
-                        "title" => "Hooray!",
-                        "message" => "You have successfully logged in!",
-                        'role' => "Customer",
-                    ]);
+                    return redirect()->route("customer.foods");
+                    // return response()->json([
+                    //     "status" => 200,
+                    //     "icon" => "success",
+                    //     "title" => "Hooray!",
+                    //     "message" => "You have successfully logged in!",
+                    //     'role' => "Customer",
+                    //     'user' => Auth::user(),
+                    // ]);
                 }
             } else {
                 return response()->json([

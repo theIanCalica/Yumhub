@@ -12,7 +12,7 @@
                     <th class="py-3 px-6 border-b border-yellow-300 merriweather-bold">Order ID</th>
                     <th class="py-3 px-6 border-b border-yellow-300 merriweather-bold">Status</th>
                     <th class="py-3 px-6 border-b border-yellow-300 merriweather-bold">Order Date</th>
-                    <th class="py-3 px-6 border-b border-yellow-300 merriweather-bold">Receipt</th>
+                    {{-- <th class="py-3 px-6 border-b border-yellow-300 merriweather-bold">Receipt</th> --}}
                     <th class="py-3 px-6 border-b border-yellow-300 merriweather-bold">View items</th>
                 </tr>
             </thead>
@@ -85,11 +85,7 @@
                             <td class="py-3 px-6">${order.status}</td>
                             <td class="py-3 px-6">${order.order_date}</td>
                        
-                                    <td class="py-3 px-6">
-                                              <a href="${receiptUrl}">
-                                        <button type="button" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 receipt-btn" data-order-id="${order.id}">Receipt</button>
-                                      </a>  
-                                        </td>
+
                               
                            
                             <td class="py-3 px-6">
@@ -100,6 +96,28 @@
                 });
             }
 
+
+            // orders.forEach(order => {
+            //         const receiptUrl = `{{ $receiptRoute }}`.replace('ORDER_ID_PLACEHOLDER', order.id);
+            //         tableBody.append(`
+        //             <tr>
+        //                 <td class="py-3 px-6">${order.id}</td>
+        //                 <td class="py-3 px-6">${order.status}</td>
+        //                 <td class="py-3 px-6">${order.order_date}</td>
+
+        //                         <td class="py-3 px-6">
+        //                                   <a href="${receiptUrl}">
+        //                             <button type="button" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 receipt-btn" data-order-id="${order.id}">Receipt</button>
+        //                           </a>  
+        //                             </td>
+
+
+        //                 <td class="py-3 px-6">
+        //                     <button type="button" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 view-items-btn" data-order-id="${order.id}">View Items</button>
+        //                 </td>
+        //             </tr>
+        //         `);
+            //     });
             function showOrderItemsModal(orderItems) {
                 var $modalBody = $('#modal-order-items');
                 $modalBody.empty(); // Clear existing content

@@ -1,6 +1,5 @@
 @extends('customer.layout.app')
 
-
 @section('styles')
     <style>
         .outer-wrapper {
