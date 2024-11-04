@@ -168,6 +168,7 @@
                     console.log('Error:', data);
                 }
             });
+
             // Get all foods
             $.ajax({
                 type: "get",

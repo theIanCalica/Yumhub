@@ -35,15 +35,15 @@ class FoodController extends Controller
         return view("seller.foods", compact("foods"));
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $client = SearchClient::create(config('services.algolia.id'), config('services.algolia.secret'));
-        $index = $client->initIndex('foods');
-        $results = $index->search($query);
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('query');
+    //     $client = SearchClient::create(config('services.algolia.id'), config('services.algolia.secret'));
+    //     $index = $client->initIndex('foods');
+    //     $results = $index->search($query);
 
-        return view('customer.results', ['results' => $results['hits']]);
-    }
+    //     return view('customer.results', ['results' => $results['hits']]);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -233,16 +233,16 @@ class FoodController extends Controller
         return response()->json($topFoods);
     }
 
-    public function generateReport()
-    {
-        // Fetch users from the database
-        $foods = Food::with(['cuisine', 'restaurant', 'category'])->get();
+    // public function generateReport()
+    // {
+    //     // Fetch users from the database
+    //     $foods = Food::with(['cuisine', 'restaurant', 'category'])->get();
 
 
-        // Load the view and pass the users data
-        $pdf = PDF::loadView('admin.report.foodReport', compact('foods'));
+    //     // Load the view and pass the users data
+    //     $pdf = PDF::loadView('admin.report.foodReport', compact('foods'));
 
-        // Download the PDF file
-        return $pdf->download('foods_list.pdf');
-    }
+    //     // Download the PDF file
+    //     return $pdf->download('foods_list.pdf');
+    // }
 }

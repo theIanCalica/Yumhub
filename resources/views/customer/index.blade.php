@@ -1,8 +1,5 @@
 @extends('customer.layout.app')
-@php
-    $user = Auth::user();
-    dd($user);
-@endphp
+
 
 @section('styles')
     <style>

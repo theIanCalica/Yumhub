@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
+// use Laravel\Scout\Searchable;
 
 class Food extends Model
 {
-    use HasFactory, HasUuids, Searchable;
+    // Add Searchable for search feature of foods
+    use HasFactory, HasUuids;
     protected $table = "foods";
     protected $fillable = [
         "name",
