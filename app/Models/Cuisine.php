@@ -16,4 +16,9 @@ class Cuisine extends Model
         "origin",
         "img_url",
     ];
+
+    public function foods()
+    {
+        return $this->hasMany(Food::class, 'cuisine_id', 'id');
+    }
 }

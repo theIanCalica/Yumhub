@@ -7,6 +7,7 @@ use App\Models\Stockholder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StockholderController extends Controller
 {
@@ -17,14 +18,6 @@ class StockholderController extends Controller
     {
         $stockholders = Stockholder::orderBy("investmentDate", "asc")->get();
         return response()->json($stockholders);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -78,14 +71,6 @@ class StockholderController extends Controller
     {
         $stockholder = Stockholder::FindOrFail($id);
         return response()->json($stockholder);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Stockholder $stockholder)
-    {
-        //
     }
 
     /**
@@ -143,5 +128,17 @@ class StockholderController extends Controller
             return redirect()->route('stockholders')
                 ->with('success', 'File imported successfully.');
         }
+    }
+
+    public function generateReport()
+    {
+        // Fetch users from the database
+        $stockholders = Stockholder::all();
+
+        // Load the view and pass the users data
+        $pdf = PDF::loadView('admin.report.stockholderReport', compact('stockholders'));
+
+        // Download the PDF file
+        return $pdf->download('stockholder_list.pdf');
     }
 }

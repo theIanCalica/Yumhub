@@ -17,7 +17,13 @@ class Restaurant extends Model
         'phoneNumber',
         'email',
         'logo_filePath',
+        'banner',
         'desc',
         'operatingHours',
     ];
+
+    public function foods()
+    {
+        return $this->hasMany(Food::class);
+    }
 }

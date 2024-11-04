@@ -11,10 +11,19 @@ class Order extends Model
     use HasFactory, HasUuids;
     protected $table = "orders";
     protected $fillable = [
-        "order-date",
+        "order_date",
         "user_id",
-        "seller_id",
         "status",
-        "specialInstruction",
+        'mode',
     ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(Orders_Items::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

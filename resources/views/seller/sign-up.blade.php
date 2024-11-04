@@ -115,7 +115,7 @@
                 <div id="step-1-indicator" class="active">Step 1</div>
                 <div id="step-2-indicator">Step 2</div>
             </div>
-            <form class="mt-8 space-y-6" action="#" id="sign-up-form">
+            <form class="mt-8 space-y-6" action="#" id="sign-up-form" enctype="multipart/form-data">
                 <!-- Step 1: Personal Details -->
                 <div id="step-1" class="step">
                     <div class="mt-3">
@@ -159,7 +159,7 @@
                             Phone Number</label>
                         <input type="tel" name="phoneNumber" id="phoneNumber"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="09*********" required>
+                            placeholder="09*********" required maxlength="11">
                     </div>
                     <div class="mt-5">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
@@ -169,7 +169,15 @@
                             placeholder="name@company.com" required>
                     </div>
                     <div class="mt-5">
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Profile Picture</label>
+                        <input
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            name="filePath" id="filePath" type="file">
+                    </div>
+                    <div class="mt-5">
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                             password</label>
                         <input type="password" name="password" id="password" placeholder="••••••••"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -223,8 +231,8 @@
                     </div>
                     <div class="mt-5">
                         <label for="email"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Restaurant Phone
-                            Number</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Restaurant
+                            Email</label>
                         <input type="email" name="email" id="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Enter your email" required>
@@ -237,6 +245,13 @@
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             id="logo" name="logo_filePath" type="file" accept=".png, .jpg, .jpeg">
 
+                    </div>
+                    <div class="mt-5">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="banner">Banner</label>
+                        <input
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="banner" name="banner" type="file" accept=".png, .jpg, .jpeg">
                     </div>
                     <div class="mt-5">
                         <label for="desc"
@@ -275,6 +290,7 @@
             $('#next-step-1').on('click', function() {
 
                 if ($("#sign-up-form").valid()) {
+
                     $('#step-1').hide();
                     $('#step-2').show();
                     $('#step-1-indicator').removeClass('active').css({

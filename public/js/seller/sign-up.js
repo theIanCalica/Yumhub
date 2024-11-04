@@ -11,6 +11,14 @@ $(document).ready(function () {
         "Please upload a file with a valid extension."
     );
 
+    $.validator.addMethod(
+        "fileType",
+        function (value, element, param) {
+            return this.optional(element) || param.test(element.files[0].type);
+        },
+        "Only JPEG, JPG, PNG files are allowed!"
+    );
+
     $("#sign-up-form").validate({
         rules: {
             fname: {
@@ -55,6 +63,14 @@ $(document).ready(function () {
                     },
                 },
             },
+            filePath: {
+                required: true,
+                fileType: /^image\/(jpeg|jpg|png)$/,
+            },
+            banner: {
+                required: true,
+                fileType: /^image\/(jpeg|jpg|png)$/,
+            },
             password: {
                 required: true,
                 minlength: 6,
@@ -87,6 +103,14 @@ $(document).ready(function () {
                 email: "Invalid email format!",
                 remote: "This email is already taken!",
             },
+            filePath: {
+                required: "Please upload your profile picture!",
+                fileType: ".jpeg, .jpg, and .png only!",
+            },
+            banner: {
+                required: "Please upload your profile picture!",
+                fileType: ".jpeg, .jpg, and .png only!",
+            },
             password: {
                 required: "Please enter your password!",
             },
@@ -99,7 +123,7 @@ $(document).ready(function () {
         submitHandler: function (form) {
             var formData = new FormData(form);
 
-            formData.append("role", "seller");
+            formData.append("role", "Seller");
 
             // Log each form entry to the console
             for (var pair of formData.entries()) {
@@ -180,9 +204,6 @@ $(document).ready(function () {
                 required: true,
                 fileType: ["png", "jpeg", "jpg"],
             },
-            desc: {
-                required: true,
-            },
             opHours: {
                 required: true,
             },
@@ -209,9 +230,6 @@ $(document).ready(function () {
             logo: {
                 required: "Please upload your logo",
                 fileType: "Only PNG, JPEG, and JPG files are allowed.",
-            },
-            desc: {
-                required: "Please enter description of restaurant!",
             },
             opHours: {
                 required: "PLease ebter operating hours",

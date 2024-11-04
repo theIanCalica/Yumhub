@@ -19,14 +19,6 @@ class CuisineController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -39,6 +31,7 @@ class CuisineController extends Controller
             ]);
 
             $path = Storage::putFile('public/cuisines', $request->file('img_url'));
+            $path = asset("storage/" . substr($path, 7));
             $validatedData['img_url'] = $path;
 
             $cuisine = Cuisine::create($validatedData);
@@ -67,14 +60,6 @@ class CuisineController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cuisine $cuisine)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
@@ -100,7 +85,7 @@ class CuisineController extends Controller
 
             return response()->json([
                 "success" => "Added Successfully!",
-                "manager" => $cuisine,
+                "cuisine" => $cuisine,
                 "status" => 200,
             ]);
         } catch (ValidationException $e) {
@@ -118,7 +103,7 @@ class CuisineController extends Controller
     public function destroy(string $id)
     {
         $cuisine = Cuisine::FindOrFail($id);
-        unlink("storage/" . substr($cuisine->img_url, 7));
+        unlink(substr($cuisine->img_url, 22));
         $cuisine->delete();
         return response()->json([
             "success" => "Deleted Successfully!",

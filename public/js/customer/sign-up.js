@@ -22,6 +22,14 @@ $(document).ready(function () {
         "You must be at least 18 years old."
     );
 
+    $.validator.addMethod(
+        "fileType",
+        function (value, element, param) {
+            return this.optional(element) || param.test(element.files[0].type);
+        },
+        "Only JPEG, JPG, PNG files are allowed!"
+    );
+
     $("#sign-up-form").validate({
         rules: {
             fname: {
@@ -66,6 +74,10 @@ $(document).ready(function () {
                     },
                 },
             },
+            filePath: {
+                required: true,
+                fileType: /^image\/(jpeg|jpg|png)$/,
+            },
             password: {
                 required: true,
                 minlength: 6,
@@ -106,6 +118,10 @@ $(document).ready(function () {
                 email: "Invalid email format!",
                 remote: "This email is already taken!",
             },
+            filePath: {
+                required: "Please upload a picture!",
+                fileType: ".jpeg, .jpg, and .png only!",
+            },
             password: {
                 required: "Please enter your password!",
             },
@@ -117,7 +133,7 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             var formData = new FormData(form);
-            formData.append("role", "customer");
+            formData.append("role", "Customer");
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }

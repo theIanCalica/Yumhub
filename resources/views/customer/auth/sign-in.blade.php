@@ -7,9 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign in</title>
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favlogo.png') }}">
-
-
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
@@ -49,7 +46,8 @@
         </script>
     @endif
     <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
-        <a href="" class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
+        <a href="{{ route('home') }}"
+            class="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
             <img src="{{ asset('logo/logo.png') }}" class="mr-4 h-36" alt="Yumhub Logo">
         </a>
         <!-- Card -->
@@ -57,7 +55,9 @@
             <h2 class="text-2xl text-center font-bold text-gray-900 dark:text-white">
                 Sign in
             </h2>
-            <form class="mt-8 space-y-6" action="#" id="sign-in-form">
+            <form class="mt-8 space-y-6" method="POST" id="sign-in-form">
+                @csrf
+                @method('post')
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                         email</label>

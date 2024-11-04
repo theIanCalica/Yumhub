@@ -13,6 +13,7 @@ class User extends  Authenticatable
 {
     use HasFactory, Notifiable, HasUuids;
 
+    protected $table = "users";
     /**
      * The attributes that are mass assignable.
      *
@@ -24,10 +25,12 @@ class User extends  Authenticatable
         'gender',
         'dob',
         'email',
+        'filePath',
         'phoneNumber',
         'address',
         'role',
         'password',
+        'status',
     ];
 
     public function verifyUser()

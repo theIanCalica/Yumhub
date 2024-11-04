@@ -11,6 +11,9 @@ $(document).ready(function () {
         modal.show();
     }
 
+    $("#addBtn").on("click", function () {
+        openModal("add-modal");
+    });
     $("#cuisinesTable").dataTable({
         ajax: {
             url: "/api/cuisines",
@@ -37,15 +40,12 @@ $(document).ready(function () {
             {
                 data: "img_url",
                 render: function (data, type, row) {
-                    // Construct the full URL for the image
-                    console.log(data.substring(7));
-                    const imageUrl = "storage/" + data.substring(7);
                     return (
                         '<img src="' +
-                        imageUrl +
+                        data +
                         '" alt="' +
                         "haha" +
-                        '" class="w-full h-full object-cover"/>'
+                        '" class="w-full h-full object-cover" style="width:150px"/>'
                     );
                 },
             },
@@ -89,22 +89,20 @@ $(document).ready(function () {
         },
         messages: {
             name: {
-                required: "This field is required!",
+                required: "Please enter the cuisine name!",
                 maxlength: "Name cannot exceed 255 characters!",
             },
             desc: {
-                required: "This field is required!",
+                required: "Please enter a description!",
             },
             img_url: {
-                required: "This field is required!",
+                required: "Please upload a picture!",
                 fileType: "Only JPEG, JPG, PNG files are allowed!",
             },
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
+            const table = $("#cuisinesTable").DataTable();
 
             $.ajax({
                 type: "POST",
@@ -120,52 +118,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    var tr = $("<tr>");
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.cuisine.id)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.cuisine.name)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.cuisine.desc)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .append(
-                                $("<img>")
-                                    .attr("src", data.cuisine.img_url)
-                                    .addClass("h-16 w-16 object-cover") // Adjust these classes as needed
-                            )
-                    );
-
-                    tr.append(
-                        $("<th>").html(
-                            "<i class='fi fi-rr-edit text-blue-500 editBtn mr-10' data-id='" +
-                                data.cuisine.id +
-                                "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                                data.cuisine.id +
-                                "'></i>"
-                        )
-                    );
-                    $("table tbody").append(tr);
-
-                    closeModal();
+                    table.ajax.reload();
+                    closeModal("add-modal");
+                    $("#cuisineAddForm").find("input, textarea").val("");
                     Swal.fire({
                         title: "Success!",
                         text: "You added new cuisine!",
@@ -231,6 +186,7 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
                     table.ajax.reload();
+                    $("#cuisineEditForm").find("input, textarea").val("");
                     closeModal("edit-modal");
                     Swal.fire({
                         title: "Success!",

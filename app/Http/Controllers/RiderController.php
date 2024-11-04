@@ -21,14 +21,6 @@ class RiderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -38,7 +30,7 @@ class RiderController extends Controller
                 "fname" => "required|string|max:255",
                 "lname" => "required|string|max:255",
                 "sex" => "required|string|max:10",
-                "DOB" => "required|date",
+                "dob" => "required|date",
                 "phoneNumber" => "required|digits:11|unique:managers,phoneNumber",
                 "email" => "required|email|unique:managers,email",
                 "hiredDate" => "required|date",
@@ -52,7 +44,7 @@ class RiderController extends Controller
                 "fname" => $validatedData["fname"],
                 "lname" => $validatedData["lname"],
                 "sex" => $validatedData["sex"],
-                "DOB" => $validatedData["DOB"],
+                "dob" => $validatedData["dob"],
                 "phoneNumber" => $validatedData["phoneNumber"],
                 "email" => $validatedData["email"],
                 "hiredDate" => $validatedData["hiredDate"],
@@ -83,14 +75,6 @@ class RiderController extends Controller
     {
         $rider = Rider::FindOrFail($id);
         return response()->json($rider);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rider $rider)
-    {
-        //
     }
 
     /**

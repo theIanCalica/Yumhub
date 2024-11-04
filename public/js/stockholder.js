@@ -223,6 +223,7 @@ $(document).ready(function () {
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
+            var table = $("#stockholdersTable").DataTable();
 
             $.ajax({
                 type: "POST",
@@ -239,94 +240,7 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
                     var tr = $("<tr>");
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.id)
-                    );
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.name)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.sex)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.dob)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.address)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.phoneNumber)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.email)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.sharesOwned)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.investmentDate)
-                    );
-
-                    tr.append(
-                        $("<th>")
-                            .addClass(
-                                "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            )
-                            .html(data.stockholder.prefferedContact)
-                    );
-                    tr.append(
-                        $("<th>").html(
-                            "<i class='fi fi-rr-edit text-blue-500 editBtn' data-id='" +
-                                data.stockholder.id +
-                                "'></i><i class='fi fi-rr-trash deleteBtn text-red-500' data-id='" +
-                                data.stockholder.id +
-                                "'></i>"
-                        )
-                    );
-                    $("table tbody").append(tr);
+                    table.ajax.reload();
 
                     closeModal("add-modal");
                     Swal.fire({
@@ -475,12 +389,40 @@ $(document).ready(function () {
             { data: "id" },
             { data: "name" },
             { data: "sex" },
-            { data: "dob" },
+            {
+                data: "dob",
+                render: function (data, type, row) {
+                    if (type === "display" || type === "filter") {
+                        var date = new Date(data);
+                        var options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        };
+                        return date.toLocaleDateString("en-US", options);
+                    }
+                    return data;
+                },
+            },
             { data: "address" },
             { data: "phoneNumber" },
             { data: "email" },
             { data: "sharesOwned" },
-            { data: "investmentDate" },
+            {
+                data: "investmentDate",
+                render: function (data, type, row) {
+                    if (type === "display" || type === "filter") {
+                        var date = new Date(data);
+                        var options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        };
+                        return date.toLocaleDateString("en-US", options);
+                    }
+                    return data;
+                },
+            },
             { data: "prefferedContact" },
             {
                 data: null,

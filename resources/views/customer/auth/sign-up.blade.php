@@ -88,12 +88,14 @@
 <body class="roboto-regular dark:bg-gray-900">
     <div class="form-container">
         <div class="logo-container">
-            <img src="{{ asset('logo/logo.png') }}" class="h-36" alt="Yumhub Logo">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('logo/logo.png') }}" class="h-36" alt="Yumhub Logo">
+            </a>
         </div>
         <!-- Card -->
         <div class="form-card dark:bg-gray-800">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white text-center">Create an Account</h2>
-            <form class="mt-8 space-y-6" action="#" id="sign-up-form">
+            <form class="mt-8 space-y-6" action="#" id="sign-up-form" enctype="multipart/form-data">
                 <div class="mt-3">
                     <h1 class="font-black merriweather-bold text-2xl">Personal Details</h1>
                 </div>
@@ -148,6 +150,13 @@
                     <input type="text" name="email" id="email"
                         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="name@company.com" required>
+                </div>
+                <div>
+                    <label for="filePath" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                        Profile Picture</label>
+                    <input
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        name="filePath" id="filePath" type="file">
                 </div>
                 <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your

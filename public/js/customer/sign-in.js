@@ -22,13 +22,9 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = new FormData(form);
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
-
             $.ajax({
                 type: "POST",
-                url: "/api/sign-in/auth",
+                url: "/sign-in/auth",
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -47,19 +43,17 @@ $(document).ready(function () {
                             icon: data.icon,
                         });
                     }
-
                     if (data.status === 200) {
                         sessionStorage.setItem("title", data.title);
                         sessionStorage.setItem("message", data.message);
                         sessionStorage.setItem("icon", data.icon);
-
                         if (data.role === "Admin") {
                             window.location.href = "/admin/";
                         } else if (data.role === "Seller") {
                             console.log("seller");
                             window.location.href = "/seller/";
                         } else if (data.role === "Customer") {
-                            window.location.href = "/";
+                            window.location.href = "./";
                         }
                     } else if (data.status === 500) {
                         Swal.fire({

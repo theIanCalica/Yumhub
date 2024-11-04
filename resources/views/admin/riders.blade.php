@@ -105,7 +105,7 @@
                         <div class="col-span-2">
                             <label for="DOB" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date
                                 of Birth</label>
-                            <input type="date" name="DOB" id="DOB"
+                            <input type="date" name="dob" id="DOB"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Enter Date of Birth" required="">
                         </div>
@@ -136,7 +136,7 @@
                                 Motor Model</label>
                             <input type="text" name="motorModel" id="motorModel"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type Salary" required="">
+                                placeholder="Enter motor model" required="">
                         </div>
 
                         <div class="col-span-2">
@@ -145,7 +145,7 @@
                             </label>
                             <input type="date" name="hiredDate" id="hiredDate"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type email" required="">
+                                placeholder="Enter email" required="">
                         </div>
                         <div class="col-span-2">
                             <label for="employmentStatus"
@@ -172,7 +172,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Add New Manager
+                        Add New Rider
                     </button>
                 </form>
             </div>

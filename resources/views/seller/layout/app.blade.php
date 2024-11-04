@@ -26,10 +26,10 @@
 
 <body>
     <header>
-        @include('admin.layout.navbar')
+        @include('seller.layout.navbar')
     </header>
     <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
-        @include('admin.layout.sidebar')
+        @include('seller.layout.sidebar')
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
 
             <main>
@@ -48,6 +48,14 @@
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#logoutBtn").on("click", function(event) {
+                event.preventDefault();
+                $("#logoutForm").submit();
+            });
+        });
+    </script>
     @yield('scripts')
 </body>
 

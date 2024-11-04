@@ -44,9 +44,9 @@ $(document).ready(function () {
             { data: "address" },
             { data: "role" },
             {
-                data: "is_disabled",
+                data: "status",
                 render: function (data, type, row) {
-                    return data ? "Disabled" : "Active";
+                    return data === 0 ? "Disabled" : "Active";
                 },
             },
             {
@@ -291,7 +291,7 @@ $(document).ready(function () {
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
-
+            const id = $("#id").val();
             const table = $("#usersTable").DataTable();
             $.ajax({
                 type: "POST",
@@ -307,14 +307,14 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    // table.ajax.reload();
+                    closeModal("edit-modal");
                     Swal.fire({
                         title: "Success!",
                         text: "You updated the user's details!",
                         icon: "success",
                     });
+                    table.ajax.reload();
 
-                    closeModal("edit-modal");
                     $("#usersEditForm")
                         .find("input, select")
                         .each(function () {
@@ -359,10 +359,11 @@ $(document).ready(function () {
                 $("#editPhoneNumber").val(data.phoneNumber);
                 $("#editEmail").val(data.email);
                 $("#editRole").val(data.role);
-                $("#editIs_disabled").prop(
-                    "selectedIndex",
-                    data.is_disabled == 0 ? 1 : 2
-                );
+                $("#editStatus option").each(function () {
+                    if ($(this).val() == data.status) {
+                        $(this).prop("selected", true);
+                    }
+                });
 
                 openModal("edit-modal");
             },

@@ -1,4 +1,8 @@
 @extends('customer.layout.app')
+@php
+    $user = Auth::user();
+    dd($user);
+@endphp
 
 @section('styles')
     <style>
@@ -14,12 +18,18 @@
             overflow: hidden;
             /* Ensures no part of the content exceeds the border-radius */
         }
+
+        .swiper {
+            width: 600px;
+            height: 500px;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 @endsection
 
 @section('content')
     <div class="container mx-auto p-4 ">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pl-3 bg-zinc-50" style="height: 500px">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pl-3 " style="height: 500px">
             <div class="  rounded-lg p-6">
                 <div class="flex  items-center space-x-2 pl-3">
                     <span class="bg-red-100 flex items-center space-x-2 shadow-md rounded-full p-2">
@@ -69,9 +79,10 @@
                         Now!</button>
                 </div>
             </div>
-            <div class="rounded-lg p-6">
-                <h2 class="text-lg font-bold mb-2">Item 2</h2>
-                <p class="text-gray-700">Description for item 2.</p>
+            <div class="mb-10 p-6">
+                <img src="{{ asset('images/1.png') }}" alt="">
+
+
             </div>
 
         </div>
@@ -83,22 +94,37 @@
                 unforgettable culinary
                 experience.</p>
             <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div>
+
+                <!-- Slider main container -->
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">Slide 1</div>
+                        <div class="swiper-slide">Slide 2</div>
+                        <div class="swiper-slide">Slide 3</div>
+                        ...
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar"></div>
+                </div>
+
+
+                {{-- <div>
                     <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
                         <div class="relative">
                             <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150" alt="Chicken Tikka">
-                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
-                            </div>
+
                         </div>
                         <div class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <span class="text-yellow-500 text-xl">★</span>
-                                <span class="ml-1 text-gray-700">(4.8)</span>
-                            </div>
+
                             <div class="mt-4 text-center">
                                 <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
                                 <p class="text-gray-700 text-base">
@@ -107,109 +133,17 @@
                             </div>
                         </div>
                         <div class="px-6 py-4 text-center">
-                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
+                            <button class="bg-red-500 text-white rounded-full px-4 py-2">See more</button>
                         </div>
                     </div>
-
-
-                </div>
-                <div>
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-                        <div class="relative">
-                            <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150" alt="Chicken Tikka">
-                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
-                            </div>
-                        </div>
-                        <div class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <span class="text-yellow-500 text-xl">★</span>
-                                <span class="ml-1 text-gray-700">(4.8)</span>
-                            </div>
-                            <div class="mt-4 text-center">
-                                <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
-                                <p class="text-gray-700 text-base">
-                                    Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="px-6 py-4 text-center">
-                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div>
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-                        <div class="relative">
-                            <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150" alt="Chicken Tikka">
-                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
-                            </div>
-                        </div>
-                        <div class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <span class="text-yellow-500 text-xl">★</span>
-                                <span class="ml-1 text-gray-700">(4.8)</span>
-                            </div>
-                            <div class="mt-4 text-center">
-                                <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
-                                <p class="text-gray-700 text-base">
-                                    Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="px-6 py-4 text-center">
-                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div>
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-                        <div class="relative">
-                            <img class="w-full h-48 object-cover" src="https://via.placeholder.com/150"
-                                alt="Chicken Tikka">
-                            <div class="absolute top-0 right-0 m-2 p-2 bg-white rounded-full text-red-500 font-bold">$15
-                            </div>
-                        </div>
-                        <div class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <img class="w-10 h-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                    alt="Avatar">
-                                <span class="text-yellow-500 text-xl">★</span>
-                                <span class="ml-1 text-gray-700">(4.8)</span>
-                            </div>
-                            <div class="mt-4 text-center">
-                                <div class="font-bold text-xl mb-2 text-red-600">Chicken Tikka</div>
-                                <p class="text-gray-700 text-base">
-                                    Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="px-6 py-4 text-center">
-                            <button class="bg-red-500 text-white rounded-full px-4 py-2">Order Now</button>
-                        </div>
-                    </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="mt-36">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2:gap-4">
 
                 <div class="bg-white shadow-md rounded-lg p-6">
-                    <h2 class="text-lg font-bold mb-2">Item 2</h2>
-                    <p class="text-gray-700">Description for item 2.</p>
+                    <img src="{{ asset('images/2.png') }}" alt="">
                 </div>
                 <div class="bg-white shadow-md rounded-lg p-6">
 
@@ -226,18 +160,15 @@
                         <div>
                             <ul class="list-disc list-inside">
                                 <li class="flex items-center ">
-                                    <img src="{{ asset('icons/laptop.png') }}" class="h-8 w-8 mr-2"
-                                        alt="24/7 Service Icon">
+                                    <img src="{{ asset('icons/laptop.png') }}" class="h-8 w-8 mr-2" alt="24/7 Service Icon">
                                     Online Order
                                 </li>
                                 <li class="flex items-center mt-5">
-                                    <img src="{{ asset('icons/burger.png') }}" class="h-8 w-8 mr-2"
-                                        alt="24/7 Service Icon">
+                                    <img src="{{ asset('icons/burger.png') }}" class="h-8 w-8 mr-2" alt="24/7 Service Icon">
                                     Quality Food
                                 </li>
                                 <li class="flex items-center mt-5">
-                                    <img src="{{ asset('icons/chef.png') }}" class="h-8 w-8 mr-2"
-                                        alt="24/7 Service Icon">
+                                    <img src="{{ asset('icons/chef.png') }}" class="h-8 w-8 mr-2" alt="24/7 Service Icon">
                                     Super Chef
                                 </li>
                             </ul>
@@ -250,13 +181,11 @@
                                     24/7 Service
                                 </li>
                                 <li class="flex items-center mt-5">
-                                    <img src="{{ asset('icons/layers.png') }}" class="h-8 w-8 mr-2"
-                                        alt="24/7 Service Icon">
+                                    <img src="{{ asset('icons/layers.png') }}" class="h-8 w-8 mr-2" alt="24/7 Service Icon">
                                     Organized Foodhut Place
                                 </li>
                                 <li class="flex items-center mt-5">
-                                    <img src="{{ asset('icons/clean.png') }}" class="h-8 w-8 mr-2"
-                                        alt="24/7 Service Icon">
+                                    <img src="{{ asset('icons/clean.png') }}" class="h-8 w-8 mr-2" alt="24/7 Service Icon">
                                     Clean Kitchen
                                 </li>
                             </ul>
@@ -285,4 +214,27 @@
 
 @section('script')
     <script src="{{ asset('js/customer/home.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        const swiper = new Swiper('.swiper', {
+
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    </script>
 @endsection
